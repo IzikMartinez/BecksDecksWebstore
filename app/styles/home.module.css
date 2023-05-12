@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Fira+Sans&family=Yeseva+One&display=swap');
+
+.sidebar {@apply fixed flex flex-col w-24 h-screen left-0 bg-pastel-coral justify-center items-center text-center font-main-display}
+
+.sidebarItem {
+    @apply flex items-center text-center justify-center text-white font-texgyre-adventor font-semibold my-3
+ }
+
+.title {@apply
+    flex-grow font-title-display text-3xl text-gray-600
+}
+.addToCart {@apply
+    relative flex bottom-1 w-64 h-12 text-gray-600 text-lg items-center justify-center bg-pastel-coral rounded-b-xl mx-10 shadow-gray-600 shadow-lg text-xl font-bold hover:bg-pastel-yellow
+    font-sans-fira
+}

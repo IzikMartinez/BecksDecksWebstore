@@ -25,3 +25,20 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+@layer base {
+  html {
+    @apply fixed flex w-screen h-screen items-center justify-center  bg-gradient-to-b from-white to-gray-300
+  }
+  @font-face {
+    font-family: Adventor;
+    font-weight: 400;
+    src: url(/fonts/tex-gyre/texgyreadventor-regular.otf);
+  }
+  @font-face {
+    font-family: Adventor;
+    font-weight: 600;
+    src: url(/fonts/tex-gyre/texgyreadventor-bold.otf);
+  }
+}
+

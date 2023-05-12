@@ -1,0 +1,5 @@
+"cats" {[
+    {id: 0, name: "Flesh and Blood"}, 
+    {id: 1, name: "Warhammer"}, 
+    {id: 2, name: "Magic"}
+]}
