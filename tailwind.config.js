@@ -26,7 +26,8 @@ module.exports = {
         'title-display': ['Bangers', 'cursive'],
         'main-display': ['Yeseva', 'cursive'],
         'sans-fira': ['Fira Sans', 'sans-serif'],
-        'texgyre-adventor': ['Tex Gyre Heros', 'sans-serif']
+        'texgyre-adventor': ['Tex Gyre Heros', 'sans-serif'],
+        'iosevka': ['Iosevka']
       }
     },
   },

@@ -28,7 +28,7 @@ body {
 
 @layer base {
   html {
-    @apply fixed flex w-screen h-screen items-center justify-center  bg-gradient-to-b from-white to-gray-300
+    @apply fixed flex w-screen h-screen items-center justify-center bg-[url('../public/waves.svg')] bg-cover
   }
   @font-face {
     font-family: Adventor;

@@ -1,0 +1,14 @@
+.bubble-small { 
+    @apply 
+    flex flex-col flex-grow w-64 h-32 items-center justify-center bg-wave-blue-200 rounded-t-xl
+}
+
+.bubble-body{
+    @apply
+    flex flex-col w-64 h-56 items-center justify-center text-black rounded-lg mx-10 shadow-xl 
+}
+
+.bubble-big { 
+    @apply 
+    flex flex-col flex-grow w-96 h-48 items-center justify-center bg-wave-blue-200 rounded-t-xl
+}
