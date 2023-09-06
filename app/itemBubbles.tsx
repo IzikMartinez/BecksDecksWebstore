@@ -4,7 +4,7 @@ import styles from "app/styles/home.module.css"
 import bubblestyle from "app/styles/bubblestyle.module.css"
 
 import { useAppSelector, useAppDispatch } from './hooks'
-import { toggle } from './GlobalRedux/bubbleSlice'
+import { toggle } from './GlobalRedux/itemSlice'
 
 
 interface BubbleProps {
@@ -13,52 +13,60 @@ interface BubbleProps {
   description: string
 }
 
-/*
-export function Bubble(props: BubbleProps) {
-  if(big === false) return smallBubble(props)
-  else return bigBubble(props)
-}
-*/
 
 export function Bubble(props: BubbleProps) {
-  const [sizeFlag, setSizeFlag] = useState(false)
-  const toggleSize = () => {
-    
-  }
+const sizeFlag = useAppSelector(state => state.bubble.value)
+const dispatch = useAppDispatch
+  if(sizeFlag === false) return SmallBubble(props)
+  else return (
+<p>It worked</p>)
+}
+
+
+
+export function SmallBubble(props: BubbleProps) {
+const sizeflag = useAppSelector(state => state.bubble.value)
+const dispatch = useAppDispatch
   return (
-    <div className='my-0'>
-      <span className={bubblestyle.bubblebody} onClick={()=>setSizeFlag(!sizeFlag)}>
+      <div className={bubblestyle.bubbleBody} onClick={()=>dispatch(toggle())}>
+        <ItemImage path="placeholder.jpg"> </ItemImage>
+        <ItemText text={props.itemName}></ItemText>
+        <ItemText text={'$'+props.itemPrice.toString()}></ItemText>
         <div>
-          <img src="placeholder.jpg" alt="spon" className={sizeFlag === false ? 'w-64 h-44 text-center rounded-lg' : "w-96 h-72 text-center rounded-lg"}/>
+          <BubbleBtn/>
         </div>
-        <div className='flex w-64 h-7 bg-blue-400 text-white items-center justify-center text-2xl font-texgyre-adventor small-caps font-semibold'>
-            {props.itemName}  <br />
-        </div>
-        <div className='flex w-64 h-8 bg-blue-400 text-white items-center justify-center text-xl font-texgyre-adventor font-bold'>
-          ${props.itemPrice}
-        </div>
-      </span>
-    <BubbleBtn/>
-    </div>
+      </div>
   )
 }
 
-export function bigBubble(props: BubbleProps) {
-  return (
-    <div>
+interface imgProps {
+  path: string
+}
 
-    </div>
+function ItemImage(props: imgProps) {
+  return (
+      <div>
+        <img src={props.path} alt="spon" className={'w-64 h-44 text-center rounded-t-lg'}/>
+      </div>
+  )
+}
+
+interface textProps {
+  text: string
+} 
+
+function ItemText(props: textProps) {
+  return (
+        <div className='flex w-64 h-7 bottom-2 bg-blue-400 text-white items-center justify-center text-2xl font-texgyre-adventor small-caps font-semibold'>
+            {props.text}  <br />
+        </div>
   )
 }
 
 function BubbleBtn() {
   return (
-    <span className={styles.addToCart}>
+    <span className={bubblestyle.addToCart}>
       ADD TO CART
     </span>
   )
-}
-
-function setState(arg0: (prevState: any) => { sizeFlag: boolean }) {
-  throw new Error("Function not implemented.")
 }

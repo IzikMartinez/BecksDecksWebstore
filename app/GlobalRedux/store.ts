@@ -2,12 +2,12 @@
 
 import { configureStore } from "@reduxjs/toolkit";
 import selectionReducer from "./selectionSlice"
-import bubbleReducer from "./bubbleSlice";
+import itemReducer from "./itemSlice";
 
 export const store = configureStore({
     reducer: {
         selection: selectionReducer,
-        bubble: bubbleReducer
+        item: itemReducer
     },
 })
 

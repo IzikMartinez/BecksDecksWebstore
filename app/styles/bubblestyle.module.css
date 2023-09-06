@@ -1,14 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Fira+Sans&family=Yeseva+One&display=swap');
+
 .bubble-small { 
     @apply 
     flex flex-col flex-grow w-64 h-32 items-center justify-center bg-wave-blue-200 rounded-t-xl
 }
 
-.bubble-body{
+.bubbleBody {
     @apply
-    flex flex-col w-64 h-56 items-center justify-center text-black rounded-lg mx-10 shadow-xl 
+    flex flex-col flex-grow w-60 mx-10 -my-8 h-72 items-center justify-center rounded-t-xl
 }
 
 .bubble-big { 
     @apply 
-    flex flex-col flex-grow w-96 h-48 items-center justify-center bg-wave-blue-200 rounded-t-xl
+    fixed flex w-72 h-56 mx-10 text-black rounded-lg shadow-xl bg-pink-500
+}
+
+.addToCart {@apply
+    flex w-64 h-12 items-center justify-center text-gray-600 bg-pastel-coral rounded-b-xl  shadow-gray-600 shadow-lg text-xl font-bold hover:bg-pastel-yellow
+    font-sans-fira
 }
