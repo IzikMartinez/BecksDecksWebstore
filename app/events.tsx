@@ -2,7 +2,9 @@ import { TypedUseSelectorHook, useSelector } from "react-redux"
 import { RootState, store } from "./GlobalRedux/store"
 import { Bubble } from "./itemBubbles"
 import { supabase } from "./utils/supabase"
-export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
+// state imports
+import { useAppSelector, useAppDispatch } from './hooks'
+import { addItem, toggleSize } from './GlobalRedux/itemSlice'
 
 export function EventProduct() {
   const selector = useAppSelector((state) => state.selection)
@@ -39,6 +41,9 @@ function Event(props: eventProps) {
 )}
 
 function Products() {
+    const inventory = useAppSelector(state => state.item)
+    const dispatch = useAppDispatch()
+    addItem({item_ID: "er38", name: "Text", price: 100.00, description: "lorem ipso", size: false})
     return (
       <div className='fixed flex flex-wrap flex-grow left-24 top-8 h-screen items-center justify-center'>
         <Bubble itemName="test" itemPrice={100.00} description='lorem ipso factum'></Bubble>

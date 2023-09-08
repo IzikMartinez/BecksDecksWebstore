@@ -2,9 +2,10 @@ import classNames from 'classnames/bind'
 import React, { useRef, useState } from 'react'
 import styles from "app/styles/home.module.css"
 import bubblestyle from "app/styles/bubblestyle.module.css"
+import Image from 'next/image'
 
 import { useAppSelector, useAppDispatch } from './hooks'
-import { toggle } from './GlobalRedux/itemSlice'
+import { } from './GlobalRedux/itemSlice'
 
 
 interface BubbleProps {
@@ -14,22 +15,22 @@ interface BubbleProps {
 }
 
 
+  /*
 export function Bubble(props: BubbleProps) {
-const sizeFlag = useAppSelector(state => state.bubble.value)
 const dispatch = useAppDispatch
   if(sizeFlag === false) return SmallBubble(props)
   else return (
 <p>It worked</p>)
 }
+*/
 
 
 
-export function SmallBubble(props: BubbleProps) {
-const sizeflag = useAppSelector(state => state.bubble.value)
+export function Bubble(props: BubbleProps) {
 const dispatch = useAppDispatch
   return (
-      <div className={bubblestyle.bubbleBody} onClick={()=>dispatch(toggle())}>
-        <ItemImage path="placeholder.jpg"> </ItemImage>
+      <div className={bubblestyle.bubbleBody} /*onClick={()=>dispatch(toggle())}*/>
+        <ItemImage imgPath="placeholder.jpg" imgAlt='placeholder' />
         <ItemText text={props.itemName}></ItemText>
         <ItemText text={'$'+props.itemPrice.toString()}></ItemText>
         <div>
@@ -40,15 +41,18 @@ const dispatch = useAppDispatch
 }
 
 interface imgProps {
-  path: string
+  imgPath: string,
+  imgAlt: string
 }
 
-function ItemImage(props: imgProps) {
+const ItemImage: React.FC<imgProps> = ({ imgPath, imgAlt }) => {
   return (
-      <div>
-        <img src={props.path} alt="spon" className={'w-64 h-44 text-center rounded-t-lg'}/>
-      </div>
-  )
+        <Image 
+          src={imgPath} 
+          alt={imgAlt}
+          className={'w-64 h-44 text-center rounded-t-lg'}
+        />
+  );
 }
 
 interface textProps {
