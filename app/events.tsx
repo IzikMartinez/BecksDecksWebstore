@@ -1,10 +1,11 @@
-import { TypedUseSelectorHook, useSelector } from "react-redux"
+import { TypedUseSelectorHook, useSelector, useDispatch } from "react-redux"
 import { RootState, store } from "./GlobalRedux/store"
-import { Bubble } from "./itemBubbles"
+import { BigBubble, Bubble } from "./itemBubbles"
 import { supabase } from "./utils/supabase"
 // state imports
 import { useAppSelector, useAppDispatch } from './hooks'
 import { addItem, toggleSize } from './GlobalRedux/itemSlice'
+import { useEffect } from "react"
 
 export function EventProduct() {
   const selector = useAppSelector((state) => state.selection)
@@ -29,6 +30,14 @@ interface eventProps {
     desc: string,
 }
 
+interface Item {
+    item_ID: string,
+    name: string,
+    price: number,
+    description: string,
+    size: boolean
+}
+
 function Event(props: eventProps) {
     return(
         <div className="text-black w-128 bg-slate-500">
@@ -42,20 +51,21 @@ function Event(props: eventProps) {
 
 function Products() {
     const inventory = useAppSelector(state => state.item)
-    const dispatch = useAppDispatch()
-    addItem({item_ID: "er38", name: "Text", price: 100.00, description: "lorem ipso", size: false})
+    const dispatch = useDispatch()
+    useEffect(()=> {
+        dispatch(addItem({item_ID: "deas", name: "Chon", price: 40, description: "Karate", size: false}))
+        /*
+        dispatch(addItem({item_ID: "rde8", name: "Wang", price: 80, description: "Karate", size: false}))
+        */
+    return () => {
+    }}, [])
     return (
-      <div className='fixed flex flex-wrap flex-grow left-24 top-8 h-screen items-center justify-center'>
-        <Bubble itemName="test" itemPrice={100.00} description='lorem ipso factum'></Bubble>
-        <Bubble itemName="Sponge" itemPrice={100.00} description='lorem ipso factum'></Bubble>
-        <Bubble itemName="Bob" itemPrice={100.00} description='lorem ipso factum'></Bubble>
-        <Bubble itemName="Lookin" itemPrice={100.00} description='lorem ipso factum'></Bubble>
-        <Bubble itemName="like" itemPrice={100.00} description='lorem ipso factum'></Bubble>
-        <Bubble itemName="a snack" itemPrice={100.00} description='lorem ipso factum'></Bubble>     
-        <Bubble itemName="test" itemPrice={100.00} description='lorem ipso factum'></Bubble>
-        <Bubble itemName="test" itemPrice={100.00} description='lorem ipso factum'></Bubble>
-        <Bubble itemName="test" itemPrice={100.00} description='lorem ipso factum'></Bubble>
-        <Bubble itemName="sponge" itemPrice={100.00} description='lorem ipso factum'></Bubble>
+      <div className='fixed flex flex-wrap flex-grow left-16 top-24 h-screen w-screen items-center justify-center '>
+        {inventory.items.map((item) => (
+            <div key = {item.item_ID}>
+                <Bubble itemID={item.item_ID} itemName={item.name} itemPrice={item.price} description={item.description} imgPath="placeholder.jpg" />
+            </div>
+        ))}
       </div>
     )
 }
