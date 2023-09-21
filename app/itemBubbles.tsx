@@ -26,8 +26,6 @@ const dispatch = useAppDispatch
 }
 */
 
-
-
 export function Bubble(props: BubbleProps) {
 //const dispatch = useAppDispatch
 const inventory = useAppSelector(state => state.item.items)
@@ -40,12 +38,26 @@ useEffect(()=> {
 */
 return (
   <div>
-  { inventory.find((item) => item.item_ID === props.itemID)?.size ? 
-  <SmallBubble itemID={props.itemID} itemName={props.itemName} itemPrice={props.itemPrice} description={props.description} ></SmallBubble>  : 
-  <BigBubble itemID={props.itemID} itemName={props.itemName} itemPrice={props.itemPrice} description={props.description}/>  
+  { inventory.find((item) => item.item_ID === props.itemID)?.visible ? 
+    <VisibleBubble itemID={props.itemID} itemName={props.itemName} itemPrice={props.itemPrice} description={props.description}></VisibleBubble> :
+    <p></p>
   }
 </div>
 )}
+
+
+function VisibleBubble(props: BubbleProps) {
+const inventory = useAppSelector(state => state.item.items)
+return (
+  <div>
+  { inventory.find((item) => item.item_ID === props.itemID)?.size ? 
+  <BigBubble itemID={props.itemID} itemName={props.itemName} itemPrice={props.itemPrice} description={props.description}/>  :
+  <SmallBubble itemID={props.itemID} itemName={props.itemName} itemPrice={props.itemPrice} description={props.description} ></SmallBubble>  
+  }
+</div>
+)
+}
+
 function SmallBubble(props: BubbleProps){
 const dispatch = useDispatch()
 const inventory = useAppSelector(state => state.item.items)
@@ -98,7 +110,7 @@ interface imgProps {
 const ItemImage: React.FC<imgProps> = ({ imgPath, imgAlt }) => {
   return (
         <Image 
-          className={'w-auto h-auto text-center rounded-t-xl scale-105'}
+          className={'w-96 h-120 text-center rounded-t-xl scale-105'}
           src={imgPath} 
           alt={imgAlt}
           width={736}

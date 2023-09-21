@@ -53,7 +53,7 @@ function Products() {
     const inventory = useAppSelector(state => state.item)
     const dispatch = useDispatch()
     useEffect(()=> {
-        dispatch(addItem({item_ID: "deas", name: "Chon", price: 40, description: "Karate", size: false}))
+        dispatch(addItem({item_ID: "deas", name: "Chon", price: 40, description: "Karate Bruce Lee Jet Lee Jackie Chan", size: false, visible: true}))
         /*
         dispatch(addItem({item_ID: "rde8", name: "Wang", price: 80, description: "Karate", size: false}))
         */

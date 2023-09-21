@@ -8,6 +8,7 @@ interface Item {
     price: number,
     description: string,
     size: boolean
+    visible: boolean
 }
 
 interface InventoryState {
@@ -15,13 +16,24 @@ interface InventoryState {
 }
 
 const initialState: InventoryState = {
-    items: [{
+    items: [
+        {
         item_ID: "tade8",
         name: "Spongeboy",
         price: 150,
         description: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Provident harum perspiciatis quasi deserunt ut repudiandae dolor, repellat est magnam hic facere cumque quisquam assumenda officiis magni aliquid temporibus amet eos.",
-        size: false
-    }]
+        size: false,
+        visible: true 
+    },
+        {
+        item_ID: "infa3",
+        name: "Bebob",
+        price: 100,
+        description: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Provident harum perspiciatis quasi deserunt ut repudiandae dolor, repellat est magnam hic facere cumque quisquam assumenda officiis magni aliquid temporibus amet eos.",
+        size: false,
+        visible: true 
+    },
+]
 }
 
 interface MyAction {
@@ -38,6 +50,21 @@ const getItemByID = (state = initialState, action: MyAction): Item => {
             return value 
         default:
             return state.items[0]
+    }
+}
+
+const toggleNonactiveOff = (state = initialState, action: MyAction): void => {
+    const activeIndex = action.payload
+    const nonactiveItems = state.items.filter(item => item.item_ID !== activeIndex)
+    switch(action.type) {
+        case 'TOGGLE_NONACTIVE_OFF':
+            console.log("TOGGLE_OFF: CALLED")
+            nonactiveItems.forEach(item => item.visible = !item.visible)
+            break;
+        case 'TOGGLE_NONACTIVE_ON':
+            console.log("TOGGLE_ALL: CALLED")
+            nonactiveItems.forEach(item => item.visible = true)
+            break;
     }
 }
 
@@ -60,8 +87,11 @@ export const itemSlice = createSlice({
         toggleSize: (state, action: PayloadAction<string>) => {
             const inputItemID= action.payload
             const index = state.items.find((item) => item.item_ID === inputItemID)
+
+            // toggle other elements
             if(index) {
                 index.size = !index.size
+                toggleNonactiveOff(state, { type: 'TOGGLE_NONACTIVE_OFF', payload: action.payload })
             }
         },
     }
