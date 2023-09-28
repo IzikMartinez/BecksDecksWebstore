@@ -83,7 +83,7 @@ function toggleHelper(itemID: string) {
 export function BigBubble(props: BubbleProps) {
   const dispatch = useDispatch()
   return (
-    <div className='mx-auto flex flex-row items-center justify-center w-2/3 h-2/3 bg-slate-600 rounded-2xl' onClick={()=>dispatch(toggleSize(props.itemID))}>
+    <div className='mx-auto flex flex-row items-center justify-center w-2/3 h-2/3 bg-blue-900 rounded-2xl transform transition-all duration-300 ease-linear' onClick={()=>dispatch(toggleSize(props.itemID))}>
       <div className='left-20 relative flex mx-auto w-[48em] h-[36em] items-center justify-center'>
         <ItemImage imgAlt='spongebo' imgPath='/placeholder.jpg'/>
       </div>

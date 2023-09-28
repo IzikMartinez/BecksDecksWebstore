@@ -3,7 +3,7 @@
 }
 
 .sidebarItem {
-    @apply flex items-center text-center justify-center text-black font-texgyre-adventor font-semibold my-3
+    @apply flex items-center text-center justify-center text-black font-texgyre-adventor font-semibold mx-auto cursor-pointer
  }
 
 .title {@apply

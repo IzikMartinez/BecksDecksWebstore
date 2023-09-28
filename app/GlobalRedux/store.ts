@@ -3,11 +3,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import selectionReducer from "./selectionSlice"
 import itemReducer from "./itemSlice";
+import sidebarReducer from "./sidebarSlice"
 
 export const store = configureStore({
     reducer: {
         selection: selectionReducer,
-        item: itemReducer
+        item: itemReducer,
+        sidebar: sidebarReducer
     },
 })
 
