@@ -1,13 +1,14 @@
 import styles from "app/styles/home.module.css"
 import { AppDispatch, RootState } from "./GlobalRedux/store"
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux"
-import { Providers } from "./GlobalRedux/provider"
 
 import Image from 'next/image'
-import selectionSlice, { setSelection } from "./GlobalRedux/selectionSlice"
 import { useAppSelector } from "./hooks"
 import { useRouter } from "next/router"
 import Link from "next/link"
+import { setSelection } from "./GlobalRedux/selectionSlice"
+import { useState } from "react"
+import Cart from "./cart"
 
 interface IconProps {
   path: string,
@@ -48,15 +49,17 @@ function ProdEvent(props: ProdEventProps) {
 }
 
 function BarIcon(props: IconProps) {
+  const [cartToggle, setCartToggle] = useState(false)
   return (
-    <Link href={'/cart'}>
-      <div className='relative w-20 h-20 rounded-lg mr-8'>
+      <div className='relative w-20 h-20 rounded-lg mr-8' onClick={()=>setCartToggle(!cartToggle)}>
         <div className="absolute inset-0 flex items-center justify-center">
           <Image src={props.path} alt='hold' width={props.width} height={props.height} />
         </div>
+        { cartToggle ? 
+        <Cart /> :
         <CartQuantity />
+        }
       </div>
-    </Link>
   )}
 
   function CartQuantity() {
@@ -69,7 +72,5 @@ function BarIcon(props: IconProps) {
     
   }
 
-  function clickHandler(name: string) {
-        setSelection(name)
-  }
+
 
