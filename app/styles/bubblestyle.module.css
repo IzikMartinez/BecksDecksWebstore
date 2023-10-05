@@ -7,7 +7,7 @@
 
 .bubbleBody {
     @apply
-    flex flex-col flex-grow w-60 mx-10 -my-8 h-72 items-center justify-center rounded-t-xl  transform transition-all duration-300 ease-linear
+    relative flex flex-col flex-grow w-60 mx-10 -my-8 h-72 items-center justify-center rounded-t-xl  transform transition-all duration-300 ease-linear
 }
 
 .bubble-big { 
@@ -15,7 +15,11 @@
     fixed flex w-72 h-56 mx-10 text-black rounded-lg shadow-xl bg-pink-500
 }
 
+.bubbleImage {
+ @apply w-96 h-12 text-center rounded-t-xl scale-105
+}
+
 .addToCart {@apply
-    flex w-64 h-12 items-center justify-center text-gray-600 bg-pastel-coral rounded-b-xl  shadow-gray-600 shadow-lg text-xl font-bold hover:bg-pastel-yellow
+    relative flex w-66 h-12 items-center justify-center -bottom-3 text-gray-600 bg-pastel-coral rounded-b-xl  shadow-gray-600 shadow-lg text-xl font-bold hover:bg-pastel-yellow
     font-sans-fira
 }

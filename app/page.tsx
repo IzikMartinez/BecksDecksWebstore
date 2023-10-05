@@ -29,7 +29,7 @@ import { useAppDispatch } from "./hooks";
 
 function SideBar() {
   const items = [{id: 0, name: "Flesh and Blood"}, {id: 1, name: "Warhammer"}, {id: 2, name: "Magic"}]
-  const selector = useAppSelector((state) => state.sidebar)
+  const selected = useAppSelector((state) => state.sidebar)
   return (
     <span className={styles.sidebar}>
       <div className='absolute flex flex-col flex-grow justify-center items-center w-36 left-0' >
@@ -39,7 +39,7 @@ function SideBar() {
         <SidebarItem name="Deck Boxes"></SidebarItem>
         <SidebarItem name="Card Sleeves"></SidebarItem>
         <SidebarItem name="Dice"></SidebarItem>
-        {selector}
+        <SidebarItem name={selected}/>
       </div>
     </span>
 )}

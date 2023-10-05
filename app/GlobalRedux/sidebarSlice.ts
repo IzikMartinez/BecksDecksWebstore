@@ -4,7 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { stat } from "fs";
 
-const initialState: string = "all"
+const initialState: string = "Magic"
 
 const sidebarSlice = createSlice({
     name: "sidebar",

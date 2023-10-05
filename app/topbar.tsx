@@ -5,12 +5,16 @@ import { Providers } from "./GlobalRedux/provider"
 
 import Image from 'next/image'
 import selectionSlice, { setSelection } from "./GlobalRedux/selectionSlice"
+import { useAppSelector } from "./hooks"
+import { useRouter } from "next/router"
+import Link from "next/link"
 
 interface IconProps {
   path: string,
   width: number,
   height: number
 }
+
 
 interface ProdEventProps {
     name: string
@@ -28,7 +32,7 @@ export function Splash() {
     <div className={styles.title}>
       SPARKLING CITY LGS
     </div>
-  <BarIcon path="cart.svg" width={180} height={180}></BarIcon>
+  <BarIcon path="cart.svg" width={280} height={280}></BarIcon>
   </span>
   )
 }
@@ -45,10 +49,25 @@ function ProdEvent(props: ProdEventProps) {
 
 function BarIcon(props: IconProps) {
   return (
-    <div className='w-20 h-20 rounded-lg mr-6'>
-      <Image src={props.path} alt='hold' width={props.width} height={props.height} />
-    </div>
+    <Link href={'/cart'}>
+      <div className='relative w-20 h-20 rounded-lg mr-8'>
+        <div className="absolute inset-0 flex items-center justify-center">
+          <Image src={props.path} alt='hold' width={props.width} height={props.height} />
+        </div>
+        <CartQuantity />
+      </div>
+    </Link>
   )}
+
+  function CartQuantity() {
+    const cart = useAppSelector(state => state.cartItems)
+    return (
+      <div className="absolute inset-0 flex items-center justify-center">
+        <p className="w-5 h-5 text-xs font-semibold text-white p-1 bg-gray-700 rounded-3xl">{cart.cartItems.length}</p>
+      </div>
+    )
+    
+  }
 
   function clickHandler(name: string) {
         setSelection(name)

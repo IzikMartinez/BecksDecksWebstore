@@ -4,7 +4,7 @@ import { BigBubble, Bubble } from "./itemBubbles"
 import { supabase } from "./utils/supabase"
 // state imports
 import { useAppSelector, useAppDispatch } from './hooks'
-import { addItem, toggleSize } from './GlobalRedux/itemSlice'
+import { addItem, printItems, removeAllItems, toggleSize } from './GlobalRedux/itemSlice'
 import { useEffect } from "react"
 
 export function EventProduct() {
@@ -49,16 +49,27 @@ function Event(props: eventProps) {
         </div>
 )}
 
+
+
 function Products() {
     const inventory = useAppSelector(state => state.item)
+    const selectedSidebar = useAppSelector(state => state.sidebar)
     const dispatch = useDispatch()
     useEffect(()=> {
-        dispatch(addItem({item_ID: "deas", name: "Chon", price: 40, description: "Karate Bruce Lee Jet Lee Jackie Chan", size: false, visible: true}))
+        dispatch(removeAllItems())
+        if(selectedSidebar === "Magic")
+            {
+                dispatch(addItem({item_ID: "deas", name: "Chon", price: 40, description: "Karate Bruce Lee Jet Lee Jackie Chan", size: false, visible: true}))
+            }
+        else if(selectedSidebar === "Flesh and Blood")
+            {
+                dispatch(addItem({item_ID: "d3as", name: "Fleibo", price: 90, description: "Play the best game better than magic better than universus better than vanguard and yugioh and luigi", size: false, visible: true}))
+            }
         /*
         dispatch(addItem({item_ID: "rde8", name: "Wang", price: 80, description: "Karate", size: false}))
         */
     return () => {
-    }}, [])
+    }}, [dispatch, selectedSidebar])
     return (
       <div className='fixed flex flex-wrap flex-grow left-16 top-24 h-screen w-screen items-center justify-center '>
         {inventory.items.map((item) => (

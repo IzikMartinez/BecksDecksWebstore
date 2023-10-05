@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { useAppSelector, useAppDispatch } from './hooks'
 import { toggleSize } from './GlobalRedux/itemSlice'
 import { useDispatch } from 'react-redux'
+import { addToCart } from './GlobalRedux/cartSlice'
 
 
 interface BubbleProps {
@@ -62,12 +63,14 @@ function SmallBubble(props: BubbleProps){
 const dispatch = useDispatch()
 const inventory = useAppSelector(state => state.item.items)
   return (
-      <div className={bubblestyle.bubbleBody} onClick={()=>dispatch(toggleSize(props.itemID))}>
-        <ItemImage imgPath='/placeholder.jpg' imgAlt='placeholder' />
-        <ItemText text={props.itemName}></ItemText>
-        <ItemText text={'$'+props.itemPrice.toString()}></ItemText>
+      <div className='flex flex-col items-center justify-center'>
+        <div className={bubblestyle.bubbleBody} onClick={()=>dispatch(toggleSize(props.itemID))}>
+          <ItemImage imgPath='/placeholder.jpg' imgAlt='placeholder' />
+          <ItemText text={props.itemName}></ItemText>
+          <ItemText text={'$'+props.itemPrice.toString()}></ItemText>
+        </div>
         <div>
-          <BubbleBtn/>
+          <AddToCartBtn name={props.itemName} price={props.itemPrice}/>
         </div>
       </div>
   )
@@ -110,7 +113,7 @@ interface imgProps {
 const ItemImage: React.FC<imgProps> = ({ imgPath, imgAlt }) => {
   return (
         <Image 
-          className={'w-96 h-120 text-center rounded-t-xl scale-105'}
+          className={'w-66 h-120 text-center items-center justify-center rounded-t-xl scale-110'}
           src={imgPath} 
           alt={imgAlt}
           width={736}
@@ -125,15 +128,38 @@ interface textProps {
 
 function ItemText(props: textProps) {
   return (
-        <div className='flex w-64 h-7 bottom-2 bg-blue-400 text-white items-center justify-center text-2xl font-texgyre-adventor small-caps font-semibold'>
+        <div className='relative flex w-66 h-7 -bottom-2 bg-blue-400 text-white items-center justify-center text-2xl font-texgyre-adventor small-caps font-semibold'>
             {props.text}  <br />
         </div>
   )
 }
 
-function BubbleBtn() {
+interface cartProps {
+  name: string,
+  price: number,
+}
+
+
+interface cartItem {
+  name: string,
+  price: number,
+  quantity: number
+}
+
+function AddToCartBtn(props: cartProps) {
+  const dispatch = useDispatch()
+  const [newCartItem, setNewCartItem] = useState<cartItem>()
+  useEffect(() => {
+    const cartItem: cartItem = {
+      name: props.name,
+      price: props.price,
+      quantity: 0
+    }
+    setNewCartItem(cartItem)
+  }, [])
+  const cart = useAppSelector(state => state.cartItems)
   return (
-    <span className={bubblestyle.addToCart}>
+    <span className={bubblestyle.addToCart}  onClick={() => dispatch(addToCart(newCartItem!))}>
       ADD TO CART
     </span>
   )

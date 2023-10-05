@@ -84,6 +84,15 @@ export const itemSlice = createSlice({
         addItem: (state, action: PayloadAction<Item>) => {
             state.items.push(action.payload)
         },
+        removeItem: (state, action: PayloadAction<Item>) => {
+            state.items.filter(x => x.item_ID != action.payload.item_ID)
+        },
+        removeAllItems: (state) => {
+            state.items = []
+        },
+        printItems: (state) => {
+            console.log(state.items);
+        },
         toggleSize: (state, action: PayloadAction<string>) => {
             const inputItemID= action.payload
             const index = state.items.find((item) => item.item_ID === inputItemID)
@@ -97,6 +106,6 @@ export const itemSlice = createSlice({
     }
 })
 
-export const { addItem, toggleSize } = itemSlice.actions
+export const { addItem, removeItem, removeAllItems, printItems, toggleSize } = itemSlice.actions
 //export const selectBubble = (state: RootState) => state.bubble.value
 export default itemSlice.reducer
