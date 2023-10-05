@@ -19,7 +19,20 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, action: PayloadAction<cartItem>) => {
-        state.cartItems.push(action.payload)
+        const itemIndex = state.cartItems.findIndex(item => item.name === action.payload.name)
+        if(itemIndex === -1) {
+          state.cartItems.push(action.payload)
+        }
+        state.cartItems.find(item => item.name === action.payload.name)!.quantity! += 1
+    },
+    removeFromCart: (state, action: PayloadAction<string>) => {
+        const itemIndex = state.cartItems.findIndex(item => item.name === action.payload)
+        if(itemIndex != -1) {
+          if(state.cartItems.at(itemIndex)?.quantity! > 1) {
+            state.cartItems.at(itemIndex)!.quantity -= 1
+          }
+          state.cartItems.filter(item => item.name === action.payload)
+      }
     }
   }
 })

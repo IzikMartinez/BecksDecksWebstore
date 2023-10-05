@@ -25,9 +25,10 @@ interface cartItemProps {
 }
 
 function CartElement(props: cartItemProps) {
+  const quantity = useAppSelector(state => state.cartItems.cartItems.find(item => item.name === props.name)?.quantity)
   return (
     <div className='bg-gray-600 w-48 h-12'>
-      {props.name}: ${props.price}  
+      {props.name}: ${props.price}  {quantity}
     </div>
   )
 }

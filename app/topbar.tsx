@@ -7,7 +7,7 @@ import { useAppSelector } from "./hooks"
 import { useRouter } from "next/router"
 import Link from "next/link"
 import { setSelection } from "./GlobalRedux/selectionSlice"
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import Cart from "./cart"
 
 interface IconProps {
@@ -64,9 +64,15 @@ function BarIcon(props: IconProps) {
 
   function CartQuantity() {
     const cart = useAppSelector(state => state.cartItems)
+    const count = useRef(0)
+    useEffect(()=>{
+      let tally = 0
+      cart.cartItems.forEach(item => tally += item.quantity)
+      count.current = tally
+    }, [cart])
     return (
       <div className="absolute inset-0 flex items-center justify-center">
-        <p className="w-5 h-5 text-xs font-semibold text-white p-1 bg-gray-700 rounded-3xl">{cart.cartItems.length}</p>
+        <p className="w-5 h-5 text-xs font-semibold text-white p-1 bg-gray-700 rounded-3xl">{count.current}</p>
       </div>
     )
     
