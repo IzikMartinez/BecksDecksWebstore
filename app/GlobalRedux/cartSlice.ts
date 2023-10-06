@@ -1,4 +1,5 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction, createSelector } from "@reduxjs/toolkit";
+import { RootState } from "./store";
 
 interface cartItem {
     name: string,
@@ -36,6 +37,22 @@ export const cartSlice = createSlice({
     }
   }
 })
+
+
+export const selectQuantityValue = (state: RootState) => { 
+  let count = 0
+  state.cartItems.cartItems.forEach(item => count += item.quantity) 
+  return count
+}
+
+export const selectTotalQuantity = createSelector(
+  (state: RootState) => state.cartItems.cartItems,
+  (cartItems) =>  { 
+    let count = 0
+    cartItems.forEach(item => count += item.quantity) 
+    return count
+  }
+)
 
 export const { addToCart } = cartSlice.actions
 export default cartSlice.reducer
