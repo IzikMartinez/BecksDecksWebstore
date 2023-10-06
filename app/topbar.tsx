@@ -66,9 +66,13 @@ function BarIcon(props: IconProps) {
   function CartQuantity() {
     const cartQuantity = useAppSelector(selectQuantityValue)
     return (
+      <div>
+      { (cartQuantity > 0) ?
       <div className="absolute inset-0 flex items-center justify-center">
         <p className="w-5 h-5 text-xs font-semibold text-white p-1 bg-gray-700 rounded-3xl">{cartQuantity}</p>
       </div>
+      : <div></div> }
+    </div>
     )
     
   }
