@@ -91,13 +91,13 @@ export function BigBubble(props: BubbleProps) {
         <ItemImage imgAlt='spongebo' imgPath='/placeholder.jpg'/>
       </div>
       <div className='flex flex-col py-24'>
-        <div className='flex flex-grow mb-3 justify-center items-center text-center text-3xl font-texgyre-adventor small-caps font-semibold'>
+        <div className='flex flex-grow select-none mb-3 justify-center items-center text-center text-3xl font-texgyre-adventor small-caps font-semibold'>
           {props.itemName}
         </div>
-        <div className='flex flex-grow my-3 justify-center items-center text-center text-2xl font-texgyre-adventor small-caps font-semibold'>
+        <div className='flex flex-grow selct-none my-3 justify-center items-center text-center text-2xl font-texgyre-adventor small-caps font-semibold'>
           ${props.itemPrice}
         </div>
-        <div className='mt-12 mx-auto right-0 flex justify-center items-center text-center font-semibold text-xl w-2/3'>
+        <div className='mt-12 mx-auto select-none right-0 flex justify-center items-center text-center font-semibold text-xl w-2/3'>
           {props.description}
         </div>
       </div>
@@ -113,7 +113,7 @@ interface imgProps {
 const ItemImage: React.FC<imgProps> = ({ imgPath, imgAlt }) => {
   return (
         <Image 
-          className={'w-66 h-120 text-center items-center justify-center rounded-t-xl scale-110'}
+          className={'w-66 h-120 select-none text-center items-center justify-center rounded-t-xl scale-110'}
           src={imgPath} 
           alt={imgAlt}
           width={736}
@@ -128,7 +128,7 @@ interface textProps {
 
 function ItemText(props: textProps) {
   return (
-        <div className='relative flex w-66 h-7 -bottom-2 bg-blue-400 text-white items-center justify-center text-2xl font-texgyre-adventor small-caps font-semibold'>
+        <div className='relative flex w-66 select-none h-7 -bottom-2 bg-blue-400 text-white items-center justify-center text-2xl font-texgyre-adventor small-caps font-semibold'>
             {props.text}  <br />
         </div>
   )

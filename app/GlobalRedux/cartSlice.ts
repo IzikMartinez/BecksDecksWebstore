@@ -32,7 +32,7 @@ export const cartSlice = createSlice({
           if(state.cartItems.at(itemIndex)?.quantity! > 1) {
             state.cartItems.at(itemIndex)!.quantity -= 1
           }
-          state.cartItems.filter(item => item.name === action.payload)
+          else state.cartItems = state.cartItems.filter(item => item.name !== action.payload)
       }
     }
   }
@@ -54,5 +54,5 @@ export const selectTotalQuantity = createSelector(
   }
 )
 
-export const { addToCart } = cartSlice.actions
+export const { addToCart, removeFromCart } = cartSlice.actions
 export default cartSlice.reducer
