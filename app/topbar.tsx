@@ -34,7 +34,7 @@ export function Splash() {
     <div className={styles.title}>
       SPARKLING CITY LGS
     </div>
-  <BarIcon path="cart.svg" width={280} height={280}></BarIcon>
+  <BarIcon path="cart.svg" width={380} height={280}></BarIcon>
   </span>
   )
 }
@@ -52,15 +52,22 @@ function ProdEvent(props: ProdEventProps) {
 function BarIcon(props: IconProps) {
   const [cartToggle, setCartToggle] = useState(false)
   return (
-      <div className='relative  rounded-lg mr-8' onClick={()=>setCartToggle(!cartToggle)}>
-        <div className="w-20 h-20 inset-0 flex items-center justify-center">
+    <div>
+      <div className='relative' >
+        <div className="w-20 h-12 inset-0 flex items-center justify-center cursor-pointer mr-8" onClick={()=>setCartToggle(!cartToggle)}>
           <Image src={props.path} alt='hold' width={props.width} height={props.height} />
+          {cartToggle ? <span></span>:  
+          <CartQuantity />
+          }
         </div>
+      </div>
+      <div>
         { cartToggle ? 
         <Cart /> :
-        <CartQuantity />
+        <span></span>
         }
       </div>
+    </div>
   )}
 
   function CartQuantity() {
