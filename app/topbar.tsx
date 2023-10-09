@@ -9,7 +9,7 @@ import Link from "next/link"
 import { setSelection } from "./GlobalRedux/selectionSlice"
 import { useEffect, useRef, useState } from "react"
 import Cart from "./cart"
-import { selectQuantityValue } from "./GlobalRedux/cartSlice"
+import {selectTotalCartQuantity } from "./GlobalRedux/cartSlice"
 
 interface IconProps {
   path: string,
@@ -52,8 +52,8 @@ function ProdEvent(props: ProdEventProps) {
 function BarIcon(props: IconProps) {
   const [cartToggle, setCartToggle] = useState(false)
   return (
-      <div className='relative w-20 h-20 rounded-lg mr-8' onClick={()=>setCartToggle(!cartToggle)}>
-        <div className="absolute inset-0 flex items-center justify-center">
+      <div className='relative  rounded-lg mr-8' onClick={()=>setCartToggle(!cartToggle)}>
+        <div className="w-20 h-20 inset-0 flex items-center justify-center">
           <Image src={props.path} alt='hold' width={props.width} height={props.height} />
         </div>
         { cartToggle ? 
@@ -64,7 +64,7 @@ function BarIcon(props: IconProps) {
   )}
 
   function CartQuantity() {
-    const cartQuantity = useAppSelector(selectQuantityValue)
+    const cartQuantity = useAppSelector(selectTotalCartQuantity)
     return (
       <div>
       { (cartQuantity > 0) ?
