@@ -9,10 +9,12 @@ interface cartItem {
 }
 
 interface cartItems {
+    visible: boolean,
     cartItems: cartItem[]
 }
 
 const initialState: cartItems = {
+    visible: true,
     cartItems: []
 }
 
@@ -24,8 +26,8 @@ export const cartSlice = createSlice({
         const itemIndex = state.cartItems.findIndex(item => item.name === action.payload.name)
         if(itemIndex === -1) {
           state.cartItems.push(action.payload)
-        }
         state.cartItems.find(item => item.name === action.payload.name)!.quantity! += 1
+        } else state.cartItems.find(item => item.name === action.payload.name)!.quantity! += 1
     },
     removeFromCart: (state, action: PayloadAction<string>) => {
         const itemIndex = state.cartItems.findIndex(item => item.name === action.payload)
@@ -35,8 +37,12 @@ export const cartSlice = createSlice({
           }
           else state.cartItems = state.cartItems.filter(item => item.name !== action.payload)
       }
-    }
-  }
+    },
+    toggleVisible: (state, action: PayloadAction<boolean>) => {
+      console.log("Cart state ", state.visible);
+      state.visible = action.payload
+    },
+  },
 })
 
 
@@ -52,6 +58,10 @@ export const selectTotalCartPrice = (state:RootState) => {
   return count
 }
 
+export const selectVisibleFlag = (state: RootState) => {
+  return state.cartItems.visible
+}
+
 const getQuantityFilter = (state:RootState, itemName: string) => itemName 
 export const selectQuantity = createSelector (
   [(state: RootState) => state.cartItems.cartItems, getQuantityFilter],
@@ -59,5 +69,5 @@ export const selectQuantity = createSelector (
     cartItems.find(item => item.name === itemName)?.quantity
 )
 
-export const { addToCart, removeFromCart } = cartSlice.actions
+export const { addToCart, removeFromCart, toggleVisible } = cartSlice.actions
 export default cartSlice.reducer

@@ -9,7 +9,7 @@ import Link from "next/link"
 import { setSelection } from "./GlobalRedux/selectionSlice"
 import { useEffect, useRef, useState } from "react"
 import Cart from "./cart"
-import {selectTotalCartQuantity } from "./GlobalRedux/cartSlice"
+import {selectTotalCartQuantity, selectVisibleFlag, toggleVisible } from "./GlobalRedux/cartSlice"
 
 interface IconProps {
   path: string,
@@ -43,31 +43,30 @@ function ProdEvent(props: ProdEventProps) {
     const dispatch = useAppDispatch()
     return(
         <div className="flex relative mx-4 p-3 h-16 w-24 text-3xl font-iosevka font-bold small-caps hover:text-blue-400
-             cursor-pointer select-none self-center text-center justify-center items-center" onClick={() => {return dispatch(setSelection(props.name))}}>
+             cursor-pointer select-none self-center text-center justify-center items-center" onClick={() => {dispatch(setSelection(props.name))}}>
             {props.name}
         </div>
     )
 }
 
 function BarIcon(props: IconProps) {
-  const [cartToggle, setCartToggle] = useState(false)
+  const dispatch = useAppDispatch()
+  const cartVisible = useAppSelector(selectVisibleFlag)
   return (
-    <div>
-      <div className='relative' >
-        <div className="w-20 h-12 inset-0 flex items-center justify-center cursor-pointer mr-8" onClick={()=>setCartToggle(!cartToggle)}>
+    <div className="fixed flex w-1/2 h-24 top-0 right-0 bg-green-400 justify-center">
+      <div>
+        <div className="bg-pink-500 w-20 h-12 top-8 flex items-center justify-center cursor-pointer" onClick={()=> dispatch(toggleVisible(!cartVisible))}>
           <Image src={props.path} alt='hold' width={props.width} height={props.height} />
-          {cartToggle ? <span></span>:  
+          {cartVisible ? <span></span>:  
           <CartQuantity />
           }
         </div>
       </div>
-      <div>
-        { cartToggle ? 
+        {/* { cartToggle ? 
         <Cart /> :
         <span></span>
-        }
+        } */}
       </div>
-    </div>
   )}
 
   function CartQuantity() {

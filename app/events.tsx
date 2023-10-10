@@ -6,6 +6,7 @@ import { supabase } from "./utils/supabase"
 import { useAppSelector, useAppDispatch } from './hooks'
 import { addItem, printItems, removeAllItems, toggleSize } from './GlobalRedux/itemSlice'
 import { useEffect } from "react"
+import Cart from "./cart"
 
 export function EventProduct() {
   const selector = useAppSelector((state) => state.selection)

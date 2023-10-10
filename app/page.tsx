@@ -9,6 +9,7 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
 
 export default function Home() {
+  const cartToggle = useAppSelector(selectVisibleFlag)
   return (
   <body className={styles.home}>
     <div>
@@ -20,12 +21,15 @@ export default function Home() {
       </div>
       <EventProduct />
     </div>
+    { cartToggle ? <Cart/> : <span></span> }
   </body>
 )}
 
 
 import { setSidebarSelection  } from "./GlobalRedux/sidebarSlice";
 import { useAppDispatch } from "./hooks";
+import Cart from "./cart";
+import { selectVisibleFlag } from "./GlobalRedux/cartSlice";
 
 function SideBar() {
   const items = [{id: 0, name: "Flesh and Blood"}, {id: 1, name: "Warhammer"}, {id: 2, name: "Magic"}]
