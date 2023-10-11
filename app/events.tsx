@@ -13,12 +13,26 @@ export function EventProduct() {
     if( store.getState().selection === "products") {
         return <Products />
     }
-    return <Events />
+    else return <Events />
+}
+
+type Event = {
+    game: string,
+    name: string,
+    date: string,
+    fee: number,
+    desc: string,
 }
 
 function Events() {
+    const events: Event[] = [{game: "Magic", name: "FNM", date: "Today", fee: 10, desc:"pretend standard is good at Friday Night Magic"}]
     return (
-        <div className="fixed flex flex-col first-letter:justify-center items-center w-screen bg-pink-400">
+        <div className="fixed flex flex-col justify-start items-center w-5/6 h-full top-24 left-36 bg-pink-400">
+            {events.map((storeEvent)=>(
+                <div key={storeEvent.game}>
+                    <StoreEvent game={storeEvent.game} name={storeEvent.name} date={storeEvent.date} fee={storeEvent.fee} desc={storeEvent.desc}></StoreEvent>
+                </div>
+            ))}
         </div>
     )
 }
@@ -39,16 +53,36 @@ interface Item {
     size: boolean
 }
 
-function Event(props: eventProps) {
+function StoreEvent(props: eventProps) {
     return(
-        <div className="text-black w-128 bg-slate-500">
-            {props.game} <br />
-            {props.name} <br />
-            {props.date} <br />
-            {props.fee}  <br />
-            {props.desc}
+        <div className="absolute flex flex-row  items-center justify-left w-1/2 h-28 text-black w-128 bg-slate-500 rounded-2xl drop-shadow-xl">
+            <div className="flex text-3xl all-small-caps font-main-display font-bold mr-4 w-1/6 bg-teal-700 text-white h-28 justify-center items-center rounded-l-2xl">
+                {props.game}
+            </div>
+            <div className="ml-3 w-1/6 text-lg font-texgyre-adventor flex flex-col "> 
+                Event: {props.name} <br />
+                Date: {props.date} <br />
+                Fee: ${props.fee}
+            </div>
+            <div className="h-24 w-1 bg-gray-800"></div>
+            <div className="relative font-texgyre-adventor w-3/6 justify-start left-4">
+                {props.desc}
+            </div>
+            <div className="h-28 w-1/12 bg-teal-400 hover:bg-teal-500 rounded-r-2xl right-0 absolute  flex justify-center items-center font-semibold">
+                <SignUpButton />
+            </div>
         </div>
 )}
+
+function SignUpButton() {
+    return (
+    <button >
+        Sign <br /> Up
+    </button>
+    )
+}
+
+
 
 
 
@@ -78,6 +112,4 @@ function Products() {
                 <Bubble itemID={item.item_ID} itemName={item.name} itemPrice={item.price} description={item.description} imgPath="placeholder.jpg" />
             </div>
         ))}
-      </div>
-    )
-}
+      </div>)}

@@ -53,7 +53,7 @@ function BarIcon(props: IconProps) {
   const dispatch = useAppDispatch()
   const cartVisible = useAppSelector(selectVisibleFlag)
   return (
-    <div className="fixed flex w-1/3 h-24 top-0 right-0 justify-center">
+    <div className="fixed flex w-1/4 h-24 top-0 right-0 justify-center">
       <div>
         <div className="w-20 h-12 mt-8 flex items-center justify-center cursor-pointer" onClick={()=> dispatch(toggleVisible(!cartVisible))}>
           <Image src={props.path} alt='hold' width={props.width} height={props.height} />
@@ -74,8 +74,8 @@ function BarIcon(props: IconProps) {
     return (
       <div>
       { (cartQuantity > 0) ?
-      <div className="absolute inset-0 flex items-center justify-center">
-        <p className="w-5 h-5 text-xs font-semibold text-white p-1 bg-gray-700 rounded-3xl">{cartQuantity}</p>
+      <div className="absolute inset-0 flex items-center justify-center top-4 -left-2">
+        <p className="w-5 h-5 text-xs font-semibold text-white p-1 bg-cyan-600 rounded-3xl font-sans-fira">{cartQuantity}</p>
       </div>
       : <div></div> }
     </div>
