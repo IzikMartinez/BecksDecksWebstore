@@ -156,7 +156,7 @@ function AddToCartBtn(props: cartProps) {
       quantity: 0
     }
     setNewCartItem(cartItem)
-  }, [])
+  }, [props.name, props.price])
   const cart = useAppSelector(state => state.cartItems)
   return (
     <span className={bubblestyle.addToCart}  onClick={() => dispatch(addToCart(newCartItem!))}>

@@ -2,11 +2,8 @@
 import styles from "app/styles/home.module.css"
 import { Splash } from "./topbar"
 import { EventProduct } from "./events";
-import { RootState, store } from "./GlobalRedux/store"
-import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
+import { useDispatch} from "react-redux";
 
-
-export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
 
 export default function Home() {
   const cartToggle = useAppSelector(selectVisibleFlag)
@@ -27,7 +24,7 @@ export default function Home() {
 
 
 import { setSidebarSelection  } from "./GlobalRedux/sidebarSlice";
-import { useAppDispatch } from "./hooks";
+import { useAppDispatch, useAppSelector } from "./hooks";
 import Cart from "./cart";
 import { selectVisibleFlag } from "./GlobalRedux/cartSlice";
 

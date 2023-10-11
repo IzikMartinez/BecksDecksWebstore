@@ -26,9 +26,9 @@ type Event = {
 
 function Events() {
     const events: Event[] = [
-        {game: "Magic", name: "Pre-release", date: "10/21", fee: 10, desc:"pretend standard is good at Friday Night Magic"},
-        {game: "FaB", name: "Armory", date: "10/21", fee: 10, desc:"pretend standard is good at Friday Night Magic"},
-        {game: "Pokemon", name: "Casual", date: "10/20", fee: 10, desc:"pretend standard is good at Friday Night Magic"},
+        {game: "Magic", name: "Pre-release", date: "10/21", fee: 20, desc:"pretend standard is good at Friday Night Magic"},
+        {game: "FaB", name: "Armory", date: "10/21", fee: 10, desc:"Survive 'Ranger Autumn' with your budget CC deck"},
+        {game: "Pokemon", name: "Casual", date: "10/20", fee: 10, desc:"Play america's favorite physical NFT game"},
     ]
     return (
         <div className="fixed flex flex-col justify-center items-center w-full h-full top-24 left-20 ">
