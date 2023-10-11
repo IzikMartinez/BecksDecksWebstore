@@ -25,9 +25,13 @@ type Event = {
 }
 
 function Events() {
-    const events: Event[] = [{game: "Magic", name: "FNM", date: "Today", fee: 10, desc:"pretend standard is good at Friday Night Magic"}]
+    const events: Event[] = [
+        {game: "Magic", name: "Pre-release", date: "10/21", fee: 10, desc:"pretend standard is good at Friday Night Magic"},
+        {game: "FaB", name: "Armory", date: "10/21", fee: 10, desc:"pretend standard is good at Friday Night Magic"},
+        {game: "Pokemon", name: "Casual", date: "10/20", fee: 10, desc:"pretend standard is good at Friday Night Magic"},
+    ]
     return (
-        <div className="fixed flex flex-col justify-start items-center w-5/6 h-full top-24 left-36 bg-pink-400">
+        <div className="fixed flex flex-col justify-center items-center w-full h-full top-24 left-20 ">
             {events.map((storeEvent)=>(
                 <div key={storeEvent.game}>
                     <StoreEvent game={storeEvent.game} name={storeEvent.name} date={storeEvent.date} fee={storeEvent.fee} desc={storeEvent.desc}></StoreEvent>
@@ -55,20 +59,20 @@ interface Item {
 
 function StoreEvent(props: eventProps) {
     return(
-        <div className="absolute flex flex-row  items-center justify-left w-1/2 h-28 text-black w-128 bg-slate-500 rounded-2xl drop-shadow-xl">
-            <div className="flex text-3xl all-small-caps font-main-display font-bold mr-4 w-1/6 bg-teal-700 text-white h-28 justify-center items-center rounded-l-2xl">
+        <div className="my-4 flex flex-row items-center w-[48rem] h-24 text-black w-128 bg-white rounded-2xl drop-shadow-2xl">
+            <div className="select-none flex text-3xl all-small-caps font-main-display font-bold mr-4 w-1/6 bg-teal-700 text-white h-24 justify-center items-center rounded-l-2xl">
                 {props.game}
             </div>
-            <div className="ml-3 w-1/6 text-lg font-texgyre-adventor flex flex-col "> 
-                Event: {props.name} <br />
+            <div className="ml-3 w-1/6 text-lg font-iosevka font-semibold flex flex-col select-none "> 
+                {props.name} <br />
                 Date: {props.date} <br />
                 Fee: ${props.fee}
             </div>
             <div className="h-24 w-1 bg-gray-800"></div>
-            <div className="relative font-texgyre-adventor w-3/6 justify-start left-4">
+            <div className="relative font-texgyre-adventor w-3/6 justify-start left-4 select-none">
                 {props.desc}
             </div>
-            <div className="h-28 w-1/12 bg-teal-400 hover:bg-teal-500 rounded-r-2xl right-0 absolute  flex justify-center items-center font-semibold">
+            <div className="h-24 w-1/12 bg-teal-400 hover:bg-orange-500 rounded-r-2xl right-0 absolute  flex justify-center items-center font-semibold">
                 <SignUpButton />
             </div>
         </div>
@@ -76,7 +80,7 @@ function StoreEvent(props: eventProps) {
 
 function SignUpButton() {
     return (
-    <button >
+    <button className="select-none">
         Sign <br /> Up
     </button>
     )
@@ -99,6 +103,7 @@ function Products() {
         else if(selectedSidebar === "Flesh and Blood")
             {
                 dispatch(addItem({item_ID: "d3as", name: "Fleibo", price: 90, description: "Play the best game better than magic better than universus better than vanguard and yugioh and luigi", size: false, visible: true}))
+                dispatch(addItem({item_ID: "d2az", name: "Fleibo", price: 93, description: "Play the best game better than magic better than universus better than vanguard and yugioh and luigi", size: false, visible: true}))
             }
         /*
         dispatch(addItem({item_ID: "rde8", name: "Wang", price: 80, description: "Karate", size: false}))
