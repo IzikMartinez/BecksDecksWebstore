@@ -14,7 +14,7 @@ interface cartItems {
 }
 
 const initialState: cartItems = {
-    visible: true,
+    visible: false,
     cartItems: []
 }
 

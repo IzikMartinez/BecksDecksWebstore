@@ -9,7 +9,7 @@ import { removeFromCart, selectQuantity, selectTotalCartPrice} from './GlobalRed
 function Cart() {
 const cartStore = useAppSelector(state => state.cartItems)  
   return (
-    <div className='fixed flex flex-col justify-center items-center bg-gray-300 h-2/3 w-1/3 right-0 mr-8 top-8 pt-12 shadow-xl rounded-lg'>
+    <div className='fixed flex flex-col justify-center items-center bg-gray-300 h-2/3 w-1/3 right-0 mr-8 top-16 pt-12 shadow-xl rounded-lg'>
       <div className='mt-4'>
           {cartStore.cartItems.map((cartItem) => (
               <div key = {cartItem.name}>
