@@ -1,12 +1,11 @@
-import { TypedUseSelectorHook, useSelector, useDispatch } from "react-redux"
-import { RootState, store } from "./GlobalRedux/store"
-import { BigBubble, Bubble } from "./itemBubbles"
+import { useDispatch } from "react-redux"
+import { store } from "./GlobalRedux/store"
+import { Bubble } from "./itemBubbles"
 import { supabase } from "./utils/supabase"
 // state imports
 import { useAppSelector, useAppDispatch } from './hooks'
-import { addItem, printItems, removeAllItems, toggleSize } from './GlobalRedux/itemSlice'
+import { addItem, removeAllItems} from './GlobalRedux/itemSlice'
 import { useEffect } from "react"
-import Cart from "./cart"
 
 export function EventProduct() {
   const selector = useAppSelector((state) => state.selection)
@@ -95,26 +94,28 @@ function SideBar() {
   const selected = useAppSelector((state) => state.sidebar)
   return (
     <span className={styles.sidebar}>
-      <div className='absolute flex flex-col flex-grow justify-center items-center w-36 left-0' >
-        <SidebarItem name="Magic"></SidebarItem>
-        <SidebarItem name="Pokemon"></SidebarItem>
-        <SidebarItem name="Flesh and Blood"></SidebarItem>
-        <SidebarItem name="Deck Boxes"></SidebarItem>
+      <div className='absolute flex flex-col w-36' >
+        <SidebarItem name="magic" extension="png"/>
+        <SidebarItem name="pokemon" extension="png" />
+        <SidebarItem name="fab" extension="png" />
+        <SidebarItem name="yugioh" extension="svg" />
+{/*         <SidebarItem name="Deck Boxes"></SidebarItem>
         <SidebarItem name="Card Sleeves"></SidebarItem>
-        <SidebarItem name="Dice"></SidebarItem>
-        <SidebarItem name={selected}/>
+        <SidebarItem name="Dice"></SidebarItem> */}
       </div>
     </span>
 )}
 
 interface sidebarItemProps {
-  name: string
+  name: string,
+  extension: string
 }
 function SidebarItem(props: sidebarItemProps) {
   const dispatch = useDispatch()
+  const file = props.name + "." + props.extension
   return (
   <span className={styles.sidebarItem} onClick={()=>dispatch(setSidebarSelection(props.name))}>
-    {props.name}
+    <img src={file} height={200} width={200} />
   </span>
   )
 }
@@ -127,11 +128,11 @@ function Products() {
     const dispatch = useDispatch()
     useEffect(()=> {
         dispatch(removeAllItems())
-        if(selectedSidebar === "Magic")
+        if(selectedSidebar === "magic")
             {
                 dispatch(addItem({item_ID: "deas", name: "Chon", price: 40, description: "Karate Bruce Lee Jet Lee Jackie Chan", size: false, visible: true}))
             }
-        else if(selectedSidebar === "Flesh and Blood")
+        else if(selectedSidebar === "fab")
             {
                 dispatch(addItem({item_ID: "d3as", name: "Fleibo", price: 90, description: "Play the best game better than magic better than universus better than vanguard and yugioh and luigi", size: false, visible: true}))
                 dispatch(addItem({item_ID: "d2az", name: "Fleibo", price: 93, description: "Play the best game better than magic better than universus better than vanguard and yugioh and luigi", size: false, visible: true}))
