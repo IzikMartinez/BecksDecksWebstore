@@ -16,24 +16,7 @@ interface InventoryState {
 }
 
 const initialState: InventoryState = {
-    items: [
-        {
-        item_ID: "tade8",
-        name: "Spongeboy",
-        price: 150,
-        description: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Provident harum perspiciatis quasi deserunt ut repudiandae dolor, repellat est magnam hic facere cumque quisquam assumenda officiis magni aliquid temporibus amet eos.",
-        size: false,
-        visible: true 
-    },
-        {
-        item_ID: "infa3",
-        name: "Bebob",
-        price: 100,
-        description: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Provident harum perspiciatis quasi deserunt ut repudiandae dolor, repellat est magnam hic facere cumque quisquam assumenda officiis magni aliquid temporibus amet eos.",
-        size: false,
-        visible: true 
-    },
-]
+    items: []
 }
 
 interface MyAction {

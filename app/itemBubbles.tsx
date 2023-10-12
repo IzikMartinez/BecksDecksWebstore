@@ -128,7 +128,7 @@ interface textProps {
 
 function ItemText(props: textProps) {
   return (
-        <div className='relative flex w-66 select-none h-7 -bottom-2 bg-blue-400 text-white items-center justify-center text-2xl font-texgyre-adventor small-caps font-semibold'>
+        <div className='relative flex w-66 select-none h-7 -bottom-2 bg-blue-400 text-white items-center justify-center text-xl font-texgyre-adventor small-caps font-semibold'>
             {props.text}  <br />
         </div>
   )

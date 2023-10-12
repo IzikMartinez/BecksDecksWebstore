@@ -47,7 +47,7 @@ export function Products() {
         dispatch(removeAllItems())
         if(selectedSidebar === "magic")
             {
-                dispatch(addItem({item_ID: "deas", name: "Chon", price: 40, description: "Karate Bruce Lee Jet Lee Jackie Chan", size: false, visible: true}))
+                dispatch(addItem({item_ID: "deas", name: "Chon Heck", price: 400, description: "Karate Bruce Lee Jet Lee Jackie Chan", size: false, visible: true}))
             }
         else if(selectedSidebar === "fab")
             {
