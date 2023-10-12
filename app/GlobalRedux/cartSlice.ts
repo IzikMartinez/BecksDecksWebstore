@@ -27,16 +27,15 @@ export const cartSlice = createSlice({
         const itemIndex = state.cartItems.findIndex(item => item.id === action.payload.id)
         if(itemIndex === -1) {
           state.cartItems.push(action.payload)
-        state.cartItems.find(item => item.id === action.payload.id)!.quantity! += 1
         } else state.cartItems.find(item => item.id === action.payload.id)!.quantity! += 1
     },
     removeFromCart: (state, action: PayloadAction<string>) => {
-        const itemIndex = state.cartItems.findIndex(item => item.name === action.payload)
-        if(itemIndex != -1) {
+        const itemIndex = state.cartItems.findIndex(item => item.id === action.payload)
+        if(itemIndex !== -1) {
           if(state.cartItems.at(itemIndex)?.quantity! > 1) {
             state.cartItems.at(itemIndex)!.quantity -= 1
           }
-          else state.cartItems = state.cartItems.filter(item => item.name !== action.payload)
+          else state.cartItems = state.cartItems.filter(item => item.id !== action.payload)
       }
     },
     toggleVisible: (state, action: PayloadAction<boolean>) => {
@@ -63,11 +62,11 @@ export const selectVisibleFlag = (state: RootState) => {
   return state.cartItems.visible
 }
 
-const getQuantityFilter = (state:RootState, itemName: string) => itemName 
+const getQuantityFilter = (state:RootState, itemID: string) => itemID 
 export const selectQuantity = createSelector (
   [(state: RootState) => state.cartItems.cartItems, getQuantityFilter],
-  (cartItems, itemName) => 
-    cartItems.find(item => item.name === itemName)?.quantity
+  (cartItems, itemID) => 
+    cartItems.find(item => item.id === itemID)?.quantity
 )
 
 export const { addToCart, removeFromCart, toggleVisible } = cartSlice.actions

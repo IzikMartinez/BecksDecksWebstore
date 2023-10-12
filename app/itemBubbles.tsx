@@ -156,7 +156,7 @@ function AddToCartBtn(props: cartProps) {
       id: props.id,
       name: props.name,
       price: props.price,
-      quantity: 0
+      quantity: 1
     }
     setNewCartItem(cartItem)
   }, [props.id, props.name, props.price])

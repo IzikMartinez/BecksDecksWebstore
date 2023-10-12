@@ -13,7 +13,7 @@ const cartStore = useAppSelector(state => state.cartItems)
       <div className='mt-4'>
           {cartStore.cartItems.map((cartItem) => (
               <div key = {cartItem.name}>
-                <CartElement name={cartItem.name} price={cartItem.price} quantity={0} />
+                <CartElement id={cartItem.id} name={cartItem.name} price={cartItem.price} quantity={0} />
               </div>
           ))} 
         </div>
@@ -33,24 +33,25 @@ function CartTotals() {
 }
 
 interface cartItemProps {
+  id: string,
   price: number,
   name: string,
   quantity: number
 }
 
 function CartElement(props: cartItemProps) {
-  const quantity = useAppSelector((state) => selectQuantity(state, props.name))
+  const quantity = useAppSelector((state) => selectQuantity(state, props.id))
   return (
     <div className='bg-white drop-shadow-xl rounded-md w-80 h-12 flex flew-row items-center justify-center top-0 right-0 mb-2'>
       <div className='absolute flex flex-grow left-2 text-black font-sans-fira'>{props.name}: ${props.price * quantity!} </div>
       <div className='absolute flex right-16 z-10 text-black font-sans-fira'> {quantity}</div>
-      <RemoveFromCartBtn name={props.name} />
+      <RemoveFromCartBtn id={props.id} />
     </div>
   )
 }
 
 interface RemoveBtnProps {
-  name: string
+  id: string
 }
 
 function RemoveFromCartBtn(props: RemoveBtnProps) {
@@ -58,7 +59,7 @@ function RemoveFromCartBtn(props: RemoveBtnProps) {
   return(
     <button className='absolute right-0 py-3 px-4 rounded-r-md bg-pink-400 hover:bg-pink-800 cursor-pointer justify-center items-center text-center overflow-visible' onClick={()=>
     {
-      dispatch(removeFromCart(props.name))}
+      dispatch(removeFromCart(props.id))}
     }>
       Re 
     </button>
