@@ -1,11 +1,8 @@
-import { useDispatch } from "react-redux"
 import { store } from "./GlobalRedux/store"
-import { Bubble } from "./itemBubbles"
 import { supabase } from "./utils/supabase"
 // state imports
 import { useAppSelector, useAppDispatch } from './hooks'
-import { addItem, removeAllItems} from './GlobalRedux/itemSlice'
-import { useEffect } from "react"
+import { Products } from "./components/products"
 
 export function EventProduct() {
   const selector = useAppSelector((state) => state.selection)
@@ -25,9 +22,10 @@ type Event = {
 
 function Events() {
     const events: Event[] = [
-        {game: "Magic", name: "Pre-release", date: "10/21", fee: 20, desc:"pretend standard is good at Friday Night Magic"},
-        {game: "FaB", name: "Armory", date: "10/21", fee: 10, desc:"Survive 'Ranger Autumn' with your budget CC deck"},
-        {game: "Pokemon", name: "Casual", date: "10/20", fee: 10, desc:"Play america's favorite physical NFT game"},
+        {game: "magic.png", name: "Pre-release", date: "10/21", fee: 20, desc:"What do you mean I can't use my Commander deck at pre-release?"},
+        {game: "fab.png", name: "Armory", date: "10/21", fee: 10, desc:"Survive 'Ranger Autumn' with your budget CC deck"},
+        {game: "pokemon.png", name: "Casual", date: "10/20", fee: 10, desc:"Play america's favorite physical NFT game"},
+        {game: "yugioh.svg", name: "Weekly", date: "10/23", fee: 10, desc:"Can you believe Pot of Greed is legal online?"},
     ]
     return (
         <div className="fixed flex flex-col justify-center items-center w-full h-full top-24 left-20 ">
@@ -59,8 +57,8 @@ interface Item {
 function StoreEvent(props: eventProps) {
     return(
         <div className="my-4 flex flex-row items-center w-[48rem] h-24 text-black w-128 bg-white rounded-2xl drop-shadow-2xl">
-            <div className="select-none flex text-3xl all-small-caps font-main-display font-bold mr-4 w-1/6 bg-teal-700 text-white h-24 justify-center items-center rounded-l-2xl">
-                {props.game}
+            <div className="select-none flex text-3xl all-small-caps font-main-display font-bold mr-4 p-2 w-1/6 bg-teal-700 text-white h-24 justify-center items-center rounded-l-2xl">
+                <img src={props.game} height={200} width={200} />
             </div>
             <div className="ml-3 w-1/6 text-lg font-iosevka font-semibold flex flex-col select-none "> 
                 {props.name} <br />
@@ -85,69 +83,3 @@ function SignUpButton() {
     )
 }
 
-import { setSidebarSelection  } from "./GlobalRedux/sidebarSlice";
-import styles from "app/styles/home.module.css"
-
-
-function SideBar() {
-  const items = [{id: 0, name: "Flesh and Blood"}, {id: 1, name: "Warhammer"}, {id: 2, name: "Magic"}]
-  const selected = useAppSelector((state) => state.sidebar)
-  return (
-    <span className={styles.sidebar}>
-      <div className='absolute flex flex-col w-36' >
-        <SidebarItem name="magic" extension="png"/>
-        <SidebarItem name="pokemon" extension="png" />
-        <SidebarItem name="fab" extension="png" />
-        <SidebarItem name="yugioh" extension="svg" />
-{/*         <SidebarItem name="Deck Boxes"></SidebarItem>
-        <SidebarItem name="Card Sleeves"></SidebarItem>
-        <SidebarItem name="Dice"></SidebarItem> */}
-      </div>
-    </span>
-)}
-
-interface sidebarItemProps {
-  name: string,
-  extension: string
-}
-function SidebarItem(props: sidebarItemProps) {
-  const dispatch = useDispatch()
-  const file = props.name + "." + props.extension
-  return (
-  <span className={styles.sidebarItem} onClick={()=>dispatch(setSidebarSelection(props.name))}>
-    <img src={file} height={200} width={200} />
-  </span>
-  )
-}
-
-
-
-function Products() {
-    const inventory = useAppSelector(state => state.item)
-    const selectedSidebar = useAppSelector(state => state.sidebar)
-    const dispatch = useDispatch()
-    useEffect(()=> {
-        dispatch(removeAllItems())
-        if(selectedSidebar === "magic")
-            {
-                dispatch(addItem({item_ID: "deas", name: "Chon", price: 40, description: "Karate Bruce Lee Jet Lee Jackie Chan", size: false, visible: true}))
-            }
-        else if(selectedSidebar === "fab")
-            {
-                dispatch(addItem({item_ID: "d3as", name: "Fleibo", price: 90, description: "Play the best game better than magic better than universus better than vanguard and yugioh and luigi", size: false, visible: true}))
-                dispatch(addItem({item_ID: "d2az", name: "Fleibo", price: 93, description: "Play the best game better than magic better than universus better than vanguard and yugioh and luigi", size: false, visible: true}))
-            }
-        /*
-        dispatch(addItem({item_ID: "rde8", name: "Wang", price: 80, description: "Karate", size: false}))
-        */
-    return () => {
-    }}, [dispatch, selectedSidebar])
-    return (
-      <div className='fixed flex flex-wrap flex-grow left-16 top-24 h-screen w-screen items-center justify-center '>
-        <SideBar />
-        {inventory.items.map((item) => (
-            <div key = {item.item_ID}>
-                <Bubble itemID={item.item_ID} itemName={item.name} itemPrice={item.price} description={item.description} imgPath="placeholder.jpg" />
-            </div>
-        ))}
-      </div>)}
