@@ -70,7 +70,7 @@ const inventory = useAppSelector(state => state.item.items)
           <ItemText text={'$'+props.itemPrice.toString()}></ItemText>
         </div>
         <div>
-          <AddToCartBtn name={props.itemName} price={props.itemPrice}/>
+          <AddToCartBtn id={props.itemID} name={props.itemName} price={props.itemPrice}/>
         </div>
       </div>
   )
@@ -135,12 +135,14 @@ function ItemText(props: textProps) {
 }
 
 interface cartProps {
+  id: string,
   name: string,
   price: number,
 }
 
 
 interface cartItem {
+  id: string,
   name: string,
   price: number,
   quantity: number
@@ -151,12 +153,13 @@ function AddToCartBtn(props: cartProps) {
   const [newCartItem, setNewCartItem] = useState<cartItem>()
   useEffect(() => {
     const cartItem: cartItem = {
+      id: props.id,
       name: props.name,
       price: props.price,
       quantity: 0
     }
     setNewCartItem(cartItem)
-  }, [props.name, props.price])
+  }, [props.id, props.name, props.price])
   const cart = useAppSelector(state => state.cartItems)
   return (
     <span className={bubblestyle.addToCart}  onClick={() => dispatch(addToCart(newCartItem!))}>

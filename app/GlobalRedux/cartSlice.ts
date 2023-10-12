@@ -3,6 +3,7 @@ import { RootState } from "./store";
 import { Root } from "postcss";
 
 interface cartItem {
+    id: string,
     name: string,
     price: number,
     quantity: number
@@ -23,11 +24,11 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, action: PayloadAction<cartItem>) => {
-        const itemIndex = state.cartItems.findIndex(item => item.name === action.payload.name)
+        const itemIndex = state.cartItems.findIndex(item => item.id === action.payload.id)
         if(itemIndex === -1) {
           state.cartItems.push(action.payload)
-        state.cartItems.find(item => item.name === action.payload.name)!.quantity! += 1
-        } else state.cartItems.find(item => item.name === action.payload.name)!.quantity! += 1
+        state.cartItems.find(item => item.id === action.payload.id)!.quantity! += 1
+        } else state.cartItems.find(item => item.id === action.payload.id)!.quantity! += 1
     },
     removeFromCart: (state, action: PayloadAction<string>) => {
         const itemIndex = state.cartItems.findIndex(item => item.name === action.payload)

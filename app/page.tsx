@@ -14,7 +14,6 @@ export default function Home() {
     </div>
     <div className='fixed w-screen h-screen top-24'>
       <div>
-        <SideBar />
       </div>
       <EventProduct />
     </div>
@@ -23,39 +22,11 @@ export default function Home() {
 )}
 
 
-import { setSidebarSelection  } from "./GlobalRedux/sidebarSlice";
-import { useAppDispatch, useAppSelector } from "./hooks";
+import { useAppSelector } from "./hooks";
 import Cart from "./cart";
 import { selectVisibleFlag } from "./GlobalRedux/cartSlice";
 
-function SideBar() {
-  const items = [{id: 0, name: "Flesh and Blood"}, {id: 1, name: "Warhammer"}, {id: 2, name: "Magic"}]
-  const selected = useAppSelector((state) => state.sidebar)
-  return (
-    <span className={styles.sidebar}>
-      <div className='absolute flex flex-col flex-grow justify-center items-center w-36 left-0' >
-        <SidebarItem name="Magic"></SidebarItem>
-        <SidebarItem name="Pokemon"></SidebarItem>
-        <SidebarItem name="Flesh and Blood"></SidebarItem>
-        <SidebarItem name="Deck Boxes"></SidebarItem>
-        <SidebarItem name="Card Sleeves"></SidebarItem>
-        <SidebarItem name="Dice"></SidebarItem>
-        <SidebarItem name={selected}/>
-      </div>
-    </span>
-)}
 
-interface sidebarItemProps {
-  name: string
-}
-function SidebarItem(props: sidebarItemProps) {
-  const dispatch = useDispatch()
-  return (
-  <span className={styles.sidebarItem} onClick={()=>dispatch(setSidebarSelection(props.name))}>
-    {props.name}
-  </span>
-  )
-}
 
 
 
