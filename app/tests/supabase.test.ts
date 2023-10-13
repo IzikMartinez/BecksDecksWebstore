@@ -1,13 +1,15 @@
-import { log } from "console";
 import { supabase } from "../utils/supabase";
-import {describe, expect, test} from '@jest/globals';
+import {describe, it, expect, test} from '@jest/globals';
 
-test('test if Supabase is working', async () => {
+describe('Supabase test SELECT', () => {
 
-    const { data: Events, error } = await supabase
-    .from('Events')
-    .select('*') 
+    it('should return a list of products', async ()=> {
 
-    console.log(Events)
+    const { data: PRODUCTS, error } = await supabase
+    .from('PRODUCTS')
+    .select('id') 
 
-})
+    console.log(PRODUCTS)
+    expect(PRODUCTS?.length).toBeGreaterThan(0)
+
+}) })
