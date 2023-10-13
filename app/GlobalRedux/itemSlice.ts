@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "./store";
+import { supabase } from "../utils/supabase";
 
 interface Item {
     item_ID: string,
@@ -13,10 +14,6 @@ interface Item {
 
 interface InventoryState {
     items: Item[]
-}
-
-const initialState: InventoryState = {
-    items: []
 }
 
 interface MyAction {
@@ -36,6 +33,10 @@ const getItemByID = (state = initialState, action: MyAction): Item => {
     }
 }
 
+export const getInventory = (state: RootState) => {
+    return state.
+}
+
 const toggleNonactiveOff = (state = initialState, action: MyAction): void => {
     const activeIndex = action.payload
     const nonactiveItems = state.items.filter(item => item.item_ID !== activeIndex)
@@ -51,14 +52,25 @@ const toggleNonactiveOff = (state = initialState, action: MyAction): void => {
     }
 }
 
-/*
-export const toggleSize = (itemID: string): PayloadAction<string> => {
-    return{
-        type: 'TOGGLE_SIZE',
-        payload: itemID
-    }
+export type Product = {
+    id: string,
+    name: string | null,
+    price: number | null,
+    desc: string | null,
+    stock: number | null
 }
-*/
+
+export const fetchCategory = async (productCategory: string) => {
+    const { data: PRODUCTS, error } = await supabase
+    .from('PRODUCTS').select("*").eq("category", productCategory)
+    if(error) console.log("Supabase Error: ", error);
+    return PRODUCTS 
+}
+
+const initialState: InventoryState = {
+    items: []
+}
+
 
 export const itemSlice = createSlice({
     name: 'inventory',
