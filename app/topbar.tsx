@@ -1,14 +1,10 @@
 import styles from "app/styles/home.module.css"
-import { AppDispatch, RootState } from "./GlobalRedux/store"
+import { AppDispatch } from "./GlobalRedux/store"
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux"
 
 import Image from 'next/image'
 import { useAppSelector } from "./hooks"
-import { useRouter } from "next/router"
-import Link from "next/link"
 import { setSelection } from "./GlobalRedux/selectionSlice"
-import { useEffect, useRef, useState } from "react"
-import Cart from "./cart"
 import {selectTotalCartQuantity, selectVisibleFlag, toggleVisible } from "./GlobalRedux/cartSlice"
 
 interface IconProps {

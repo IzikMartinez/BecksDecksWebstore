@@ -2,12 +2,12 @@ import { store } from "./GlobalRedux/store"
 import { supabase } from "./utils/supabase"
 // state imports
 import { useAppSelector, useAppDispatch } from './hooks'
-import { Products } from "./components/products"
+import { ProductList } from "./components/products"
 
 export function EventProduct() {
   const selector = useAppSelector((state) => state.selection)
     if( store.getState().selection === "products") {
-        return <Products />
+        return <ProductList />
     }
     else return <Events />
 }

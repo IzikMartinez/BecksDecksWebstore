@@ -30,10 +30,7 @@
     "typescript": "5.0.4"
   },
   "devDependencies": {
-    "@babel/core": "^7.22.5",
-    "@babel/preset-env": "^7.23.2",
-    "@babel/preset-react": "^7.22.15",
-    "@babel/preset-typescript": "^7.22.5",
+
     "@jest/globals": "^29.5.0",
     "@tailwindcss/typography": "^0.5.9",
     "babel-jest": "^29.7.0",
