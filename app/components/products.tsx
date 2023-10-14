@@ -46,14 +46,17 @@ export function ProductList() {
     const dispatch = useAppDispatch()
     const selectedSidebar = useAppSelector(state => state.sidebar)
     const [filteredProducts, setFilteredProducts] = useState<ExpandedProduct[]>()
-    const { data: PRODUCTS } = useSWR<ProductType[]>('supadata', FetchProducts)
+    const { data: PRODUCTS, error, isLoading } = useSWR<ProductType[]>('supadata', FetchProducts)
     const allProducts = useAppSelector(selectAllProducts)
     useEffect(()=> {
         dispatch(removeAllproducts())
-        dispatch(ConvertToExpandedProducts(PRODUCTS!))
-        setFilteredProducts(allProducts.filter(product => product.product_category === selectedSidebar))
-}, [selectedSidebar])
+        if(!isLoading) {
+          dispatch(ConvertToExpandedProducts(PRODUCTS!))
+          setFilteredProducts(allProducts.filter(product => product.product_category === selectedSidebar))
+        }
+}, [selectedSidebar, dispatch])
     return (
+      isLoading ? <div className="fixed flex justify-center items-center text-black">Loading...</div> :
       <div className='fixed flex flex-wrap flex-grow left-16 top-24 h-screen w-screen items-center justify-center '>
         <SideBar />
         {filteredProducts?.map((item) => (
@@ -61,4 +64,5 @@ export function ProductList() {
                 <Bubble itemID={item.product_id} itemName={item.product_name} itemPrice={item.product_price!} description={item.product_desc!} imgPath="placeholder.jpg" /> 
             </div>
         ))}
-      </div>)}
+      </div> 
+      )}
