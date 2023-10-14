@@ -75,3 +75,5 @@ export interface Database {
     }
   }
 }
+
+export type ProductType = Database['public']['Tables']['PRODUCTS']['Row']

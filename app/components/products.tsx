@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import { setSidebarSelection  } from "../GlobalRedux/sidebarSlice";
 import { useAppSelector, useAppDispatch } from "../hooks";
 import styles from "app/styles/home.module.css"
-import { removeAllItems, addItem, fetchCategory, Product } from "../GlobalRedux/itemSlice";
 import { Bubble } from "./itemBubbles";
-import { supabase } from "../utils/supabase";
-import { Database } from "../types/supabase";
+import { FetchProducts, supabase } from "../utils/supabase";
+import { Database, ProductType } from "../types/supabase";
+import { ConvertToExpandedProducts, ExpandedProduct, removeAllproducts, selectAllProducts } from "../GlobalRedux/productSlice";
+import useSWR from "swr";
 
 
 function SideBar() {
@@ -42,33 +43,22 @@ function SidebarItem(props: sidebarItemProps) {
 
 
 export function ProductList() {
-    const selectedSidebar = useAppSelector(state => state.sidebar)
     const dispatch = useAppDispatch()
-    const [items, setItems] = useState<Database['public']['Tables']['PRODUCTS']['Row'][]>([]);
+    const selectedSidebar = useAppSelector(state => state.sidebar)
+    const [filteredProducts, setFilteredProducts] = useState<ExpandedProduct[]>()
+    const { data: PRODUCTS } = useSWR<ProductType[]>('supadata', FetchProducts)
+    const allProducts = useAppSelector(selectAllProducts)
     useEffect(()=> {
-        dispatch(removeAllItems())
-        const fetchSupabase = async () => {
-          const { data: PRODUCTS, error } = await supabase
-          .from('PRODUCTS')
-          .select('*')
-          return PRODUCTS
-        }
-        fetchSupabase().then(data=>{
-          setItems(data!)
-        })
-       
-        /*
-        dispatch(addItem({item_ID: "rde8", name: "Wang", price: 80, description: "Karate", size: false}))
-        */
-    return () => {
-    }}, [dispatch, selectedSidebar])
+        dispatch(removeAllproducts())
+        dispatch(ConvertToExpandedProducts(PRODUCTS!))
+        setFilteredProducts(allProducts.filter(product => product.product_category === selectedSidebar))
+}, [selectedSidebar])
     return (
       <div className='fixed flex flex-wrap flex-grow left-16 top-24 h-screen w-screen items-center justify-center '>
         <SideBar />
-        {items.map((item) => (
-            <div key = {item.id}>
-                {/*<Bubble itemID={item.id} itemName={item.name} itemPrice={item.price!} description={item.desc!} imgPath="placeholder.jpg" /> */}
-                <Bubble itemID={"adhr"} itemName={"FLEIBO"} itemPrice={102} description={"Here's hoping"} imgPath="placeholder.jpg" />
+        {filteredProducts?.map((item) => (
+            <div key = {item.product_id}>
+                <Bubble itemID={item.product_id} itemName={item.product_name} itemPrice={item.product_price!} description={item.product_desc!} imgPath="placeholder.jpg" /> 
             </div>
         ))}
       </div>)}

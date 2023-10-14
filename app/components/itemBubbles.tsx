@@ -4,7 +4,7 @@ import bubblestyle from "app/styles/bubblestyle.module.css"
 import Image from 'next/image'
 
 import { useAppSelector, useAppDispatch } from '../hooks'
-import { toggleSize } from '../GlobalRedux/itemSlice'
+import { toggleSize } from '../GlobalRedux/productSlice'
 import { useDispatch } from 'react-redux'
 import { addToCart } from '../GlobalRedux/cartSlice'
 
@@ -20,10 +20,10 @@ interface BubbleProps {
 
 
 export function Bubble(props: BubbleProps) {
-const inventory = useAppSelector(state => state.item.items)
+const inventory = useAppSelector(state => state.productStore.products)
 return (
   <div>
-  { inventory.find((item) => item.item_ID === props.itemID)?.visible ? 
+  { inventory.find((item) => item.product_id === props.itemID)?.visible ? 
     <VisibleBubble itemID={props.itemID} itemName={props.itemName} itemPrice={props.itemPrice} description={props.description}></VisibleBubble> :
     <p></p>
   }
@@ -32,10 +32,10 @@ return (
 
 
 function VisibleBubble(props: BubbleProps) {
-const inventory = useAppSelector(state => state.item.items)
+const inventory = useAppSelector(state => state.productStore.products)
 return (
   <div>
-  { inventory.find((item) => item.item_ID === props.itemID)?.size ? 
+  { inventory.find((item) => item.product_id === props.itemID)?.size ? 
   <BigBubble itemID={props.itemID} itemName={props.itemName} itemPrice={props.itemPrice} description={props.description}/>  :
   <SmallBubble itemID={props.itemID} itemName={props.itemName} itemPrice={props.itemPrice} description={props.description} ></SmallBubble>  
   }
@@ -45,7 +45,7 @@ return (
 
 function SmallBubble(props: BubbleProps){
 const dispatch = useDispatch()
-const inventory = useAppSelector(state => state.item.items)
+const inventory = useAppSelector(state => state.productStore.products )
   return (
       <div className='flex flex-col items-center justify-center'>
         <div className={bubblestyle.bubbleBody} onClick={()=>dispatch(toggleSize(props.itemID))}>

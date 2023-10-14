@@ -2,14 +2,14 @@
 
 import { configureStore } from "@reduxjs/toolkit";
 import selectionReducer from "./selectionSlice"
-import itemReducer from "./itemSlice";
+import productItemReducer from "./productSlice";
 import sidebarReducer from "./sidebarSlice"
 import cartReducer from "./cartSlice"
 
 export const store = configureStore({
     reducer: {
         selection: selectionReducer,
-        item: itemReducer,
+        productStore: productItemReducer,
         sidebar: sidebarReducer,
         cartItems: cartReducer,
     },
