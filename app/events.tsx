@@ -1,8 +1,9 @@
 import { store } from "./GlobalRedux/store"
-import { supabase } from "./utils/supabase"
+import { FetchEvents, supabase } from "./utils/supabase"
 // state imports
 import { useAppSelector, useAppDispatch } from './hooks'
 import { ProductList } from "./components/products"
+import useSWR from "swr"
 
 export function EventProduct() {
   const selector = useAppSelector((state) => state.selection)
@@ -27,11 +28,13 @@ function Events() {
         {game: "pokemon.png", name: "Casual", date: "10/20", fee: 10, desc:"Play america's favorite physical NFT game"},
         {game: "yugioh.svg", name: "Weekly", date: "10/23", fee: 10, desc:"Can you believe Pot of Greed is legal online?"},
     ]
+    const {data: EVENTS, error, isLoading} = useSWR('supaevents', FetchEvents)
     return (
+      isLoading ? <div className="fixed flex justify-center items-center text-black">Loading...</div> :
         <div className="fixed flex flex-col justify-center items-center w-full h-full top-24 left-20 ">
-            {events.map((storeEvent)=>(
-                <div key={storeEvent.game}>
-                    <StoreEvent game={storeEvent.game} name={storeEvent.name} date={storeEvent.date} fee={storeEvent.fee} desc={storeEvent.desc}></StoreEvent>
+            {EVENTS!.map((storeEvent)=>(
+                <div key={storeEvent.event_id}>
+                    <StoreEvent game={storeEvent.event_category} name={storeEvent.event_name} date={storeEvent.event_time} fee={storeEvent.event_fee!} desc={storeEvent.event_description!}></StoreEvent>
                 </div>
             ))}
         </div>
@@ -58,7 +61,7 @@ function StoreEvent(props: eventProps) {
     return(
         <div className="my-4 flex flex-row items-center w-[48rem] h-24 text-black w-128 bg-white rounded-2xl drop-shadow-2xl">
             <div className={"select-none flex text-3xl all-small-caps font-main-display font-bold mr-4 p-2 w-1/6 ${props.game ? 'bg-teal-700' : 'bg-red-800'} text-white h-24 justify-center items-center rounded-l-2xl"}>
-                <img src={props.game} height={200} width={200} />
+                <img src={props.game + ".png"} height={200} width={200} />
             </div>
             <div className="ml-3 w-1/6 text-lg font-iosevka font-semibold flex flex-col select-none "> 
                 {props.name} <br />

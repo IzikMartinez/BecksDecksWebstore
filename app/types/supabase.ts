@@ -9,13 +9,14 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
-      Events: {
+      EVENTS: {
         Row: {
           event_description: string | null
           event_fee: number | null
           event_id: number
           event_name: string
           event_time: string
+          event_category: string
         }
         Insert: {
           event_description?: string | null
@@ -23,6 +24,7 @@ export interface Database {
           event_id?: number
           event_name: string
           event_time: string
+          event_category: string
         }
         Update: {
           event_description?: string | null
@@ -30,6 +32,7 @@ export interface Database {
           event_id?: number
           event_name?: string
           event_time?: string
+          event_category: string
         }
         Relationships: []
       }
@@ -77,3 +80,4 @@ export interface Database {
 }
 
 export type ProductType = Database['public']['Tables']['PRODUCTS']['Row']
+export type EventType = Database['public']['Tables']['EVENTS']['Row']

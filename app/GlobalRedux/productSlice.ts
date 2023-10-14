@@ -70,8 +70,7 @@ export const productSlice = createSlice({
     reducers: {
         ConvertToExpandedProducts: (state, data: PayloadAction<ProductType[]>) => {
                 let expandedProducts: ExpandedProduct[] = []
-                data.payload
-                    .forEach(item =>  expandedProducts.push({
+                data.payload.forEach(item =>  expandedProducts.push({
                         product_category: item.category,
                         product_desc: item.desc,
                         product_id: item.id,
