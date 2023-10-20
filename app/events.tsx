@@ -4,6 +4,7 @@ import { FetchEvents, supabase } from "./utils/supabase"
 import { useAppSelector, useAppDispatch } from './hooks'
 import { ProductList } from "./components/products"
 import useSWR from "swr"
+import Signup from "./components/fragments/signup"
 
 export function EventProduct() {
   const selector = useAppSelector((state) => state.selection)
@@ -59,11 +60,12 @@ interface Item {
 
 function StoreEvent(props: eventProps) {
     return(
-        <div className="my-4 flex flex-row items-center w-[48rem] h-24 text-black w-128 bg-white rounded-2xl drop-shadow-2xl">
+        <div className="w-[48rem] h-36 flex flex-col items-center justify-center my-5 ">
+        <div className="my-0 flex flex-row items-center w-[48rem] h-24 text-black w-128 bg-white rounded-2xl drop-shadow-2xl">
             <div className={"select-none flex text-3xl all-small-caps font-main-display font-bold mr-4 p-2 w-1/6 ${props.game ? 'bg-teal-700' : 'bg-red-800'} text-white h-24 justify-center items-center rounded-l-2xl"}>
                 <img src={props.game + ".png"} height={200} width={200} />
             </div>
-            <div className="ml-3 w-1/6 text-lg font-iosevka font-semibold flex flex-col select-none "> 
+            <div className="ml-2 mr-3 w-2/7 text-lg font-iosevka font-semibold flex flex-col select-none "> 
                 {props.name} <br />
                 Date: {props.date} <br />
                 Fee: ${props.fee}
@@ -74,6 +76,10 @@ function StoreEvent(props: eventProps) {
             </div>
             <div className="h-24 w-1/12 bg-teal-400 hover:bg-orange-500 rounded-r-2xl right-0 absolute  flex justify-center items-center font-semibold">
                 <SignUpButton />
+            </div>
+        </div>
+            <div className="bg-white h-14 relative flex items-center rounded-b-lg">
+                <Signup name={props.game}></Signup>
             </div>
         </div>
 )}

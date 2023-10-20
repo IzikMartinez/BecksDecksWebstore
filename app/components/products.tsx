@@ -50,16 +50,16 @@ export function ProductList() {
     const allProducts = useAppSelector(selectAllProducts)
     useEffect(()=> {
         dispatch(removeAllproducts())
+        if(error) console.error("FAILED TO FETCH: ", error)
         if(!isLoading) {
           dispatch(ConvertToExpandedProducts(PRODUCTS!))
-          setFilteredProducts(allProducts.filter(product => product.product_category === selectedSidebar))
         }
 }, [selectedSidebar, dispatch])
     return (
       isLoading ? <div className="fixed flex justify-center items-center text-black">Loading...</div> :
       <div className='fixed flex flex-wrap flex-grow left-16 top-24 h-screen w-screen items-center justify-center '>
         <SideBar />
-        {filteredProducts?.map((item) => (
+        {allProducts.filter(product => product.product_category === selectedSidebar)?.map((item) => (
             <div key = {item.product_id}>
                 <Bubble itemID={item.product_id} itemName={item.product_name} itemPrice={item.product_price!} description={item.product_desc!} imgPath="placeholder.jpg" /> 
             </div>
