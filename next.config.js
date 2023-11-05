@@ -1,8 +1,10 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+const withTM = require('next-transpile-modules')(['@square/web-sdk', 'react-square-web-payments-sdk'])
+
+module.exports = ({
+  reactStrictMode: true,
   experimental: {
     appDir: true,
-  },
-}
-
-module.exports = nextConfig
+    esmExternals: 'loose'
+  }
+})

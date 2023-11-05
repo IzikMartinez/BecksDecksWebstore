@@ -3,10 +3,13 @@ import { useAppSelector } from './hooks';
 import Layout from './layout'
 import { useDispatch } from 'react-redux';
 import { removeFromCart, selectQuantity, selectTotalCartPrice} from './GlobalRedux/cartSlice';
+import Link from 'next/link';
 
 
 
 function Cart() {
+
+const total = useAppSelector(selectTotalCartPrice)
 const cartStore = useAppSelector(state => state.cartItems)  
   return (
     <div className='fixed flex flex-col justify-center items-center bg-gray-300 h-2/3 w-1/4 right-0 mr-8 top-16 pt-12 shadow-xl rounded-lg'>
@@ -19,6 +22,7 @@ const cartStore = useAppSelector(state => state.cartItems)
         </div>
       <span className='flex-grow'></span>
       <CartTotals />
+          <ToCheckout total={total} />
     </div>
   )
 }
@@ -29,7 +33,17 @@ function CartTotals() {
     <div className='mb-4 text-black font-sans-fira'>
       Cart: ${total} <br /> Taxes: ${(total*0.0825).toFixed(2)} <br /> Total: ${(total*1.0825).toFixed(2)} </div>
   )
-  
+}
+
+interface checkoutProps {
+  total: number
+}
+function ToCheckout(props: checkoutProps) {
+  return(
+        props.total > 0 ?
+      <Link href="/checkout" className='bg-blue-800 py-2 px-4 rounded-lg mb-2 text-xl font-semibold '>Check Out</Link>
+      : <span /> 
+  )
 }
 
 interface cartItemProps {
