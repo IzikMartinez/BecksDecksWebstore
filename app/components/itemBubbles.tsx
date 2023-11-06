@@ -98,10 +98,10 @@ interface imgProps {
 const ItemImage: React.FC<imgProps> = ({ imgPath, imgAlt }) => {
   return (
         <Image 
-          className={'w-66 h-120 select-none text-center items-center justify-center rounded-t-xl scale-110'}
+          className={'lg:w-66 w-52 h-120 select-none text-center items-center justify-center rounded-t-xl scale-110'}
           src={imgPath} 
           alt={imgAlt}
-          width={736}
+          width={840}
           height={552}
         />
   );
@@ -113,7 +113,7 @@ interface textProps {
 
 function ItemText(props: textProps) {
   return (
-        <div className='relative flex w-66 select-none h-7 -bottom-2 bg-blue-400 text-white items-center justify-center text-xl font-texgyre-adventor small-caps font-semibold'>
+        <div className='relative flex lg:w-66 w-48 select-none h-7 lg:-bottom-2 bg-blue-400 text-white items-center justify-center lg:text-xl font-texgyre-adventor small-caps font-semibold'>
             {props.text}  <br />
         </div>
   )

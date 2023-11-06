@@ -51,7 +51,7 @@ function BarIcon(props: IconProps) {
   return (
     <div className="fixed flex w-1/4 h-24 top-0 right-0 justify-center">
       <div>
-        <div className="w-20 h-12 mt-8 flex items-center justify-center cursor-pointer" onClick={()=> dispatch(toggleVisible(!cartVisible))}>
+        <div className="lg:w-20 w-20 h-12 lg:h-12 lg:mt-8 mt-4 flex items-center justify-center cursor-pointer" onClick={()=> dispatch(toggleVisible(!cartVisible))}>
           <Image src={props.path} alt='hold' width={props.width} height={props.height} />
           {cartVisible ? <span></span>:  
           <CartQuantity />

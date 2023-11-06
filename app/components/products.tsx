@@ -13,7 +13,7 @@ function SideBar() {
     const selectedSidebar = useAppSelector(state => state.sidebar)
   return (
     <span className={styles.sidebar}>
-      <div className='absolute flex flex-col w-36' >
+      <div className='fixed flex items-center lg:flex-col lg:w-36 lg:h-screen h-16 left-0 w-screen' >
         <SidebarItem name="magic" extension="png"/>
         <SidebarItem name="pokemon" extension="png" />
         <SidebarItem name="fab" extension="png" />
@@ -21,7 +21,6 @@ function SideBar() {
 {/*         <SidebarItem name="Deck Boxes"></SidebarItem>
         <SidebarItem name="Card Sleeves"></SidebarItem>
         <SidebarItem name="Dice"></SidebarItem> */}
-        <SidebarItem name={selectedSidebar} extension="png"></SidebarItem>
       </div>
     </span>
 )}
@@ -34,7 +33,7 @@ function SidebarItem(props: sidebarItemProps) {
   const dispatch = useAppDispatch()
   const file = props.name + "." + props.extension
   return (
-  <span className='flex items-center text-center justify-center mb-6 mx-auto cursor-pointer grayscale hover:grayscale-0' onClick={()=>dispatch(setSidebarSelection(props.name))}>
+  <span className='flex items-center text-center justify-center lg:mb-6 lg:mx-auto lg:scale-100 scale-75 mb-20 cursor-pointer grayscale hover:grayscale-0' onClick={()=>dispatch(setSidebarSelection(props.name))}>
     <img src={file} height={200} width={200} />
   </span>
   )
@@ -54,10 +53,10 @@ export function ProductList() {
         if(!isLoading) {
           dispatch(ConvertToExpandedProducts(PRODUCTS!))
         }
-}, [selectedSidebar, dispatch])
+    }, [selectedSidebar, dispatch])
     return (
       isLoading ? <div className="fixed flex justify-center items-center text-black">Loading...</div> :
-      <div className='fixed flex flex-wrap flex-grow left-16 top-24 h-screen w-screen items-center justify-center '>
+      <div className='fixed flex flex-wrap lg:left-16 lg:top-24 left-0 top-16 h-screen w-screen items-center justify-center'>
         <SideBar />
         {allProducts.filter(product => product.product_category === selectedSidebar)?.map((item) => (
             <div key = {item.product_id}>

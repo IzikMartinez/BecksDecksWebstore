@@ -2,12 +2,12 @@
 
 .bubble-small { 
     @apply 
-    flex flex-col flex-grow w-64 h-32 items-center justify-center bg-wave-blue-200 rounded-t-xl
+    flex flex-col flex-grow lg:w-64 w-36 h-32 items-center justify-center bg-wave-blue-200 rounded-t-xl
 }
 
 .bubbleBody {
     @apply
-    relative flex flex-col flex-grow w-60 mx-10 -my-8 h-72 items-center justify-center rounded-t-xl  transform transition-all duration-300 ease-linear
+    relative flex flex-col flex-grow lg:w-60 w-44 mx-10 -my-8 h-72 items-center justify-center rounded-t-xl  transform transition-all duration-300 ease-linear
 }
 
 .bubble-big { 
@@ -20,6 +20,6 @@
 }
 
 .addToCart {@apply
-    relative flex w-66 h-12 select-none items-center justify-center -bottom-3 text-gray-600 bg-pastel-coral rounded-b-xl  shadow-gray-600 shadow-lg text-xl font-bold hover:bg-pastel-yellow
+    relative flex lg:w-66 w-48 h-12 select-none items-center justify-center bottom-6 lg:-bottom-3 text-gray-600 bg-pastel-coral rounded-b-xl  shadow-gray-600 shadow-lg text-xl font-bold hover:bg-pastel-yellow
     font-sans-fira
 }

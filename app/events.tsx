@@ -32,7 +32,7 @@ function Events() {
     const {data: EVENTS, error, isLoading} = useSWR('supaevents', FetchEvents)
     return (
       isLoading ? <div className="fixed flex justify-center items-center text-black">Loading...</div> :
-        <div className="fixed flex flex-col justify-center items-center w-full h-full top-24 left-20 ">
+        <div className="fixed flex flex-col justify-center items-center w-full h-full lg:top-24 lg:left-20 left-0 top-16">
             {EVENTS!.map((storeEvent)=>(
                 <div key={storeEvent.event_id}>
                     <StoreEvent game={storeEvent.event_category} name={storeEvent.event_name} date={storeEvent.event_time} fee={storeEvent.event_fee!} desc={storeEvent.event_description!}></StoreEvent>
