@@ -1,4 +1,5 @@
 import { Providers } from "../GlobalRedux/provider"
+import { Splash } from "../topbar"
 
 export default function CheckoutLayout({
   children,
@@ -6,12 +7,10 @@ export default function CheckoutLayout({
   children: React.ReactNode
 }) {
   return(
-    <html lang="en">
       <Providers>
         {
           children
         }
       </Providers>
-    </html>
   )
 }
