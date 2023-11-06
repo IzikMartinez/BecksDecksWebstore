@@ -12,7 +12,7 @@ export default function Home() {
     <div>
       <Splash></Splash>
     </div>
-    <div className='fixed w-screen h-screen top-24'>
+    <div className='fixed w-screen h-screen lg:top-24 top-16'>
       <div>
       </div>
       <EventProduct />
