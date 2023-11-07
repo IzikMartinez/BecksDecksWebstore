@@ -8,13 +8,11 @@ import { useDispatch} from "react-redux";
 export default function Home() {
   const cartToggle = useAppSelector(selectVisibleFlag)
   return (
-  <body className={styles.home}>
+  <body>
     <div>
       <Splash></Splash>
     </div>
     <div className='fixed w-screen h-screen lg:top-24 top-16'>
-      <div>
-      </div>
       <EventProduct />
     </div>
     { cartToggle ? <Cart/> : <span></span> }

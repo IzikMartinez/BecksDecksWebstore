@@ -98,7 +98,7 @@ interface imgProps {
 const ItemImage: React.FC<imgProps> = ({ imgPath, imgAlt }) => {
   return (
         <Image 
-          className={'lg:w-66 w-52 h-120 select-none text-center items-center justify-center rounded-t-xl scale-110'}
+          className={'lg:w-66 w-52 h-120 select-none text-center items-center justify-center rounded-t-xl scale-[109%]'}
           src={imgPath} 
           alt={imgAlt}
           width={840}
