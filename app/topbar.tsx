@@ -4,7 +4,7 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux"
 
 import Image from 'next/image'
 import { useAppSelector } from "./hooks"
-import { setSelection } from "./GlobalRedux/selectionSlice"
+import { getCategorySelection, setCategorySelection } from "./GlobalRedux/selectionSlice"
 import {selectTotalCartQuantity, selectVisibleFlag, toggleVisible } from "./GlobalRedux/cartSlice"
 
 interface IconProps {
@@ -36,10 +36,15 @@ export function Splash() {
 }
 
 function ProdEvent(props: ProdEventProps) {
-    const dispatch = useAppDispatch()
+    const dispatch = useDispatch()
+    const selectedCategory = useAppSelector(getCategorySelection)
+    const handleClick = () => { dispatch(setCategorySelection(props.name))   }
     return(
-        <div className="flex relative mx-4 p-3 h-16 w-24 text-3xl font-iosevka font-bold small-caps hover:text-blue-400
-             cursor-pointer select-none self-center text-center justify-center items-center" onClick={() => {dispatch(setSelection(props.name))}}>
+        <div className={`flex relative mx-4 p-3 lg:h-14 h-12 w-28 text-3xl font-iosevka font-bold small-caps 
+            hover:bg-purple-600 hover:rounded-lg hover:text-white hover:ring hover:ring-purple-300
+             cursor-pointer select-none self-center text-center justify-center items-center 
+             ${ selectedCategory === props.name ? 'bg-purple-700 rounded-lg text-white' : 'rounded-none bg-none text-black' } ` }
+             onClick={handleClick}>
             {props.name}
         </div>
     )

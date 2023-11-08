@@ -2,18 +2,25 @@
 
 import { createSlice } from "@reduxjs/toolkit";
 import { PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "./store";
 
-const initialState: string = "products"
+export const getCategorySelection = (state: RootState) => {
+    return state.selection.category
+}
+interface initialCategoryState {
+  category: string
+}
 
+const initialState: initialCategoryState = { category: "products" }
 const selectionSlice = createSlice({
     name: "selection",
     initialState,
     reducers: {
-        setSelection: (state, action: PayloadAction<string>) => {
-            return action.payload
-        }
+        setCategorySelection: (state, action: PayloadAction<string>) => {
+            state.category=action.payload
+        },
     }
-})
+  })
 
-export const { setSelection } = selectionSlice.actions;
+export const { setCategorySelection} = selectionSlice.actions;
 export default selectionSlice.reducer;

@@ -5,10 +5,11 @@ import { useAppSelector, useAppDispatch } from './hooks'
 import { ProductList } from "./components/products"
 import useSWR from "swr"
 import Signup from "./components/fragments/signup"
+import { getCategorySelection } from "./GlobalRedux/selectionSlice"
 
 export function EventProduct() {
-  const selector = useAppSelector((state) => state.selection)
-    if( store.getState().selection === "products") {
+  const selectedCategory = useAppSelector(getCategorySelection)
+    if( selectedCategory === "products") {
         return <ProductList />
     }
     else return <Events />
