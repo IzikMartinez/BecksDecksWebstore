@@ -13,10 +13,10 @@ function SideBar() {
   return (
     <span className={styles.sidebar}>
       <div className='fixed flex items-center lg:flex-col lg:w-36 lg:h-screen h-16 lg:left-8 left-0 w-screen' >
-        <SidebarItem name="magic" extension="png" focused={false}/>
-        <SidebarItem name="pokemon" extension="png" focused={false} />
-        <SidebarItem name="fab" extension="png" focused={false} />
-        <SidebarItem name="yugioh" extension="svg" focused={false} />
+        <SidebarItem name="magic" extension="png"/>
+        <SidebarItem name="pokemon" extension="png"/>
+        <SidebarItem name="fab" extension="png"/>
+        <SidebarItem name="yugioh" extension="svg"/>
 {/*         <SidebarItem name="Deck Boxes"></SidebarItem>
         <SidebarItem name="Card Sleeves"></SidebarItem>
         <SidebarItem name="Dice"></SidebarItem> */}
@@ -70,4 +70,4 @@ export function ProductList() {
             </div>
         ))}
       </div> 
-      )}}
+)}}
