@@ -38,6 +38,11 @@ export const cartSlice = createSlice({
           else state.cartItems = state.cartItems.filter(item => item.id !== action.payload)
       }
     },
+    setQuantity: (state, action: PayloadAction<{ itemID: string, quantity: number }>) => {
+      const { itemID, quantity } = action.payload
+      const activeItem = state.cartItems.find(item => item.id === itemID)
+      if(activeItem) activeItem.quantity = quantity
+    },
     toggleVisible: (state, action: PayloadAction<boolean>) => {
       console.log("Cart state ", state.visible);
       state.visible = action.payload
@@ -69,5 +74,6 @@ export const selectQuantity = createSelector (
     cartItems.find(item => item.id === itemID)?.quantity
 )
 
-export const { addToCart, removeFromCart, toggleVisible } = cartSlice.actions
+
+export const { addToCart, removeFromCart, toggleVisible, setQuantity } = cartSlice.actions
 export default cartSlice.reducer

@@ -1,8 +1,8 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useAppSelector } from './hooks';
 import Layout from './layout'
 import { useDispatch } from 'react-redux';
-import { removeFromCart, selectQuantity, selectTotalCartPrice} from './GlobalRedux/cartSlice';
+import { removeFromCart, selectQuantity, selectTotalCartPrice, setQuantity} from './GlobalRedux/cartSlice';
 import Link from 'next/link';
 
 
@@ -12,7 +12,7 @@ function Cart() {
 const total = useAppSelector(selectTotalCartPrice)
 const cartStore = useAppSelector(state => state.cartItems)  
   return (
-    <div className='fixed flex flex-col justify-center items-center bg-gray-300 h-2/3 w-1/4 right-0 mr-8 top-16 pt-12 shadow-xl rounded-lg'>
+    <div className='fixed flex flex-col justify-center items-center bg-gray-300 h-2/3 lg:w-1/4 w-1/3 right-0 mr-8 top-16 pt-12 shadow-xl rounded-lg'>
       <div className='mt-4'>
           {cartStore.cartItems.map((cartItem) => (
               <div key = {cartItem.name}>
@@ -55,10 +55,20 @@ interface cartItemProps {
 
 function CartElement(props: cartItemProps) {
   const quantity = useAppSelector((state) => selectQuantity(state, props.id))
+  const dispatch = useDispatch()
+  const handleChange = ( event: React.ChangeEvent<HTMLInputElement> ) => { 
+    dispatch(setQuantity( { itemID: props.id, quantity: Number(event.target.value) } ))
+  }
   return (
-    <div className='bg-white drop-shadow-xl rounded-md w-80 h-12 flex flew-row items-center justify-center top-0 right-0 mb-2'>
-      <div className='absolute flex flex-grow left-2 text-black font-sans-fira'>{props.name}: ${props.price * quantity!} </div>
-      <div className='absolute flex right-16 z-10 text-black font-sans-fira'> {quantity}</div>
+    <div className='bg-white drop-shadow-xl rounded-md lg:w-80 w-56 lg:h-12 h-20 flex lg:flew-row flex-col items-center justify-center top-0 right-0 mb-2'>
+      <div className='absolute lg:w-80 w-32 flex flex-grow flex-wrap whitespace-normal break-words lg:left-2 left-1 top-1 lg:top-1/4 text-black font-sans-fira text-md lg:text-md '> 
+        {props.name}: ${props.price * quantity!} 
+      </div>
+      <input 
+        type='number' 
+        value={ quantity } 
+        onChange={ handleChange }
+        className='absolute flex lg:left-[ 14.5rem ] lg:bottom-0 lg:w-10 w-10 lg:h-12 h-20 bg-wave-blue-200 right-12 z-10 text-black font-iosevka text-lg '></input>
       <RemoveFromCartBtn id={props.id} />
     </div>
   )
@@ -71,7 +81,7 @@ interface RemoveBtnProps {
 function RemoveFromCartBtn(props: RemoveBtnProps) {
   const dispatch = useDispatch()
   return(
-    <button className='absolute right-0 py-3 px-4 rounded-r-md bg-pink-400 hover:bg-pink-800 cursor-pointer justify-center items-center text-center overflow-visible' onClick={()=>
+    <button className='absolute lg:h-12 h-20 right-0 py-3 px-4 rounded-r-md bg-pink-400 hover:bg-pink-800 cursor-pointer justify-center items-center text-center overflow-visible' onClick={()=>
     {
       dispatch(removeFromCart(props.id))}
     }>
