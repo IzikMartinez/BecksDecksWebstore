@@ -4,6 +4,8 @@ import { PaymentForm, PaymentFormProps, CreditCard, GooglePay} from 'react-squar
 import { Splash } from "../topbar"
 import { useAppSelector } from '../hooks';
 import { selectTotalCartPrice } from '../GlobalRedux/cartSlice';
+import styles from "app/styles/home.module.css"
+import Link from 'next/link';
 
 
 interface checkoutProps {
@@ -14,7 +16,7 @@ export default function Checkout(props: checkoutProps) {
   const total = useAppSelector(selectTotalCartPrice)
   return (
     <div>
-      <Splash></Splash>
+      <CheckoutSplash/>
       <PaymentForm
         applicationId="sandbox-sq0idb--G0V3vOW-I9WjIejCWCVCQ"
         locationId="L5CQ4BZB5NCNX"
@@ -76,3 +78,16 @@ export default function Checkout(props: checkoutProps) {
   )
 }
 
+
+export function CheckoutSplash() {
+  return (
+  <span className='flex flex-row fixed w-screen lg:h-24 h-16 top-0 left-0 bg-gradient-to-r from-pastel-coral via-pastel-yellow to-yellow-compliment text-black  shadow-xl shadow-blue-gray-800 text-center items-center justify-center'> 
+    <div className="flex fixed flex-row w-full left-12 ">
+      <Link href={ "/" } className='font-texgyre-adventor font-bold text-xl small-caps'>home</Link>
+    </div>
+    <div className={styles.title}>
+      SPARKLING CITY LGS
+    </div>
+  </span>
+  )
+}
