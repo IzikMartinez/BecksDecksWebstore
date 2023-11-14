@@ -1,7 +1,7 @@
   "use client";
 import styles from "app/styles/home.module.css"
 import { Splash } from "./topbar"
-import { EventProduct } from "./events";
+import { EventProduct } from "./body";
 import { useDispatch} from "react-redux";
 
 

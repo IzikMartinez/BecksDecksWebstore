@@ -1,4 +1,8 @@
+import { fieldProps, selectSignupField, setField } from '@/app/GlobalRedux/signupSlice';
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { FieldName } from '@/app/GlobalRedux/signupSlice';
+import { useAppDispatch } from '@/app/hooks';
 
 interface SignupProps {
     name: string
@@ -15,16 +19,29 @@ function Signup(props: SignupProps) {
   )
 }
 
-function SignupField(props: SignupProps) {
-    return (
-        <input type="text" 
-        name={props.name} 
-        id={props.name} 
-        placeholder={props.name} 
-        className="pl-2 mt-2 w-[14rem] mx-4 h-12 bg-teal-200 text-black focus:bg-teal-500 focus:text-white
-          rounded-tl-none rounded-br-xl focus:rounded-tl-md focus:rounded-br-none transition-all ease-linear duration-200" 
-        />
 
+function setSignupField() {
+    // ChooseField()
+    // state.field = field
+}
+function SignupField(props: SignupProps) {
+    const dispatch = useAppDispatch()
+    const fieldValue = useSelector(selectSignupField(props.name as FieldName))
+    const handleChange = ( event: React.ChangeEvent<HTMLInputElement> ) => { 
+      const payloadValues: fieldProps = { fieldName: props.name as FieldName, fieldValue: String(event.target.value)  } 
+      dispatch(setField(payloadValues))
+    }
+    return (
+        <input 
+          type="text" 
+          name={props.name} 
+          id={props.name} 
+          placeholder={props.name}
+          value={ fieldValue }
+          onChange={ handleChange }
+          className="pl-2 mt-2 w-[14rem] mx-4 h-12 bg-teal-200 text-black focus:bg-teal-500 focus:text-white
+            rounded-tl-none rounded-br-xl focus:rounded-tl-md focus:rounded-br-none transition-all ease-linear duration-200" 
+        />
     )
 }
 

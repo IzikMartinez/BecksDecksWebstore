@@ -23,3 +23,5 @@ export async function FetchEvents() {
     return EVENTS as EventType[]
 }
 
+async function insertUser() {
+}
