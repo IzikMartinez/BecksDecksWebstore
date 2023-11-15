@@ -1,8 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "./store";
-import { supabase } from "../utils/supabase";
-import useSWR from 'swr'
 import { ProductType } from "../types/supabase";
 
 interface MyAction {

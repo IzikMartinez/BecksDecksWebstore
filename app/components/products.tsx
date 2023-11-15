@@ -1,11 +1,11 @@
-import React, { forwardRef, useEffect, useImperativeHandle, useRef, Ref, useState } from "react";
+import React, { useEffect } from "react";
 import { setSidebarSelection  } from "../GlobalRedux/sidebarSlice";
 import { useAppSelector, useAppDispatch } from "../hooks";
 import styles from "app/styles/home.module.css"
 import { Bubble } from "./itemBubbles";
-import { FetchProducts, supabase } from "../utils/supabase";
-import { Database, ProductType } from "../types/supabase";
-import { ConvertToExpandedProducts, ExpandedProduct, removeAllproducts, selectAllProducts } from "../GlobalRedux/productSlice";
+import { FetchProducts } from "../utils/supabase";
+import { ProductType } from "../types/supabase";
+import { ConvertToExpandedProducts, selectAllProducts } from "../GlobalRedux/productSlice";
 import useSWR from "swr";
 
 
@@ -56,8 +56,8 @@ export function ProductList() {
     const allProducts = useAppSelector(selectAllProducts)
     {
     useEffect(()=> {
-        if(!isLoading) {
-          dispatch(ConvertToExpandedProducts(PRODUCTS!))
+        if(!isLoading && PRODUCTS) {
+          dispatch(ConvertToExpandedProducts(PRODUCTS))
         }
     }, [isLoading])
     return (

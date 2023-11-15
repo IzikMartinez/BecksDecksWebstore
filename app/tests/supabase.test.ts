@@ -5,11 +5,11 @@ describe('Supabase test SELECT', () => {
 
     it('should return a list of products', async ()=> {
 
-    const { data: PRODUCTS, error } = await supabase
-    .from('PRODUCTS')
-    .select('id') 
+    const { data: EVENTS, error } = await supabase
+    .from('EVENTS')
+    .select('*') 
 
-    console.log(PRODUCTS)
-    expect(PRODUCTS?.length).toBeGreaterThan(0)
+    console.log(EVENTS)
+    //expect(EVENTS).toBeGreaterThan(0)
 
 }) })

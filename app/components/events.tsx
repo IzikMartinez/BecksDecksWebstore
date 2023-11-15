@@ -2,29 +2,24 @@ import { FetchEvents } from "../utils/supabase"
 import useSWR from "swr"
 import Signup from "./fragments/signup"
 import { useEffect, useState } from "react"
+import { EventType } from "../types/supabase"
 
-type Event = {
-    game: string,
-    name: string,
-    date: string,
-    fee: number,
-    desc: string,
-}
 
 export default function EventList() {
-    const events: Event[] = [
-        {game: "magic.png", name: "Pre-release", date: "10/21", fee: 20, desc:"What do you mean I can't use my Commander deck at pre-release?"},
-        {game: "fab.png", name: "Armory", date: "10/21", fee: 10, desc:"Survive 'Ranger Autumn' with your budget CC deck"},
-        {game: "pokemon.png", name: "Casual", date: "10/20", fee: 10, desc:"Play america's favorite physical NFT game"},
-        {game: "yugioh.svg", name: "Weekly", date: "10/23", fee: 10, desc:"Can you believe Pot of Greed is legal online?"},
-    ]
     const {data: EVENTS, error, isLoading} = useSWR('supaevents', FetchEvents)
     return (
-      isLoading ? <div className="fixed flex justify-center items-center text-black">Loading...</div> :
-        <div className="fixed flex flex-col justify-center items-center w-full h-full lg:top-24 lg:left-20 left-0 top-16">
-            {EVENTS!.map((storeEvent)=>(
+      isLoading 
+        ? <div className="fixed flex justify-center items-center text-black">Loading...</div> 
+        : <div className="fixed flex flex-col justify-center items-center w-full h-full lg:top-24 lg:left-20 left-0 top-16">
+            {EVENTS!.map((storeEvent: EventType)=>(
                 <div key={storeEvent.event_id}>
-                    <StoreEvent game={storeEvent.event_category} name={storeEvent.event_name} date={storeEvent.event_time} fee={storeEvent.event_fee!} desc={storeEvent.event_description!}></StoreEvent>
+                    <StoreEvent 
+                      game={storeEvent.event_category} 
+                      name={storeEvent.event_name} 
+                      date={storeEvent.event_time} 
+                      fee={storeEvent.event_fee!} 
+                      desc={storeEvent.event_description!}>
+                    </StoreEvent>
                 </div>
             ))}
         </div>
@@ -32,20 +27,13 @@ export default function EventList() {
 }
 
 interface eventProps {
-    game: string,
+    game: string | null,
     name: string,
-    date: string,
-    fee: number,
-    desc: string,
+    date: string | null,
+    fee: number | null,
+    desc: string | null,
 }
 
-interface Item {
-    item_ID: string,
-    name: string,
-    price: number,
-    description: string,
-    size: boolean
-}
 
 function StoreEvent(props: eventProps) {
     const [ signupFlag, setSignupFlag ] = useState(false)
