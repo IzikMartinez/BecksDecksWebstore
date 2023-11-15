@@ -9,30 +9,60 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
-      EVENTS: {
+      ENTRANTS: {
         Row: {
-          event_description: string | null
-          event_fee: number | null
-          event_id: number
-          event_name: string
-          event_time: string
-          event_category: string
+          event_id: string
+          user_id: string
         }
         Insert: {
-          event_description?: string | null
-          event_fee?: number | null
-          event_id?: number
-          event_name: string
-          event_time: string
-          event_category: string
+          event_id: string
+          user_id: string
         }
         Update: {
+          event_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ENTRANTS_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "EVENTS"
+            referencedColumns: ["event_id"]
+          },
+          {
+            foreignKeyName: "ENTRANTS_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "USERS"
+            referencedColumns: ["user_id"]
+          }
+        ]
+      }
+      EVENTS: {
+        Row: {
+          event_category: string | null
+          event_description: string | null
+          event_fee: number | null
+          event_id: string
+          event_name: string
+          event_time: string | null
+        }
+        Insert: {
+          event_category?: string | null
           event_description?: string | null
           event_fee?: number | null
-          event_id?: number
+          event_id?: string
+          event_name: string
+          event_time?: string | null
+        }
+        Update: {
+          event_category?: string | null
+          event_description?: string | null
+          event_fee?: number | null
+          event_id?: string
           event_name?: string
-          event_time?: string
-          event_category: string
+          event_time?: string | null
         }
         Relationships: []
       }
@@ -60,6 +90,30 @@ export interface Database {
           in_stock?: number | null
           name?: string
           price?: number | null
+        }
+        Relationships: []
+      }
+      USERS: {
+        Row: {
+          game: string | null
+          player_firstname: string | null
+          player_id: string | null
+          player_lastname: string | null
+          user_id: string
+        }
+        Insert: {
+          game?: string | null
+          player_firstname?: string | null
+          player_id?: string | null
+          player_lastname?: string | null
+          user_id?: string
+        }
+        Update: {
+          game?: string | null
+          player_firstname?: string | null
+          player_id?: string | null
+          player_lastname?: string | null
+          user_id?: string
         }
         Relationships: []
       }
