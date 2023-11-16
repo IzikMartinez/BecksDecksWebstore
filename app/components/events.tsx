@@ -8,21 +8,20 @@ import { EventType } from "../types/supabase"
 export default function EventList() {
     const {data: EVENTS, error, isLoading} = useSWR('supaevents', FetchEvents)
     return (
-      isLoading 
-        ? <div className="fixed flex justify-center items-center text-black">Loading...</div> 
-        : <div className="fixed flex flex-col justify-center items-center w-full h-full lg:top-24 lg:left-20 left-0 top-16">
-            {EVENTS!.map((storeEvent: EventType)=>(
+      (!isLoading && EVENTS !== undefined) 
+        ? <div className="fixed flex flex-col justify-center items-center w-full h-full lg:top-24 lg:left-20 left-0 top-16">
+            {EVENTS.map((storeEvent: EventType)=>(
                 <div key={storeEvent.event_id}>
                     <StoreEvent 
                       game={storeEvent.event_category} 
                       name={storeEvent.event_name} 
                       date={storeEvent.event_time} 
                       fee={storeEvent.event_fee!} 
-                      desc={storeEvent.event_description!}>
-                    </StoreEvent>
+                      desc={storeEvent.event_description!}/>
                 </div>
             ))}
         </div>
+        : <div className="fixed flex justify-center items-center text-black">Loading...</div> 
     )
 }
 

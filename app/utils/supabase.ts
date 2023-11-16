@@ -6,7 +6,7 @@ const supabaseKey = process.env.SUPABASE_KEY as string
 
 console.log("LOG FROM UTILS: KEY", supabaseKey)
 console.log("LOG FROM UTILS: URL", supabaseUrl)
-export const supabase = createClient<Database>('https://vlormrdjyqfcebbwsmfx.supabase.co', supabaseKey)
+export const supabase = createClient<Database>()
 
 
 export async function FetchProducts() {
@@ -16,7 +16,6 @@ export async function FetchProducts() {
     if(error) {
         console.error("Failed to fetch products: ", error)
     }
-
     return PRODUCTS as ProductType[]
 }
 
@@ -31,10 +30,13 @@ export async function FetchEvents() {
     return EVENTS as EventType[]
 }
 
-async function insertUser() {
+export async function insertUser(newUser: Database['public']['Tables']['USERS']['Insert']) {
   const { data, error } = await supabase
   .from('USERS')
   .insert([
-    
+    { player_firstname: newUser.player_firstname },
+    { player_lastname: newUser.player_lastname },
+    { player_id: newUser.player_id },
+    { game: newUser.game }
   ])
 }
