@@ -13,15 +13,15 @@ export interface Database {
       ENTRANTS: {
         Row: {
           event_id: string
-          user_id: string
+          player_id: string
         }
         Insert: {
           event_id: string
-          user_id: string
+          player_id: string
         }
         Update: {
           event_id?: string
-          user_id?: string
+          player_id?: string
         }
         Relationships: [
           {
@@ -96,25 +96,19 @@ export interface Database {
       }
       USERS: {
         Row: {
-          game: string | null
           player_firstname: string | null
           player_id: string | null
           player_lastname: string | null
-          user_id: string
         }
         Insert: {
-          game?: string | null
           player_firstname?: string | null
           player_id?: string | null
           player_lastname?: string | null
-          user_id?: string
         }
         Update: {
-          game?: string | null
           player_firstname?: string | null
           player_id?: string | null
           player_lastname?: string | null
-          user_id?: string
         }
         Relationships: []
       }
