@@ -136,3 +136,5 @@ export interface Database {
 
 export type ProductType = Database['public']['Tables']['PRODUCTS']['Row']
 export type EventType = Database['public']['Tables']['EVENTS']['Row']
+export type UserType = Database['public']['Tables']['USERS']['Row']
+export type EntrantType = Database['public']['Tables']['ENTRANTS']['Row']
