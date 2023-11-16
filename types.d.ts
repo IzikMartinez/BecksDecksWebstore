@@ -96,9 +96,9 @@ export interface Database {
       }
       USERS: {
         Row: {
-          player_firstname: string | null
-          player_id: string | null
-          player_lastname: string | null
+          player_firstname: string
+          player_id: string
+          player_lastname: string
         }
         Insert: {
           player_firstname?: string | null

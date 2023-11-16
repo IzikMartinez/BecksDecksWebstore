@@ -1,15 +1,11 @@
 import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "./store";
+import { UserType } from "@/types";
 
-interface signup {
-  firstname: string,
-  lastname: string,
-  player_id: string,
-}
 
-const initialState: signup = {
-  firstname: "iZatch",
-  lastname: "Marts",
+const initialState: UserType = {
+  player_firstname: "",
+  player_lastname: "",
   player_id: ""
 }
 
@@ -18,16 +14,16 @@ export interface fieldProps {
   fieldValue: string
 }
 
-export type FieldName = 'firstname' | 'lastname' | 'player_id'
+export type FieldName = 'player_firstname' | 'player_lastname' | 'player_id'
 
 const signupSlice = createSlice({
   name: 'signup',
   initialState,
   reducers: {
-    setSignup: (state, action: PayloadAction<signup>) => {
-      const {firstname, lastname, player_id } = action.payload
-      state.lastname = lastname
-      state.firstname = firstname
+    setSignup: (state, action: PayloadAction<UserType>) => {
+      const {player_firstname, player_lastname, player_id } = action.payload
+      state.player_lastname = player_lastname
+      state.player_firstname = player_firstname
       state.player_id = player_id
     },
     setField: (state, action: PayloadAction<fieldProps>) => {
