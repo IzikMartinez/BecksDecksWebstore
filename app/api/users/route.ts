@@ -19,18 +19,16 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: Request) {
-  const { player_id, player_lastname, player_firstname, game }: Partial<UserType> = await request.json()
+  const { player_id, player_lastname, player_firstname}: Partial<UserType> = await request.json()
   const user_id = randomUUID()
-  if( player_id && player_lastname && player_firstname && game ) {
+  if( player_id && player_lastname && player_firstname  ) {
     const { data, error } = await supabase
       .from('USERS')
       .insert([
         { 
-          user_id: user_id,
           player_firstname: player_firstname,
           player_lastname: player_lastname,
           player_id: player_id,
-          game: game,
         }])
       .select()
     if(error) return NextResponse.json({ error: error },{ status:500})
