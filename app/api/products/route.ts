@@ -13,7 +13,8 @@ export async function GET(request: Request) {
         .select('*')
       if(error) {
           console.error("Failed to fetch products: ", error)
+          return NextResponse.json({ error: error},{ status: 500 })
       }
-      return NextResponse.json({PRODUCTS})
+      return NextResponse.json({PRODUCTS}, {status: 200})
 }
 
