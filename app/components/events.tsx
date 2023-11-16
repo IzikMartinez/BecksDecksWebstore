@@ -1,12 +1,20 @@
-import { FetchEvents } from "../utils/supabase"
 import useSWR from "swr"
 import Signup from "./fragments/signup"
 import { useEffect, useState } from "react"
-import { EventType } from "../types/supabase"
+import { EventType } from "@/types"
+
+const EVENTURL = "http://localhost:3000/api/events"
+
+const fetcher = async (url: string) => {
+  const res = await fetch(url, {method: 'GET'})
+  const data = await res.json()
+  const {EVENTS: eventArray} = data
+  return eventArray
+}
 
 
 export default function EventList() {
-    const {data: EVENTS, error, isLoading} = useSWR('supaevents', FetchEvents)
+    const {data: EVENTS, error, isLoading} = useSWR(EVENTURL, fetcher)
     return (
       (!isLoading && EVENTS !== undefined) 
         ? <div className="fixed flex flex-col justify-center items-center w-full h-full lg:top-24 lg:left-20 left-0 top-16">

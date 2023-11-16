@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "./store";
-import { ProductType } from "../types/supabase";
+import { ProductType } from "@/types";
 
 interface MyAction {
     type: string,
@@ -55,8 +55,6 @@ interface InitialInventoryState {
     products: ExpandedProduct[]
 }
 
-
-
 const initialState: InitialInventoryState = {
     products: []
 }
@@ -68,7 +66,12 @@ export const productSlice = createSlice({
     reducers: {
         ConvertToExpandedProducts: (state, data: PayloadAction<ProductType[]>) => {
                 let expandedProducts: ExpandedProduct[] = []
-                data.payload.forEach(item =>  expandedProducts.push({
+                const products: ProductType[] = data.payload
+
+               products.forEach(item =>  {
+                 //const { name, id }: Partial<ProductType> = item
+                 //console.log(item, name, id)
+                 const newProduct: ExpandedProduct = {
                         product_category: item.category,
                         product_desc: item.desc,
                         product_id: item.id,
@@ -77,9 +80,10 @@ export const productSlice = createSlice({
                         product_price: item.price,
                         size: false,
                         visible: true
-                }))
-                console.log("Retrieved in store: ", expandedProducts);
-                state.products = expandedProducts
+                }
+                expandedProducts.push(newProduct)
+               })
+              state.products = expandedProducts
         },
         addproduct: (state, action: PayloadAction<ExpandedProduct>) => {
             state.products.push(action.payload)
