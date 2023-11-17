@@ -3,10 +3,18 @@ import { RootState } from "./store";
 import { UserType } from "@/types";
 
 
-const initialState: UserType = {
+export type signupType = {
+  player_id: string | null,
+  player_firstname: string | null,
+  player_lastname: string | null,
+  event_id?: string
+}
+
+const initialState: signupType = {
   player_firstname: "",
   player_lastname: "",
-  player_id: ""
+  player_id: "",
+  event_id: ""
 }
 
 export interface fieldProps {
@@ -20,11 +28,12 @@ const signupSlice = createSlice({
   name: 'signup',
   initialState,
   reducers: {
-    setSignup: (state, action: PayloadAction<UserType>) => {
-      const {player_firstname, player_lastname, player_id } = action.payload
+    setSignup: (state, action: PayloadAction<signupType>) => {
+      const {player_firstname, player_lastname, player_id, event_id } = action.payload
       state.player_lastname = player_lastname
       state.player_firstname = player_firstname
       state.player_id = player_id
+      state.event_id = event_id
     },
     setField: (state, action: PayloadAction<fieldProps>) => {
       const {fieldName, fieldValue} = action.payload
