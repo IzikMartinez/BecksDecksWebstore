@@ -1,13 +1,13 @@
 import { fieldProps, getSignup, selectSignupField, setField } from '@/app/GlobalRedux/signupSlice';
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { FieldName } from '@/app/GlobalRedux/signupSlice';
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
-import { UserType } from '@/types';
-import { Sign } from 'crypto';
+import { EntrantType, UserType } from '@/types';
 
 interface SignupProps {
-    name: string
+    name: string,
+    event_id?: string
 }
 
 function Signup(props: SignupProps) {
@@ -15,21 +15,21 @@ function Signup(props: SignupProps) {
     <div className='w-full rounded-b-lg bg-white h-16'>
         <SignupField name='firstname'/>
         <SignupField name='lastname'/>
-        {/* DCI number/ GEM ID/ pokemon Player ID / yugioh Konami ID*/}
         <GameIDField name={props.name} />
-        <SubmitBtn/>
+        <SubmitBtn event_id={props.event_id!}/>
     </div>
   )
 }
 
-function SubmitBtn() {
+interface SubmitProps { event_id: string }
+function SubmitBtn(props: SubmitProps) {
   const signupData = useAppSelector(getSignup)
   return (
     <button 
       className='w-20 h-12 bg-green-500 p-0 mr-3 rounded-md text-xl font-sans-fira font-bold'
       onClick={()=> { 
         console.log(signupData)
-        putter('api/users', signupData as UserType)
+        poster('api/entrants', signupData as UserType, props.event_id)
       }}
     >
     Submit</button>
@@ -42,7 +42,18 @@ const putter = async (url: string, newUser: UserType) => {
     headers: { 'Content-type': 'application/json' },
     body: JSON.stringify(newUser)
   })
-  alert(await res.json())
+}
+const poster = async (url: string, newUser: UserType, event_id: string) => {
+  await putter('api/users', newUser)
+  const newEntrant: EntrantType = {
+    event_id: event_id,
+    player_id: newUser.player_id!
+  }
+  const eventRes = await fetch(url, {
+    method: "POST",
+    headers: {"Content-type": "application/json"},
+    body: JSON.stringify(newEntrant)
+  })
 }
 
 

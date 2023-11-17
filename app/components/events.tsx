@@ -21,6 +21,7 @@ export default function EventList() {
             {EVENTS.map((storeEvent: EventType)=>(
                 <div key={storeEvent.event_id}>
                     <StoreEvent 
+                      id={storeEvent.event_id}
                       game={storeEvent.event_category} 
                       name={storeEvent.event_name} 
                       date={storeEvent.event_time} 
@@ -34,6 +35,7 @@ export default function EventList() {
 }
 
 interface eventProps {
+    id: string,
     game: string | null,
     name: string,
     date: string | null,
@@ -77,7 +79,7 @@ function StoreEvent(props: eventProps) {
         </div>
       </div>
       <div className="bg-white h-14 relative flex items-center rounded-b-lg">
-      { signupFlag ? <Signup name={props.game}></Signup>
+      { signupFlag ? <Signup name={props.game!} event_id={props.id}></Signup>
         : <span/>
       }
       </div>

@@ -1,7 +1,6 @@
 'use client';
 import React from 'react';
 import { PaymentForm, PaymentFormProps, CreditCard, GooglePay} from 'react-square-web-payments-sdk';
-import { Splash } from "../topbar"
 import { useAppSelector } from '../hooks';
 import { selectTotalCartPrice } from '../GlobalRedux/cartSlice';
 import styles from "app/styles/home.module.css"
