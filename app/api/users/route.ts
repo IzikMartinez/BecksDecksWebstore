@@ -9,7 +9,7 @@ const supabase = createClient<Database>(supabaseUrl, supabaseKey)
 
 
 
-export async function GET(request: NextRequest) {
+export async function GET() {
     let { data: USERS, error } = await supabase
       .from('USERS')
       .select('*')
@@ -22,6 +22,7 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: Request) {
   const { player_id, player_lastname, player_firstname}: Partial<UserType> = await request.json()
+  const user_id = randomUUID()
   if( player_id && player_lastname && player_firstname  ) {
     const { data, error } = await supabase
       .from('USERS')
@@ -33,14 +34,7 @@ export async function POST(request: Request) {
         }])
       .select()
     if(error) return NextResponse.json({ error: error },{ status:500})
-    return NextResponse.json(
-      {
-        "message": "Successfully posted new user", 
-        player_id: player_id,
-        player_firstname: player_firstname,
-        player_lastname: player_lastname
-
-      }, {status:200})
+    return NextResponse.json({"message": "Successfully posted new user", user_id: user_id}, {status:200})
   }
   else return NextResponse.json({ error: 'request body is blank'},{ status:500})
 }
