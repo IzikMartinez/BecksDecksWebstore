@@ -1,9 +1,10 @@
-import { fieldProps, getSignup, selectSignupField, setField } from '@/app/GlobalRedux/signupSlice';
+import { fieldProps, getSignup, logFields, selectSignupField, setField, setSignup, signupType } from '@/app/GlobalRedux/signupSlice';
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { FieldName } from '@/app/GlobalRedux/signupSlice';
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { EntrantType, UserType } from '@/types';
+import { addToCart, cartItem } from '@/app/GlobalRedux/cartSlice';
 
 interface SignupProps {
     name: string,
@@ -24,12 +25,26 @@ function Signup(props: SignupProps) {
 interface SubmitProps { event_id: string }
 function SubmitBtn(props: SubmitProps) {
   const signupData = useAppSelector(getSignup)
+  const dispatch = useDispatch()
   return (
     <button 
       className='w-20 h-12 bg-green-500 p-0 mr-3 rounded-md text-xl font-sans-fira font-bold'
       onClick={()=> { 
-        console.log(signupData)
-        poster('api/entrants', signupData as UserType, props.event_id)
+        const newSignup: signupType = {
+          player_id: signupData.player_id,
+          player_firstname: signupData.player_firstname,
+          player_lastname: signupData.player_lastname,
+          event_id: props.event_id
+        }
+        dispatch(setSignup(newSignup))
+        //poster('api/entrants', signupData as UserType, props.event_id)
+        const newCartItem: cartItem = {
+          id: signupData.player_id!,
+          name: "Event signup",
+          price: 10,
+          quantity: 1
+        }
+        dispatch(addToCart(newCartItem))
       }}
     >
     Submit</button>
@@ -79,7 +94,7 @@ function SignupField(props: SignupProps) {
           name={fieldName} 
           id={fieldName} 
           placeholder={props.name}
-          value={ fieldValue }
+          value={ fieldValue! }
           onChange={ handleChange }
           className="pl-2 mt-2 w-[10rem] mx-4 h-12 bg-teal-200 text-black focus:bg-teal-500 focus:text-white
             rounded-tl-none rounded-br-xl focus:rounded-tl-md focus:rounded-br-none transition-all ease-linear duration-200" 

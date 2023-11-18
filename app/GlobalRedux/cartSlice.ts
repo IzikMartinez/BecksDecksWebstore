@@ -2,7 +2,7 @@ import { createSlice, PayloadAction, createSelector } from "@reduxjs/toolkit";
 import { RootState } from "./store";
 import { Root } from "postcss";
 
-interface cartItem {
+export interface cartItem {
     id: string,
     name: string,
     price: number,

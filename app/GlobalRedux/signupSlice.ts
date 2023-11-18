@@ -22,7 +22,7 @@ export interface fieldProps {
   fieldValue: string
 }
 
-export type FieldName = 'player_firstname' | 'player_lastname' | 'player_id'
+export type FieldName = 'player_firstname' | 'player_lastname' | 'player_id' | 'event_id'
 
 const signupSlice = createSlice({
   name: 'signup',
@@ -34,17 +34,18 @@ const signupSlice = createSlice({
       state.player_firstname = player_firstname
       state.player_id = player_id
       state.event_id = event_id
+      console.log(`Passed ID: ${event_id},\n State ID: ${Object.values(state)}`)
     },
     setField: (state, action: PayloadAction<fieldProps>) => {
       const {fieldName, fieldValue} = action.payload
       state[fieldName] = fieldValue
-    }
+    }, logFields: (state) => { console.log(state) }
   }
 })
 
 export const getSignup = (state: RootState) => {
       return state.signup
-    }
+  }
 
 export const selectSignupField = (fieldName: FieldName) =>
   createSelector (
@@ -52,5 +53,5 @@ export const selectSignupField = (fieldName: FieldName) =>
     (state) => state[fieldName]
 )
 
-export const { setSignup, setField} = signupSlice.actions
+export const { setSignup, setField, logFields} = signupSlice.actions
 export default signupSlice.reducer
