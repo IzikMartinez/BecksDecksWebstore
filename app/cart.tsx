@@ -65,10 +65,10 @@ function CartElement(props: cartItemProps) {
         {props.name}: ${props.price * quantity!} 
       </div>
       <input 
-        type='number' 
+        type='number'
         value={ quantity } 
         onChange={ handleChange }
-        className='absolute flex lg:left-[ 14.5rem ] lg:bottom-0 lg:w-10 w-10 lg:h-12 h-20 bg-wave-blue-200 right-12 z-10 text-black font-iosevka text-lg '></input>
+        className='absolute flex lg:left-[ 14.5rem ] lg:bottom-0 lg:w-12 w-10 lg:h-12 h-20 bg-wave-blue-200 right-12 z-10 text-black font-iosevka text-lg '></input>
       <RemoveFromCartBtn id={props.id} />
     </div>
   )
@@ -81,11 +81,14 @@ interface RemoveBtnProps {
 function RemoveFromCartBtn(props: RemoveBtnProps) {
   const dispatch = useDispatch()
   return(
-    <button className='absolute lg:h-12 h-20 right-0 py-3 px-4 rounded-r-md bg-pink-400 hover:bg-pink-800 cursor-pointer justify-center items-center text-center overflow-visible' onClick={()=>
-    {
-      dispatch(removeFromCart(props.id))}
-    }>
-      Re 
+    <button
+      className='absolute lg:h-12 h-20 right-0 py-3 px-4 rounded-r-md bg-pink-400 hover:bg-pink-800 cursor-pointer justify-center items-center text-center overflow-visible'
+      onClick={()=>
+        {
+          dispatch(removeFromCart(props.id))}
+        }
+    >
+      <img src="/trash.svg" alt="trash" />
     </button>
   )
 }
