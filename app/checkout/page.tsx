@@ -8,6 +8,7 @@ import Link from 'next/link';
 import {getSignup} from "@/app/GlobalRedux/signupSlice";
 import {log} from "util";
 import {useDispatch} from "react-redux";
+import { EntrantType, UserType } from '@/types';
 
 const TAX = 1.0825
 
@@ -16,7 +17,7 @@ interface checkoutProps {
 }
 
 export default function Checkout(props: checkoutProps) {
-  const total = useAppSelector(selectTotalCartPrice)
+const total = useAppSelector(selectTotalCartPrice)
   const cents = total*TAX
   const signup = useAppSelector(getSignup)
   return (
@@ -42,8 +43,15 @@ export default function Checkout(props: checkoutProps) {
             const {body: bodyData} = await response.json()
             if(bodyData) {
               const {payment: payData} = JSON.parse(bodyData)
-              if(payData.status === "COMPLETED")
+              if(payData.status === "COMPLETED") {
+                const newUser: UserType = {
+                    player_id: signup.player_id,
+                    player_firstname: signup.player_firstname,
+                    player_lastname: signup.player_lastname
+                }
+                poster('/api/entrants', newUser, signup.event_id!)
                 console.log(signup)
+                }
             }
             else alert("paymentMessage")
         }}
@@ -114,3 +122,24 @@ export function CheckoutSplash() {
   )
 }
 0
+
+
+const putter = async (url: string, newUser: UserType) => {
+  const res = await fetch(url, {
+    method: "POST",
+    headers: { 'Content-type': 'application/json' },
+    body: JSON.stringify(newUser)
+  })
+}
+const poster = async (url: string, newUser: UserType, event_id: string) => {
+  await putter('api/users', newUser)
+  const newEntrant: EntrantType = {
+    event_id: event_id,
+    player_id: newUser.player_id!
+  }
+  const eventRes = await fetch(url, {
+    method: "POST",
+    headers: {"Content-type": "application/json"},
+    body: JSON.stringify(newEntrant)
+  })
+}
