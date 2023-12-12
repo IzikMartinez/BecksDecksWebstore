@@ -4,6 +4,7 @@ import Layout from './layout'
 import { useDispatch } from 'react-redux';
 import { removeFromCart, selectQuantity, selectTotalCartPrice, setQuantity} from './GlobalRedux/cartSlice';
 import Link from 'next/link';
+import Image from 'next/image';
 
 
 
@@ -57,7 +58,11 @@ function CartElement(props: cartItemProps) {
   const quantity = useAppSelector((state) => selectQuantity(state, props.id))
   const dispatch = useDispatch()
   const handleChange = ( event: React.ChangeEvent<HTMLInputElement> ) => { 
-    dispatch(setQuantity( { itemID: props.id, quantity: Number(event.target.value) } ))
+    const newNum = Number(event.target.value)
+    if (newNum > 0)
+      dispatch(setQuantity( { itemID: props.id, quantity: newNum } ))
+    else if (newNum === 0)
+      dispatch(removeFromCart(props.id))
   }
   return (
     <div className='bg-white drop-shadow-xl rounded-md lg:w-80 w-56 lg:h-12 h-20 flex lg:flew-row flex-col items-center justify-center top-0 right-0 mb-2'>
@@ -82,13 +87,17 @@ function RemoveFromCartBtn(props: RemoveBtnProps) {
   const dispatch = useDispatch()
   return(
     <button
-      className='absolute lg:h-12 h-20 right-0 py-3 px-4 rounded-r-md bg-pink-400 hover:bg-pink-800 cursor-pointer justify-center items-center text-center overflow-visible'
+      className='absolute lg:h-12 h-20 w-12 right-0 py-3 px-4 rounded-r-md bg-pink-300 hover:bg-pink-800 cursor-pointer overflow-visible'
       onClick={()=>
         {
           dispatch(removeFromCart(props.id))}
         }
     >
-      <img src="/trash.svg" alt="trash" />
+      <img
+      src="/trash.svg" 
+      alt="trash" 
+      className='absolute w-6 h-6 left-3 top-3'
+      />
     </button>
   )
 }

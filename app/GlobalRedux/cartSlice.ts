@@ -30,13 +30,7 @@ export const cartSlice = createSlice({
         } else state.cartItems.find(item => item.id === action.payload.id)!.quantity! += 1
     },
     removeFromCart: (state, action: PayloadAction<string>) => {
-        const itemIndex = state.cartItems.findIndex(item => item.id === action.payload)
-        if(itemIndex !== -1) {
-          if(state.cartItems.at(itemIndex)?.quantity! > 1) {
-            state.cartItems.at(itemIndex)!.quantity -= 1
-          }
-          else state.cartItems = state.cartItems.filter(item => item.id !== action.payload)
-      }
+        state.cartItems = state.cartItems.filter(item => item.id !== action.payload)
     },
     setQuantity: (state, action: PayloadAction<{ itemID: string, quantity: number }>) => {
       const { itemID, quantity } = action.payload
