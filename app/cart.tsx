@@ -9,7 +9,6 @@ import Image from 'next/image';
 
 
 function Cart() {
-
 const total = useAppSelector(selectTotalCartPrice)
 const cartStore = useAppSelector(state => state.cartItems)  
   return (

@@ -2,7 +2,7 @@
 import React, {useState} from 'react';
 import { PaymentForm, PaymentFormProps, CreditCard, GooglePay} from 'react-square-web-payments-sdk';
 import { useAppSelector } from '../hooks';
-import { selectTotalCartPrice } from '../GlobalRedux/cartSlice';
+import { selectQuantity, selectTotalCartPrice } from '../GlobalRedux/cartSlice';
 import styles from "app/styles/home.module.css"
 import Link from 'next/link';
 import {getSignup} from "@/app/GlobalRedux/signupSlice";
@@ -16,12 +16,57 @@ interface checkoutProps {
   total: number,
 }
 
-export default function Checkout(props: checkoutProps) {
+interface CartElementProps {
+  id: string,
+  name: string,
+  price: number,
+  quantity?: number,
+}
+function CartElement(props: CartElementProps) {
+const quantity = useAppSelector((state) => selectQuantity(state, props.id))
+return (
+  <div className='text-black font-iosevka'>
+    {props.name}: ${props.price * quantity!}
+  </div>
+  )
+}
+
+type cartTotalProps = { total: number } 
+function CartTotal({total}: cartTotalProps) {
+  return (
+    <span className='text-2xl font-bold text-gray-600 mb-6'>${total}</span>
+  )
+}
+
+
+export default function Cart() {
+const total = useAppSelector(selectTotalCartPrice)
+const cartStore = useAppSelector(state => state.cartItems)  
+  return (
+    <div className='fixed flex flex-col justify-center items-center bg-gradient-to-b  from-blue-400 to-red-100 h-1/3 lg:w-96 w-1/3 right-0 mr-8 top-32 pt-12 shadow-xl rounded-lg'>
+        <div className='mt-4'>
+          {cartStore.cartItems.map((cartItem) => (
+              <div key = {cartItem.name}>
+                <CartElement id={cartItem.id} name={cartItem.name} price={cartItem.price} quantity={0} />
+              </div>
+          ))} 
+        </div>
+      <span className='flex-grow'>
+        <CartTotal total={total}/>
+      </span>
+      <div>
+        <Checkout/>
+      </div>  
+    </div>  )
+}
+
+function Checkout() {
 const total = useAppSelector(selectTotalCartPrice)
   const cents = total*TAX
   const signup = useAppSelector(getSignup)
   return (
     <div>
+      <Cart />
       <div><CheckoutSplash/>
         {cents.toFixed(2)}
       </div>
