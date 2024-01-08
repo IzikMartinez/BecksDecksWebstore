@@ -153,7 +153,7 @@ function CheckoutInfo(props: checkoutProps) {
   )
 }
 */
-export function CheckoutSplash() {
+function CheckoutSplash() {
   return (
   <span className='flex flex-row fixed w-screen lg:h-24 h-16 top-0 left-0 bg-gradient-to-r from-pastel-coral via-pastel-yellow to-yellow-compliment text-black  shadow-xl shadow-blue-gray-800 text-center items-center justify-center'> 
       <Link href="/" className='absolut flex font-texgyre-adventor font-bold text-xl small-caps justify-center items-center w-32 lg:h-24 h-16'>
