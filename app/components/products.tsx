@@ -3,7 +3,6 @@ import { setSidebarSelection  } from "../GlobalRedux/sidebarSlice";
 import { useAppSelector, useAppDispatch } from "../hooks";
 import styles from "app/styles/home.module.css"
 import { Bubble } from "./itemBubbles";
-import { FetchProducts } from "../utils/supabase";
 import { ProductType } from "@/types";
 import { ConvertToExpandedProducts, selectAllProducts } from "../GlobalRedux/productSlice";
 import useSWR from "swr";
