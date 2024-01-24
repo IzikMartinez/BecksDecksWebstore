@@ -29,24 +29,18 @@ interface fetchProps {
 }
 
 {/* fetch the image from the supabase storage bucket and return an image component */}
-function FetchImage(props: fetchProps) {
+/* write a unit test for this function */
+
+
+export function FetchImage(props: fetchProps) {
   const [imgPath, setImgPath] = useState<string>('')
   useEffect(() => {
   {/* call the fetch api to get the image from the supabase storage bucket */}
   {/* the api request is a get request that uses the itemID as a parameter */}
   const fetchImage = async () => {
-    const res = await fetch('/api/fetch', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        itemID: props.itemID
-      })
-    })
-    const data = await res.json()
-    console.log(data)
-    setImgPath(data)
+    const res = await fetch(`/api/${props.itemID}`)
+    const {data: {publicUrl}} = await res.json()
+    setImgPath(publicUrl)
     }
   }, [])
   return (
