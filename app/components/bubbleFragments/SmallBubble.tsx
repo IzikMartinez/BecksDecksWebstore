@@ -13,7 +13,6 @@ const inventory = useAppSelector(state => state.productStore.products )
   return (
       <div className='flex flex-col items-center justify-center'>
         <div className={bubblestyle.bubbleBody} onClick={()=>dispatch(toggleSize(props.itemID))}>
-        {/* rewrite this to fetch an image from the supabase storage bucket */}
         <FetchImage itemID={props.itemID} itemName={props.itemName} itemPrice={props.itemPrice}/>
         </div>
         <div>
@@ -33,12 +32,22 @@ interface fetchProps {
 function FetchImage(props: fetchProps) {
   const [imgPath, setImgPath] = useState<string>('')
   useEffect(() => {
-    // fetch the image from the supabase storage bucket
-    // set the imgPath to the fetched image 
-    // the bucket is called 'product_images' and the file name is the itemID
-    const supabase = require('@supabase/supabase-js')
-    const publicURL = supabase.storage.from('product_images').getPublicUrl(props.itemID)
-    setImgPath(publicURL)
+  {/* call the fetch api to get the image from the supabase storage bucket */}
+  {/* the api request is a get request that uses the itemID as a parameter */}
+  const fetchImage = async () => {
+    const res = await fetch('/api/fetch', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        itemID: props.itemID
+      })
+    })
+    const data = await res.json()
+    console.log(data)
+    setImgPath(data)
+    }
   }, [])
   return (
   <div>
