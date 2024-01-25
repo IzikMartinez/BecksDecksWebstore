@@ -64,7 +64,6 @@ export function ProductList() {
     useEffect(()=> {
         if(!isLoading && PRODUCTS) {
           dispatch(ConvertToExpandedProducts(PRODUCTS))
-          console.log(allProducts)
         }
     }, [isLoading, PRODUCTS])
     return (
