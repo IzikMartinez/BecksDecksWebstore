@@ -6,5 +6,14 @@ module.exports = ({
   experimental: {
     appDir: true,
     esmExternals: 'loose'
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'vlormrdjyqfcebbwsmfx.supabase.co',
+        port: "",
+      }
+    ],
   }
 })

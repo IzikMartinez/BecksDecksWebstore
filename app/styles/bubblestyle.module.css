@@ -7,7 +7,7 @@
 
 .bubbleBody {
     @apply
-    relative flex flex-col flex-grow lg:w-60 w-44 mx-10 -my-8 h-72 items-center justify-center rounded-t-xl  transform transition-all duration-300 ease-linear
+    relative flex flex-col flex-grow lg:w-66 w-44 mx-10 -my-8 h-[20rem]  rounded-t-xl  transform transition-all duration-300 ease-linear
 }
 
 .bubble-big { 
