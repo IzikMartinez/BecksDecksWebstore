@@ -68,12 +68,14 @@ export function ProductList() {
     }, [isLoading, PRODUCTS])
     return (
       isLoading ? <div className="fixed flex justify-center items-center text-black">Loading...</div> :
-      <div className='fixed flex flex-wrap lg:left-16 lg:top-24 left-0 top-16 h-screen w-screen items-center justify-center'>
+        <div>
         <SideBar />
-        {allProducts.filter(product => product.product_category === selectedSidebar)?.map((item) => (
-            <div key = {item.product_id}>
-                <Bubble itemID={item.product_id} itemName={item.product_name} itemPrice={item.product_price!} description={item.product_desc!} imgPath="placeholder.jpg" /> 
-            </div>
-        ))}
+        <div className='fixed flex flex-wrap lg:left-36 lg:top-24 left-0 top-16 h-screen w-10/12 items-center justify-center'>
+          {allProducts.filter(product => product.product_category === selectedSidebar)?.map((item) => (
+              <div key = {item.product_id}>
+                  <Bubble itemID={item.product_id} itemName={item.product_name} itemPrice={item.product_price!} description={item.product_desc!} imgPath="placeholder.jpg" /> 
+              </div>
+          ))}
+        </div>
       </div> 
 )}}
