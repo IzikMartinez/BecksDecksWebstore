@@ -4,31 +4,28 @@ import { useState, useEffect } from "react"
 import { toggleSize } from "@/app/GlobalRedux/productSlice"
 import { useAppSelector } from "@/app/hooks"
 import { addToCart } from "@/app/GlobalRedux/cartSlice"
-import Image from "next/image"
 import { FetchImage } from "./SmallBubble"
 
 export default function BigBubble(props: BubbleProps) {
   const dispatch = useDispatch()
   return (
-    <div className='relative lg:w-4/6 w-4/6 lg:h-2/3 flex flex-row items-center justify-center bg-gradient-to-b from-blue-950  to-blue-500 rounded-2xl transform transition-all duration-300 ease-linear' onClick={()=>dispatch(toggleSize(props.itemID))}>
-      <div className="fixed flex left-24">
-        <div className='relative flex flex-col mx-auto w-[48em] h-[36em] items-center justify-center'>
+    <div className='flex w-2/3 mx-auto my-auto justify-center items-center bg-gradient-to-b from-blue-950 to-blue-400 rounded-2xl' onClick={()=>dispatch(toggleSize(props.itemID))}>
+        <div className='relatve flex flex-col mx-auto w-[48em] h-[36em] items-center justify-center'>
             <FetchImage itemID={props.itemID} itemName={props.itemName} itemPrice={props.itemPrice} size={false}/>
         </div>
         <div className='flex flex-col pt-0 lg:pr-0 pr-8 justify-center'>
             <div className='flex select-none mb-3 justify-center items-center 
-                          text-center text-3xl font-texgyre-adventor small-caps font-semibold'>
+                          text-center lg:text-3xl text-xl font-texgyre-adventor small-caps font-semibold'>
               {props.itemName}
             </div>
             <div className='flex selct-none my-3 justify-center items-center 
-                          text-center text-3xl font-texgyre-adventor small-caps font-semibold'>
+                          text-center lg:text-3xl text-xl font-texgyre-adventor small-caps font-semibold'>
               ${props.itemPrice}
             </div>
-            <div className='mt-12 mx-auto select-none right-0 flex justify-center items-center text-center font-semibold text-xl w-2/3'>
+            <div className='mt-12 mx-auto select-none right-0 flex justify-center items-center text-center font-semibold lg:text-xl w-2/3'>
               {props.description}
             </div>
         </div>
-      </div>
     </div>
   )
 }
@@ -36,21 +33,6 @@ export default function BigBubble(props: BubbleProps) {
 interface newImgProps {
   image: imgProps,
   btn: cartProps
-}
-
-const ItemImage: React.FC<newImgProps> = ({image: { imgPath, imgAlt }, btn: { id, name, price}}) => {
-  return (
-    <div className="absolute flex flex-col w-72 lg:left-24 left-2 top-1/4  ">
-        <Image 
-          className={'lg:w-72 w-60 lg:h-56 h-48 select-none items-center justify-center rounded-t-xl lg:scale-[100%] scale-100'}
-          src={imgPath} 
-          alt={imgAlt}
-          width={840}
-          height={552}
-        />
-        <AddToCartBtn id={id} name={name} price={price}></AddToCartBtn>
-    </div>
-  );
 }
 
 function AddToCartBtn(props: cartProps) {

@@ -10,17 +10,17 @@ import useSWR from "swr";
 
 function SideBar() {
   return (
-    <span className={styles.sidebar}>
-      <div className='fixed flex items-center lg:flex-col lg:w-36 lg:h-screen h-16 lg:left-8 left-0 w-screen' >
+      <div className='flex items-center lg:flex-col lg:w-36 lg:mx-6 lg:mt-4 mx-auto my-auto lg:h-screen h-16 left-0 w-screen' >
         <SidebarItem name="magic" extension="png"/>
         <SidebarItem name="pokemon" extension="png"/>
         <SidebarItem name="fab" extension="png"/>
         <SidebarItem name="yugioh" extension="svg"/>
-{/*         <SidebarItem name="Deck Boxes"></SidebarItem>
+        {/*     
+        <SidebarItem name="Deck Boxes"></SidebarItem>
         <SidebarItem name="Card Sleeves"></SidebarItem>
-        <SidebarItem name="Dice"></SidebarItem> */}
+        <SidebarItem name="Dice"></SidebarItem> 
+        */}
       </div>
-    </span>
 )}
 
 interface sidebarItemProps {
@@ -68,9 +68,9 @@ export function ProductList() {
     }, [isLoading, PRODUCTS])
     return (
       isLoading ? <div className="fixed flex justify-center items-center text-black">Loading...</div> :
-        <div>
+      <div className="fixed flex lg:flex-row flex-col w-screen h-screen left-0 top-28 ">
         <SideBar />
-        <div className='fixed flex flex-wrap lg:left-36 lg:top-24 left-0 top-16 h-screen w-10/12 items-center justify-center'>
+        <div className="lg:w-screen h-screen flex flex-wrap items-center justify-center">
           {allProducts.filter(product => product.product_category === selectedSidebar)?.map((item) => (
               <div key = {item.product_id}>
                   <Bubble itemID={item.product_id} itemName={item.product_name} itemPrice={item.product_price!} description={item.product_desc!} imgPath="placeholder.jpg" /> 

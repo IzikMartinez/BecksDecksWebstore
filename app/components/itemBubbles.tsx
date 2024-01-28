@@ -4,8 +4,6 @@ import SmallBubble from './bubbleFragments/SmallBubble'
 
 import { useAppSelector, useAppDispatch } from '../hooks'
 
-
-
 export interface BubbleProps {
   itemID: string,
   itemName: string, 
@@ -13,8 +11,6 @@ export interface BubbleProps {
   description: string,
   imgPath?: string
 }
-
-
 
 export function Bubble(props: BubbleProps) {
 const inventory = useAppSelector(state => state.productStore.products)
@@ -26,7 +22,6 @@ return (
   }
 </div>
 )}
-
 
 function VisibleBubble(props: BubbleProps) {
 const inventory = useAppSelector(state => state.productStore.products)
@@ -40,7 +35,6 @@ return (
 )
 }
 
-
 export interface imgProps {
   imgPath: string,
   imgAlt: string
@@ -51,7 +45,6 @@ export interface cartProps {
   name: string,
   price: number,
 }
-
 
 export interface cartItem {
   id: string,

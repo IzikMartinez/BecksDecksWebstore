@@ -1,5 +1,5 @@
 .sidebar {
-    @apply absolute flex flex-col w-24 h-screen top-16 -left-8 justify-start items-start text-center font-main-display 
+    @apply absolute flex flex-col w-24 h-screen -left-8 justify-start items-start text-center font-main-display 
 }
 
 .sidebarItem {
