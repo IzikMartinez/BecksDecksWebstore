@@ -11,27 +11,23 @@ export default function SmallBubble(props: BubbleProps){
   const dispatch = useDispatch()
   const inventory = useAppSelector(state => state.productStore.products )
     return (
-        <div className='flex flex-col items-center justify-center'>
-          <div className={bubblestyle.bubbleBody} onClick={()=>dispatch(toggleSize(props.itemID))}>
+        <div className='flex flex-col items-center justify-center mx-2'>
+          <div className="flex flex-col items-center">
             <FetchImage itemID={props.itemID} itemName={props.itemName} itemPrice={props.itemPrice} size={true}/>
             <ItemText text={props.itemName}></ItemText>
             <PriceText text={props.itemPrice.toString()}/>
           </div>
-          <div>
             <AddToCartBtn id={props.itemID} name={props.itemName} price={props.itemPrice}/>
-          </div>
         </div>
     )
 }
-
-
 
 interface textProps {
   text: string
 } 
 function ItemText(props: textProps) {
   return (
-        <div className='absolute flex lg:w-60 w-48 select-none h-14 bg-blue-400 bottom-14 text-white items-center justify-center text-center lg:text-lg text-sm font-texgyre-adventor small-caps font-semibold'>
+        <div className='flex lg:w-60 w-48 select-none lg:h-10 bg-blue-400 bottom-14 text-white items-center justify-center text-center lg:text-md text-sm font-texgyre-adventor small-caps font-semibold'>
 
             {props.text}  <br />
         </div>
@@ -39,7 +35,7 @@ function ItemText(props: textProps) {
 }
 function PriceText(props: textProps) {
   return (
-        <div className='absolute flex lg:w-60 w-48 select-none h-10 lg:bottom-4 bg-blue-400 text-white justify-center lg:text-xl font-texgyre-adventor small-caps font-semibold'>
+        <div className='flex lg:w-60 w-48 select-none lg:h-8 lg:bottom-4 bg-blue-400 text-white justify-center lg:text-xl font-texgyre-adventor small-caps font-semibold'>
             ${props.text}  <br />
         </div>
   )

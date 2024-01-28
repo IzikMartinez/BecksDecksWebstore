@@ -70,7 +70,7 @@ export function ProductList() {
       isLoading ? <div className="fixed flex justify-center items-center text-black">Loading...</div> :
       <div className="fixed flex lg:flex-row flex-col w-screen h-screen left-0 top-28 ">
         <SideBar />
-        <div className="lg:w-screen h-screen flex flex-wrap items-center justify-center">
+        <div className="lg:w-screen h-screen flex flex-wrap items-center justify-center overflow-auto">
           {allProducts.filter(product => product.product_category === selectedSidebar)?.map((item) => (
               <div key = {item.product_id}>
                   <Bubble itemID={item.product_id} itemName={item.product_name} itemPrice={item.product_price!} description={item.product_desc!} imgPath="placeholder.jpg" /> 

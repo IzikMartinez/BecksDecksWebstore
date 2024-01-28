@@ -19,7 +19,6 @@
  @apply w-96 h-12 text-center rounded-t-xl scale-105
 }
 
-.addToCart {@apply
-    relative flex lg:w-60 w-48 h-12 select-none items-center justify-center bottom-6 lg:-bottom-3 text-gray-600 bg-pastel-coral rounded-b-xl  shadow-gray-600 shadow-lg text-xl font-bold hover:bg-pastel-yellow
-    font-sans-fira
+.addToCart {
+  @apply flex lg:w-60 w-48 h-12 select-none items-center justify-center bottom-6 lg:-bottom-3 text-gray-600 bg-pastel-coral rounded-b-xl  shadow-gray-600 shadow-lg text-xl font-bold hover:bg-pastel-yellow font-sans-fira
 }

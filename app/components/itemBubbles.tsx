@@ -82,10 +82,10 @@ export function FetchImage(props: fetchProps) {
     })
   })
   const sizeFlag = (props.size) ? 
-    'absolute top-0 select-none text-center rounded-t-xl scale-[100%]' : 
+    'w-40 h-56 select-none rounded-t-xl scale-[100%]' : 
     'select-none rounded-sm lg:scale-[100%] scale-[80%]'
   const widthFlag = (props.size) ? 125 : 250
-  const heightFlag = (props.size) ? 125 : 250
+  const heightFlag = (props.size) ? 100 : 250
   return (
 <Image 
           className={sizeFlag}
