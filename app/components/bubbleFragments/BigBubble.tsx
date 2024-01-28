@@ -9,9 +9,10 @@ import { FetchImage } from "../itemBubbles"
 export default function BigBubble(props: BubbleProps) {
   const dispatch = useDispatch()
   return (
-    <div className='flex w-2/3 mx-auto my-auto justify-center items-center bg-gradient-to-b from-blue-950 to-blue-400 rounded-2xl' onClick={()=>dispatch(toggleSize(props.itemID))}>
-        <div className='relatve flex flex-col mx-auto w-[48em] h-[36em] items-center justify-center'>
+    <div className='flex w-2/3 mx-auto mb-24 justify-center items-center bg-gradient-to-b from-blue-950 to-blue-400 rounded-2xl' onClick={()=>dispatch(toggleSize(props.itemID))}>
+        <div className='relatve flex flex-col ml-10 w-[48em] h-[36em] items-center justify-center'>
             <FetchImage itemID={props.itemID} itemName={props.itemName} itemPrice={props.itemPrice} size={false}/>
+            <AddToCartBtn id={props.itemID} name={props.itemName} price={props.itemPrice}/>
         </div>
         <div className='flex flex-col pt-0 lg:pr-0 pr-8 justify-center'>
             <div className='flex select-none mb-3 justify-center items-center 
@@ -50,7 +51,7 @@ function AddToCartBtn(props: cartProps) {
   const cart = useAppSelector(state => state.cartItems)
   return (
     <span 
-      className="flex justify-center items-center bg-gradient-to-r from-teal-600 via-teal-400 to-teal-600 h-16 lg:w-72 w-60 rounded-b-lg 
+      className="flex justify-center items-center bg-gradient-to-r from-teal-600 via-teal-400 to-teal-600 h-16 lg:w-66 w-60 rounded-b-lg 
     font-sans-fira font-bold text-xl hover:bg-gradient-to-r hover:from-pink-600 hover:via-pink-300 hover:to-pink-600 cursor-pointer" 
       onClick={() => dispatch(addToCart(newCartItem!))}>
       ADD TO CART
