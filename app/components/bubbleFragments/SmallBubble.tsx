@@ -1,11 +1,11 @@
 import { BubbleProps, imgProps, cartProps, cartItem } from "../itemBubbles"
 import { useDispatch } from "react-redux"
 import { useAppSelector } from "@/app/hooks"
-import Image from "next/image"
 import { useState, useEffect } from "react"
 import { addToCart } from "@/app/GlobalRedux/cartSlice"
 import { toggleSize } from "@/app/GlobalRedux/productSlice"
 import bubblestyle from "app/styles/bubblestyle.module.css"
+import { FetchImage } from "../itemBubbles"
 
 export default function SmallBubble(props: BubbleProps){
   const dispatch = useDispatch()
@@ -24,45 +24,7 @@ export default function SmallBubble(props: BubbleProps){
     )
 }
 
-interface fetchProps {
-  itemID: string,
-  itemName: string,
-  itemPrice: number
-  size: boolean 
-}
 
-{/* fetch the image from the supabase storage bucket and return an image component */}
-/* write a unit test for this function */
-
-async function fetchHelper(itemID: string) {
-  const res = await fetch(`/api/${itemID}`)
-  const {data: {publicUrl}} = await res.json()
-  console.log(publicUrl)
-  return publicUrl
-}
-
-export function FetchImage(props: fetchProps) {
-  const [imgPath, setImgPath] = useState<string>('')
-  useEffect(() => {
-  {/* call the fetch api to get the image from the supabase storage bucket */}
-  {/* the api request is a get request that uses the itemID as a parameter */}
-    fetchHelper(props.itemID).then((res) => {
-      setImgPath(res)
-    })
-  })
-  const sizeFlag = (props.size) ? 
-    'absolute top-0 select-none text-center rounded-t-xl scale-[100%]' : 
-    'absolute select-none rounded-sm lg:scale-[200%] scale-[150%]'
-  return (
-<Image 
-          className={sizeFlag}
-          src={imgPath} 
-          alt={props.itemName}
-          width={120}
-          height={120}
-        />
-  )
-}
 
 interface textProps {
   text: string

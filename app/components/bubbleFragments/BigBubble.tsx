@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { toggleSize } from "@/app/GlobalRedux/productSlice"
 import { useAppSelector } from "@/app/hooks"
 import { addToCart } from "@/app/GlobalRedux/cartSlice"
-import { FetchImage } from "./SmallBubble"
+import { FetchImage } from "../itemBubbles"
 
 export default function BigBubble(props: BubbleProps) {
   const dispatch = useDispatch()
