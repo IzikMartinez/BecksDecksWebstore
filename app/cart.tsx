@@ -55,6 +55,19 @@ interface cartItemProps {
 
 function CartElement(props: cartItemProps) {
   const quantity = useAppSelector((state) => selectQuantity(state, props.id))
+  return (
+    <div className='drop-shadow-lg lg:w-96 w-56 lg:h-12 h-20 flex lg:flew-row items-center justify-center top-0 right-0 mb-2'>
+      <div className='lg:w-72 w-32 rounded-l-md break-words text-black font-sans-fira text-md text-center bg-white'> 
+        {props.name}: ${props.price * quantity!} 
+      </div>
+      <ItemQuantity id={props.id} price={props.price} name={props.name} quantity={props.quantity} />
+      <RemoveFromCartBtn id={props.id} />
+    </div>
+  )
+}
+
+function ItemQuantity(props: cartItemProps) {
+  const quantity = useAppSelector((state) => selectQuantity(state, props.id))
   const dispatch = useDispatch()
   const handleChange = ( event: React.ChangeEvent<HTMLInputElement> ) => { 
     const newNum = Number(event.target.value)
@@ -63,19 +76,14 @@ function CartElement(props: cartItemProps) {
     else if (newNum === 0)
       dispatch(removeFromCart(props.id))
   }
-  return (
-    <div className='bg-white drop-shadow-xl rounded-md lg:w-80 w-56 lg:h-12 h-20 flex lg:flew-row flex-col items-center justify-center top-0 right-0 mb-2'>
-      <div className='absolute lg:w-80 w-32 flex flex-grow flex-wrap whitespace-normal break-words lg:left-2 left-1 top-1 lg:top-1/4 text-black font-sans-fira text-md lg:text-md '> 
-        {props.name}: ${props.price * quantity!} 
-      </div>
+return(
       <input 
         type='number'
         value={ quantity } 
         onChange={ handleChange }
-        className='absolute flex lg:left-[ 14.5rem ] lg:bottom-0 lg:w-12 w-10 lg:h-12 h-20 bg-wave-blue-200 right-12 z-10 text-black font-iosevka text-lg '></input>
-      <RemoveFromCartBtn id={props.id} />
-    </div>
-  )
+        className='flex lg:w-10 w-10 lg:h-12 h-20 bg-wave-blue-200 z-10 text-black font-iosevka text-lg text-center'>
+      </input>
+)
 }
 
 interface RemoveBtnProps {
@@ -86,7 +94,7 @@ function RemoveFromCartBtn(props: RemoveBtnProps) {
   const dispatch = useDispatch()
   return(
     <button
-      className='absolute lg:h-12 h-20 w-12 right-0 py-3 px-4 rounded-r-md bg-pink-300 hover:bg-pink-800 cursor-pointer overflow-visible'
+      className='lg:h-12 h-20 w-12 right-0 py-3 px-4 rounded-r-md bg-pink-300 hover:bg-pink-800 cursor-pointer overflow-visible'
       onClick={()=>
         {
           dispatch(removeFromCart(props.id))}
@@ -95,7 +103,7 @@ function RemoveFromCartBtn(props: RemoveBtnProps) {
       <img
       src="/trash.svg" 
       alt="trash" 
-      className='absolute w-6 h-6 left-3 top-3'
+      className='w-6 h-6'
       />
     </button>
   )
