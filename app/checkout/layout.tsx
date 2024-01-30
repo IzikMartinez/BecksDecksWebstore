@@ -1,3 +1,4 @@
+"use client";
 import { Providers } from "../GlobalRedux/provider"
 import { Splash } from "../topbar"
 
@@ -7,10 +8,10 @@ export default function CheckoutLayout({
   children: React.ReactNode
 }) {
   return(
+    <section>
       <Providers>
-        {
-          children
-        }
-      </Providers>
+      <Splash />
+      {children}</Providers>
+    </section>
   )
 }

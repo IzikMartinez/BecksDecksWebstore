@@ -43,20 +43,19 @@ export default function Cart() {
 const total = useAppSelector(selectTotalCartPrice)
 const cartStore = useAppSelector(state => state.cartItems)  
   return (
-    <div className='fixed flex flex-col justify-center items-center bg-gradient-to-b  from-blue-400 to-red-100 h-1/3 lg:w-96 w-1/3 right-0 mr-8 top-32 pt-12 shadow-xl rounded-lg'>
-        <div className='mt-4'>
-          {cartStore.cartItems.map((cartItem) => (
-              <div key = {cartItem.name}>
-                <CartElement id={cartItem.id} name={cartItem.name} price={cartItem.price} quantity={0} />
-              </div>
-          ))} 
-        </div>
-      <span className='flex-grow'>
+    <div className='fixed flex flex-col justify-center items-center bg-gradient-to-b  from-blue-400 to-red-100 h-2/3 lg:w-96 w-1/3 right-0 mr-8 top-32 pt-12 shadow-xl rounded-lg'>
+      <div className='mt-4 flex-grow'>
+        {cartStore.cartItems.map((cartItem) => (
+            <div key = {cartItem.name}>
+              <CartElement id={cartItem.id} name={cartItem.name} price={cartItem.price} quantity={0} />
+            </div>
+        ))} 
+      </div>
+      <Checkout />
+      <div className='mb-4'>
         <CartTotal total={total}/>
-      </span>
-      <div>
-        <Checkout/>
-      </div>  
+      </div>
+ 
     </div>  )
 }
 
@@ -66,10 +65,6 @@ const total = useAppSelector(selectTotalCartPrice)
   const signup = useAppSelector(getSignup)
   return (
     <div>
-      <Cart />
-      <div><CheckoutSplash/>
-        {cents.toFixed(2)}
-      </div>
       <div>
         <PaymentForm
           applicationId="sandbox-sq0idb--G0V3vOW-I9WjIejCWCVCQ"
@@ -100,7 +95,6 @@ const total = useAppSelector(selectTotalCartPrice)
             }
             else alert("paymentMessage")
         }}
-
           createPaymentRequest={()=> ({
             countryCode: "US",
             currencyCode: "USD",
@@ -135,10 +129,10 @@ const total = useAppSelector(selectTotalCartPrice)
               amount: "41.79",
             }
             })
-          }
-          >
+          }           >
           <CreditCard/>
         </PaymentForm>
+
       </div>
     </div>
   )

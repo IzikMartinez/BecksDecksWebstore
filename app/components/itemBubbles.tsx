@@ -68,7 +68,6 @@ interface fetchProps {
 async function fetchHelper(itemID: string) {
   const res = await fetch(`/api/${itemID}`)
   const {data: {publicUrl}} = await res.json()
-  console.log(publicUrl)
   return publicUrl
 }
 
