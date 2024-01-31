@@ -83,7 +83,8 @@ const total = useAppSelector(selectTotalCartPrice)
             const {body: bodyData} = await response.json()
             if(bodyData) {
               const {payment: payData} = JSON.parse(bodyData)
-              if(payData.status === "COMPLETED") {
+              alert(payData.status)
+              if(payData.status === "COMPLETED" && signup.player_id) {
                 const newUser: UserType = {
                     player_id: signup.player_id,
                     player_firstname: signup.player_firstname,

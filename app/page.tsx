@@ -10,7 +10,7 @@ export default function Home() {
   return (
   <body>
     <div>
-      <Splash></Splash>
+        <Splash args={["events", "products"]}/>
     </div>
     <div className='fixed w-screen h-screen lg:top-24 top-16'>
       <EventProduct />
