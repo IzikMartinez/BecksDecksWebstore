@@ -43,7 +43,7 @@ export default function Cart() {
 const total = useAppSelector(selectTotalCartPrice)
 const cartStore = useAppSelector(state => state.cartItems)  
   return (
-    <div className='fixed flex flex-col justify-center items-center bg-gradient-to-b  from-blue-400 to-red-100 h-2/3 lg:w-96 w-1/3 right-0 mr-8 top-32 pt-12 shadow-xl rounded-lg'>
+    <div className='fixed flex flex-col justify-center items-center bg-gradient-to-b from-blue-400 to-red-100 h-2/3 lg:w-96 w-1/3 top-32 pt-12 shadow-xl rounded-lg'>
       <div className='mt-4 flex-grow'>
         {cartStore.cartItems.map((cartItem) => (
             <div key = {cartItem.name}>

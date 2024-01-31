@@ -10,8 +10,11 @@ export default function CheckoutLayout({
   return(
     <section>
       <Providers>
-      <Splash />
-      {children}</Providers>
+        <Splash args={["Home"]}/>
+        <div className="flex w-screen h-full lg:top-32 items-center justify-center">
+          {children}
+        </div>
+      </Providers>
     </section>
   )
 }

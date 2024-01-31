@@ -20,12 +20,15 @@ interface ProdEventProps {
 
 export const useAppDispatch: () => AppDispatch = useDispatch
 
-export function Splash() {
-  return (
+/// This function takes an array of strings as an argument
+export function Splash ({args}: {args: string[]}) {
+return (
   <span className='flex flex-row fixed w-screen lg:h-24 h-16 top-0 left-0 bg-gradient-to-r from-pastel-coral via-pastel-yellow to-yellow-compliment text-black  shadow-xl shadow-blue-gray-800 text-center items-center justify-center'> 
+  {/* This line creates a button for every string in the array */}
     <div className="flex fixed flex-row w-full">
-        <ProdEvent name="events" />
-        <ProdEvent name="products" />
+      {args.map((arg) => (
+          <ProdEvent name={arg} />
+          ))}
     </div>
     <div className={styles.title}>
       SPARKLING CITY LGS
