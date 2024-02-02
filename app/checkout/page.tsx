@@ -67,7 +67,8 @@ const total = useAppSelector(selectTotalCartPrice)
     <div>
       <div>
         <PaymentForm
-          applicationId="sandbox-sq0idb--G0V3vOW-I9WjIejCWCVCQ"
+          {/*applicationId="sandbox-sq0idb--G0V3vOW-I9WjIejCWCVCQ"*/}
+          applicationId='sq0idp-wBCAiutBqqRgY5o5lPYPPg'
           locationId="L5CQ4BZB5NCNX"
           cardTokenizeResponseReceived={async (token, buyer) => {
             const response = await fetch('/api/pay', {
