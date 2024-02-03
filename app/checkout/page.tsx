@@ -9,6 +9,7 @@ import {getSignup} from "@/app/GlobalRedux/signupSlice";
 import {log} from "util";
 import {useDispatch} from "react-redux";
 import { EntrantType, UserType } from '@/types';
+import { number } from 'square/dist/types/schema';
 
 const TAX = 1.0825
 
@@ -21,21 +22,6 @@ interface CartElementProps {
   name: string,
   price: number,
   quantity?: number,
-}
-function CartElement(props: CartElementProps) {
-const quantity = useAppSelector((state) => selectQuantity(state, props.id))
-return (
-  <div className='text-black font-iosevka'>
-    {props.name}: ${props.price * quantity!}
-  </div>
-  )
-}
-
-type cartTotalProps = { total: number } 
-function CartTotal({total}: cartTotalProps) {
-  return (
-    <span className='text-2xl font-bold text-gray-600 mb-6'>${total}</span>
-  )
 }
 
 
@@ -53,21 +39,36 @@ const cartStore = useAppSelector(state => state.cartItems)
       </div>
       <Checkout />
       <div className='mb-4'>
-        <CartTotal total={total}/>
+        <CartTotal total={total*TAX}/>
       </div>
  
     </div>  )
 }
 
+function CartElement(props: CartElementProps) {
+const quantity = useAppSelector((state) => selectQuantity(state, props.id))
+return (
+  <div className='text-black font-iosevka'>
+    {props.name}: ${props.price * quantity!}
+  </div>
+  )
+}
+
+type cartTotalProps = { total: number } 
+function CartTotal({total}: cartTotalProps) {
+  return (
+    <span className='text-2xl font-bold text-gray-600 mb-6'>${total.toFixed(2)}</span>
+  )
+}
+
 function Checkout() {
-const total = useAppSelector(selectTotalCartPrice)
+  const total = useAppSelector(selectTotalCartPrice)
   const cents = total*TAX
   const signup = useAppSelector(getSignup)
   return (
     <div>
       <div>
         <PaymentForm
-          {/*applicationId="sandbox-sq0idb--G0V3vOW-I9WjIejCWCVCQ"*/}
           applicationId='sq0idp-wBCAiutBqqRgY5o5lPYPPg'
           locationId="L5CQ4BZB5NCNX"
           cardTokenizeResponseReceived={async (token, buyer) => {
@@ -134,7 +135,6 @@ const total = useAppSelector(selectTotalCartPrice)
           }           >
           <CreditCard/>
         </PaymentForm>
-
       </div>
     </div>
   )
