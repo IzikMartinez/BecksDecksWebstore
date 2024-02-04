@@ -94,7 +94,11 @@ function Checkout() {
                 }
                 poster('/api/entrants', newUser, signup.event_id!)
                 console.log(signup)
-                }
+              }
+              // this conditional reroutes to the PaymentSuccess page if the payment is successful
+              if(payData.status === "COMPLETED") {
+                
+              }
             }
             else alert("paymentMessage")
         }}

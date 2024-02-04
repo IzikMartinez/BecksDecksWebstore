@@ -86,12 +86,12 @@ export function FetchImage(props: fetchProps) {
   const widthFlag = (props.size) ? 125 : 250
   const heightFlag = (props.size) ? 100 : 250
   return (
-<Image 
-          className={sizeFlag}
-          src={imgPath} 
-          alt={props.itemName}
-          width={widthFlag}
-          height={heightFlag}
-        />
+    <Image 
+        className={sizeFlag}
+        src={imgPath} 
+        alt={props.itemName}
+        width={widthFlag}
+        height={heightFlag}
+      />
   )
 }
