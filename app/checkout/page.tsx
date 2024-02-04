@@ -11,7 +11,7 @@ import {useDispatch} from "react-redux";
 import { EntrantType, UserType } from '@/types';
 import { number } from 'square/dist/types/schema';
 
-const TAX = 1.0825
+const TAX = 0.0825
 
 interface checkoutProps {
   total: number,
@@ -29,7 +29,9 @@ export default function Cart() {
 const total = useAppSelector(selectTotalCartPrice)
 const cartStore = useAppSelector(state => state.cartItems)  
   return (
-    <div className='fixed flex flex-col justify-center items-center bg-gradient-to-b from-blue-400 to-red-100 h-2/3 lg:w-96 w-1/3 top-32 pt-12 shadow-xl rounded-lg'>
+  <html>
+  <div className='fixed flex h-screen top-32'>
+    <div className='flex flex-col justify-center items-center bg-gradient-to-b from-blue-400 to-red-100 h-2/3 lg:w-96 w-1/3 top-32 pt-12 shadow-xl rounded-lg mx-2'>
       <div className='mt-4 flex-grow'>
         {cartStore.cartItems.map((cartItem) => (
             <div key = {cartItem.name}>
@@ -37,12 +39,19 @@ const cartStore = useAppSelector(state => state.cartItems)
             </div>
         ))} 
       </div>
-      <Checkout />
+      <ShippingOptions />
+      <CartTotal total={total*TAX} text="Tax"/>
       <div className='mb-4'>
-        <CartTotal total={total*TAX}/>
+        <CartTotal total={total*(1+TAX)} text="Total"/>
       </div>
- 
-    </div>  )
+    </div>  
+    <div className='flex flex-col justify-center items-center bg-gradient-to-b from-blue-400 to-red-100 h-2/3 lg:w-96 w-1/3 top-32 pt-12 shadow-xl rounded-lg mx-2'>
+      <Checkout />
+
+  </div>
+  </div>
+  </html>
+    )
 }
 
 function CartElement(props: CartElementProps) {
@@ -54,10 +63,10 @@ return (
   )
 }
 
-type cartTotalProps = { total: number } 
-function CartTotal({total}: cartTotalProps) {
+type cartTotalProps = { total: number, text: string } 
+function CartTotal({total, text}: cartTotalProps) {
   return (
-    <span className='text-2xl font-bold text-gray-600 mb-6'>${total.toFixed(2)}</span>
+    <span className='text-2xl font-bold text-gray-600 mb-6'>{text}: ${total.toFixed(2)}</span>
   )
 }
 
@@ -187,4 +196,19 @@ const poster = async (url: string, newUser: UserType, event_id: string) => {
     headers: {"Content-type": "application/json"},
     body: JSON.stringify(newEntrant)
   })
+}
+
+
+// ShippingOptions:
+// This function returns the shipping options for the user to choose from.
+// The user can choose to pick up the item in store, or have it shipped to them.
+// As of now, only the "Pickup in store" option is available. UPS and USPS shipping options will be added in the future.
+// This function should take an array of shipping options as an argument, and return a list of radio buttons for the user to choose from.
+function ShippingOptions() {
+  return (
+    <div>
+      <input type="radio" id="pickup" name="shipping" value="pickup" />
+      <label htmlFor="pickup">Pickup in store: $0.00</label>
+    </div>
+  )
 }
