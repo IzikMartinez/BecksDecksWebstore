@@ -22,3 +22,9 @@
 .waves { 
     background-image: url('../../public/waves.svg');
 }
+
+.userform { 
+  @apply bg-zinc-50 border border-gray-400 rounded-lg shadow-md w-[19rem] h-12 p-4 mb-3 opacity-95 text-zinc-700
+  focus:opacity-100 focus:rounded-none focus:bg-white focus:text-black
+  outline-none transition-all duration-200 ease-in-out;
+}

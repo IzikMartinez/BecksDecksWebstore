@@ -1,15 +1,12 @@
 'use client';
-import React, {useState} from 'react';
-import { PaymentForm, PaymentFormProps, CreditCard, GooglePay} from 'react-square-web-payments-sdk';
+import React from 'react';
+import { PaymentForm, CreditCard, GooglePay} from 'react-square-web-payments-sdk';
 import { useAppSelector } from '../hooks';
 import { selectQuantity, selectTotalCartPrice } from '../GlobalRedux/cartSlice';
 import styles from "app/styles/home.module.css"
 import Link from 'next/link';
 import {getSignup} from "@/app/GlobalRedux/signupSlice";
-import {log} from "util";
-import {useDispatch} from "react-redux";
 import { EntrantType, UserType } from '@/types';
-import { number } from 'square/dist/types/schema';
 
 const TAX = 0.0825
 
@@ -46,6 +43,7 @@ const cartStore = useAppSelector(state => state.cartItems)
       </div>
     </div>  
     <div className='flex flex-col justify-center items-center bg-gradient-to-b from-blue-400 to-red-100 h-2/3 lg:w-96 w-1/3 top-32 pt-12 shadow-xl rounded-lg mx-2'>
+      <UserEntry />
       <Checkout />
 
   </div>
@@ -204,11 +202,68 @@ const poster = async (url: string, newUser: UserType, event_id: string) => {
 // The user can choose to pick up the item in store, or have it shipped to them.
 // As of now, only the "Pickup in store" option is available. UPS and USPS shipping options will be added in the future.
 // This function should take an array of shipping options as an argument, and return a list of radio buttons for the user to choose from.
+// set pick up in store to be a radio that is checked by default and USPS and UPS to be disabled
 function ShippingOptions() {
   return (
+    <div className='flex flex-col'>
+      <div className='flex flex-row justify-between'>
+        <label htmlFor='pickup' className='text-black font-iosevka'>Pickup in store: $0.00</label>
+        <input type='radio' id='pickup' name='shipping' value='pickup' defaultChecked className='text-black font-iosevka'/>
+      </div>
+      <div className='flex flex-row justify-between'>
+        <label htmlFor='usps' className='text-black font-iosevk'>USPS: n/a</label>
+        <input type='radio' id='usps' name='shipping' value='usps' disabled className='text-black font-iosevka'/>
+      </div>
+      <div className='flex flex-row justify-between'>
+        <label htmlFor='ups' className='text-black font-iosevka'>UPS: n/a</label>
+        <input type='radio' id='ups' name='shipping' value='ups' disabled className='text-black font-iosevka '/>
+      </div>
+    </div>
+  )
+}
+
+type UserFormProps = {
+  text: string,
+  dataType: string,
+}
+
+// UserForm:
+// This function accepts the first name, last name, and email of the user as props.
+// If dataType is an email, verify that the email is valid.
+// If dataType is a phone number, verify that the phone number is valid.
+// If dataType is a name, verify that the name is valid.
+// instead of labels, use placeholders
+function UserForm({text, dataType}: UserFormProps) {
+  if(dataType === 'email') {
+    return (
+      <div className='flex flex-col'>
+        <input type='email' placeholder={text} className={styles.userform}/>
+      </div>
+    )
+  } else if(dataType === 'phone') {
+    return (
+      <div className='flex flex-col'>
+        <input type='tel' placeholder={text} className={styles.userform}/>
+      </div>
+  )} else {
+    return (
+      <div className='flex flex-col'>
+        <input type='text' placeholder={text} className={styles.userform}/>
+      </div>
+    )
+  }
+}
+
+// UserEntry:
+// This function returns a form for the user to enter their first name, last name, and email.
+// The user can also enter their phone number, but this is optional.
+function UserEntry() {
+  return (
     <div>
-      <input type="radio" id="pickup" name="shipping" value="pickup" />
-      <label htmlFor="pickup">Pickup in store: $0.00</label>
+      <UserForm text='First Name' dataType='firstName'/>
+      <UserForm text='Last Name' dataType='lastName'/>
+      <UserForm text='Email' dataType='email'/>
+      <UserForm text='Phone Number (optional)' dataType='phone'/>
     </div>
   )
 }
