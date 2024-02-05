@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import { PaymentForm, CreditCard, GooglePay} from 'react-square-web-payments-sdk';
 import { useAppSelector } from '../hooks';
 import { selectQuantity, selectTotalCartPrice } from '../GlobalRedux/cartSlice';
@@ -9,6 +9,7 @@ import {getSignup} from "@/app/GlobalRedux/signupSlice";
 import { EntrantType, UserType } from '@/types';
 
 const TAX = 0.0825
+
 
 interface checkoutProps {
   total: number,
@@ -44,8 +45,7 @@ const cartStore = useAppSelector(state => state.cartItems)
     </div>  
     <div className='flex flex-col justify-center items-center bg-gradient-to-b from-blue-400 to-red-100 h-2/3 lg:w-96 w-1/3 top-32 pt-12 shadow-xl rounded-lg mx-2'>
       <UserEntry />
-      <Checkout />
-
+      <PaymentSwitch />
   </div>
   </div>
   </html>
@@ -265,5 +265,60 @@ function UserEntry() {
       <UserForm text='Email' dataType='email'/>
       <UserForm text='Phone Number (optional)' dataType='phone'/>
     </div>
+  )
+}
+
+// PaymentSwitch:
+// This function renders a button that the user can click to switch between payment options.
+// If the user chooses to pay in store, the user will be informed how long the store will hold the item for them.
+// If the user chooses to pay online, the buttons will disappear and the user will be presented with a form to enter their payment information.
+function PaymentSwitch() {
+  const [paymentMethod, setPaymentMethod] = useState('')
+  if (paymentMethod === '') {
+    return (
+      <PaymentOptions setPaymentMethod={setPaymentMethod}/>
+    )
+  } else if(paymentMethod === 'Pay in store') {
+      alert('Your item will be held for 24 hours.')
+      return (
+      <div></div>
+      )
+  } else {
+    return (
+      <div>
+        <Checkout />
+      </div>
+    )
+  }
+}
+
+// PaymentOptions:
+// This function presents the user with the option to pay in store, or to pay online.
+function PaymentOptions({setPaymentMethod}: {setPaymentMethod: (method: string) => void}) {
+  return (
+  <div className='flex flex-col justify-between'>
+    <PaymentButton text='Pay in store' setPaymentMethod={setPaymentMethod}/>
+    <PaymentButton text='Pay online' setPaymentMethod={setPaymentMethod}/>
+  </div>
+  )
+}
+
+// PaymentButton:
+// This function returns a button that the user can click to select their payment method.
+// This function uses state to keep track of the payment method that the user has selected and passes the selected payment method to the PaymentOptions function.
+// This function accepts two inputs:
+// text: the text that will be displayed on the button
+// setPaymentMethod: a function that sets the payment method that the user has selected
+function PaymentButton({text, setPaymentMethod}: {text: string, setPaymentMethod: (method: string) => void}) {
+  const handleClick = () => {
+    setPaymentMethod(text)
+  }
+  return (
+    <button 
+      className='text-black w-48 h-14 my-2 bg-purple-300 rounded-lg font-sans-fira'
+      onClick={handleClick}
+    >
+    {text}
+    </button>
   )
 }
