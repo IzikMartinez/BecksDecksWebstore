@@ -44,9 +44,8 @@ const cartStore = useAppSelector(state => state.cartItems)
       </div>
     </div>  
     <div className='flex flex-col justify-center items-center bg-gradient-to-b from-blue-400 to-red-100 h-2/3 lg:w-96 w-1/3 top-32 pt-12 shadow-xl rounded-lg mx-2'>
-      <UserEntry />
-      <PaymentSwitch />
-  </div>
+      <PaymentWindow />
+    </div>
   </div>
   </html>
     )
@@ -225,6 +224,10 @@ function ShippingOptions() {
 type UserFormProps = {
   text: string,
   dataType: string,
+  setFirstName?: (firstName: string) => void,
+  setLastName?: (lastName: string) => void,
+  setEmail?: (email: string) => void,
+  setPhone?: (phone: string) => void,
 }
 
 // UserForm:
@@ -233,19 +236,24 @@ type UserFormProps = {
 // If dataType is a phone number, verify that the phone number is valid.
 // If dataType is a name, verify that the name is valid.
 // instead of labels, use placeholders
-function UserForm({text, dataType}: UserFormProps) {
+// If any of the fields are invalid, set the state of isValid to false and append the invalid fields to the fields array.
+function UserForm({text, dataType, setFirstName, setLastName, setEmail, setPhone}: UserFormProps) {
   if(dataType === 'email') {
+    setEmail!(text)
     return (
       <div className='flex flex-col'>
         <input type='email' placeholder={text} className={styles.userform}/>
       </div>
     )
   } else if(dataType === 'phone') {
+    setPhone!(text)
     return (
       <div className='flex flex-col'>
         <input type='tel' placeholder={text} className={styles.userform}/>
       </div>
   )} else {
+    if(dataType === 'firstName') { setFirstName!(text) }
+    else { setLastName!(text) }
     return (
       <div className='flex flex-col'>
         <input type='text' placeholder={text} className={styles.userform}/>
@@ -254,16 +262,27 @@ function UserForm({text, dataType}: UserFormProps) {
   }
 }
 
+
+
+
+type userEntryProps = {
+  setFirstName: (firstName: string) => void,
+  setLastName: (lastName: string) => void,
+  setEmail: (email: string) => void,
+  setPhone: (phone: string) => void,
+}
 // UserEntry:
 // This function returns a form for the user to enter their first name, last name, and email.
 // The user can also enter their phone number, but this is optional.
-function UserEntry() {
+// This function accepts an argument: 
+// setIsValid: a function that sets the state of whether the user's personal information is valid, and the fields that are invalid
+function UserEntry({setFirstName, setLastName, setEmail, setPhone}: userEntryProps) {
   return (
     <div>
-      <UserForm text='First Name' dataType='firstName'/>
-      <UserForm text='Last Name' dataType='lastName'/>
-      <UserForm text='Email' dataType='email'/>
-      <UserForm text='Phone Number (optional)' dataType='phone'/>
+      <UserForm text='First Name' dataType='firstName' setFirstName={setFirstName}/>
+      <UserForm text='Last Name' dataType='lastName' setLastName={setLastName}/>
+      <UserForm text='Email' dataType='email' setEmail={setEmail}/>
+      <UserForm text='Phone Number (optional)' dataType='phone' setPhone={setPhone}/>
     </div>
   )
 }
@@ -272,22 +291,24 @@ function UserEntry() {
 // This function renders a button that the user can click to switch between payment options.
 // If the user chooses to pay in store, the user will be informed how long the store will hold the item for them.
 // If the user chooses to pay online, the buttons will disappear and the user will be presented with a form to enter their payment information.
+// This method takes a boolean as an argument.
+// isValid: a boolean that determines whether the user's personal information is valid
 function PaymentSwitch() {
   const [paymentMethod, setPaymentMethod] = useState('')
-  if (paymentMethod === '') {
-    return (
-      <PaymentOptions setPaymentMethod={setPaymentMethod}/>
-    )
-  } else if(paymentMethod === 'Pay in store') {
+  if(paymentMethod === 'Pay in store') {
       alert('Your item will be held for 24 hours.')
       return (
       <div></div>
       )
-  } else {
+  } else if(paymentMethod === 'Pay online') {
     return (
       <div>
         <Checkout />
       </div>
+    )
+  } else {
+    return (
+      <PaymentOptions setPaymentMethod={setPaymentMethod}/>
     )
   }
 }
@@ -321,4 +342,47 @@ function PaymentButton({text, setPaymentMethod}: {text: string, setPaymentMethod
     {text}
     </button>
   )
+}
+
+// PaymentWindow:
+// This function returns a form for the user to enter their personal information and payment information.
+// This function uses state to keep track of the user's personal information and payment selection.
+// If the personal information and payment information is valid, the user can click the "Pay" button to complete the transaction.
+// If the personal information and payment information is invalid, the user will be informed of the error and will be prompted to enter the correct information.
+function PaymentWindow() {
+ const user = useState({firstName: '', lastName: '', email: '', phone: ''})
+ const setFirstName = (firstName: string) => { user[0].firstName = firstName } 
+ const setLastName = (lastName: string) => { user[0].lastName = lastName}
+ const setEmail = (email: string) => { user[0].email = email}
+ const setPhone = (phone: string) => { user[0].phone = phone}
+  return (
+    <div className='flex flex-col justify-center items-center'>
+      <UserEntry setFirstName={setFirstName} setLastName={setLastName} setEmail={setEmail} setPhone={setPhone}/>
+      <PaymentSwitch />
+    </div>
+  )
+}
+
+function validateEmail(email: string, setIsValid: (valid: boolean, fields: string[]) => void) {
+  const re = /\S+@\S+\.\S+/
+  if(!re.test(email)) {
+    setIsValid(false, ['email'])
+  }
+  return re.test(email)
+}
+
+function validatePhone(phone: string, setIsValid: (valid: boolean, fields: string[]) => void) {
+  const re = /^\d{10}$/
+  if(!re.test(phone)) {
+    setIsValid(false, ['phone'])
+  }
+  return re.test(phone)
+}
+
+function validateName(name: string, setIsValid: (valid: boolean, fields: string[]) => void) {
+  const re = /^[a-zA-Z]+$/
+  if(!re.test(name)) {
+    setIsValid(false, ['name'])
+  }
+  return re.test(name)
 }
