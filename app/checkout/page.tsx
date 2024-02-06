@@ -8,6 +8,12 @@ import Link from 'next/link';
 import {getSignup} from "@/app/GlobalRedux/signupSlice";
 import { EntrantType, UserType } from '@/types';
 
+type customerType = {
+  firstName: string,
+  lastName: string,
+  email: string,
+  phone: string,
+}
 const TAX = 0.0825
 
 
@@ -224,10 +230,6 @@ function ShippingOptions() {
 type UserFormProps = {
   text: string,
   dataType: string,
-  setFirstName?: (firstName: string) => void,
-  setLastName?: (lastName: string) => void,
-  setEmail?: (email: string) => void,
-  setPhone?: (phone: string) => void,
 }
 
 // UserForm:
@@ -237,23 +239,19 @@ type UserFormProps = {
 // If dataType is a name, verify that the name is valid.
 // instead of labels, use placeholders
 // If any of the fields are invalid, set the state of isValid to false and append the invalid fields to the fields array.
-function UserForm({text, dataType, setFirstName, setLastName, setEmail, setPhone}: UserFormProps) {
+function UserForm({text, dataType}: UserFormProps) {
   if(dataType === 'email') {
-    setEmail!(text)
     return (
       <div className='flex flex-col'>
         <input type='email' placeholder={text} className={styles.userform}/>
       </div>
     )
   } else if(dataType === 'phone') {
-    setPhone!(text)
     return (
       <div className='flex flex-col'>
         <input type='tel' placeholder={text} className={styles.userform}/>
       </div>
   )} else {
-    if(dataType === 'firstName') { setFirstName!(text) }
-    else { setLastName!(text) }
     return (
       <div className='flex flex-col'>
         <input type='text' placeholder={text} className={styles.userform}/>
@@ -264,25 +262,18 @@ function UserForm({text, dataType, setFirstName, setLastName, setEmail, setPhone
 
 
 
-
-type userEntryProps = {
-  setFirstName: (firstName: string) => void,
-  setLastName: (lastName: string) => void,
-  setEmail: (email: string) => void,
-  setPhone: (phone: string) => void,
-}
 // UserEntry:
 // This function returns a form for the user to enter their first name, last name, and email.
 // The user can also enter their phone number, but this is optional.
 // This function accepts an argument: 
 // setIsValid: a function that sets the state of whether the user's personal information is valid, and the fields that are invalid
-function UserEntry({setFirstName, setLastName, setEmail, setPhone}: userEntryProps) {
+function UserEntry() {
   return (
     <div>
-      <UserForm text='First Name' dataType='firstName' setFirstName={setFirstName}/>
-      <UserForm text='Last Name' dataType='lastName' setLastName={setLastName}/>
-      <UserForm text='Email' dataType='email' setEmail={setEmail}/>
-      <UserForm text='Phone Number (optional)' dataType='phone' setPhone={setPhone}/>
+      <UserForm text='First Name' dataType='firstName'/>
+      <UserForm text='Last Name' dataType='lastName' />
+      <UserForm text='Email' dataType='email'/>
+      <UserForm text='Phone Number (optional)' dataType='phone'/>
     </div>
   )
 }
@@ -350,15 +341,10 @@ function PaymentButton({text, setPaymentMethod}: {text: string, setPaymentMethod
 // If the personal information and payment information is valid, the user can click the "Pay" button to complete the transaction.
 // If the personal information and payment information is invalid, the user will be informed of the error and will be prompted to enter the correct information.
 function PaymentWindow() {
- const user = useState({firstName: '', lastName: '', email: '', phone: ''})
- const setFirstName = (firstName: string) => { user[0].firstName = firstName } 
- const setLastName = (lastName: string) => { user[0].lastName = lastName}
- const setEmail = (email: string) => { user[0].email = email}
- const setPhone = (phone: string) => { user[0].phone = phone}
   return (
     <div className='flex flex-col justify-center items-center'>
-      <UserEntry setFirstName={setFirstName} setLastName={setLastName} setEmail={setEmail} setPhone={setPhone}/>
-      <PaymentSwitch />
+      <UserEntry/>
+      <PaymentSwitch/>
     </div>
   )
 }
