@@ -348,27 +348,3 @@ function PaymentWindow() {
     </div>
   )
 }
-
-function validateEmail(email: string, setIsValid: (valid: boolean, fields: string[]) => void) {
-  const re = /\S+@\S+\.\S+/
-  if(!re.test(email)) {
-    setIsValid(false, ['email'])
-  }
-  return re.test(email)
-}
-
-function validatePhone(phone: string, setIsValid: (valid: boolean, fields: string[]) => void) {
-  const re = /^\d{10}$/
-  if(!re.test(phone)) {
-    setIsValid(false, ['phone'])
-  }
-  return re.test(phone)
-}
-
-function validateName(name: string, setIsValid: (valid: boolean, fields: string[]) => void) {
-  const re = /^[a-zA-Z]+$/
-  if(!re.test(name)) {
-    setIsValid(false, ['name'])
-  }
-  return re.test(name)
-}
