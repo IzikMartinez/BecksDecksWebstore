@@ -6,6 +6,7 @@ import productItemReducer from "./productSlice";
 import sidebarReducer from "./sidebarSlice"
 import cartReducer from "./cartSlice"
 import signupReducer from "./signupSlice"
+import validateReducer from "./validateSlice"
 
 export const store = configureStore({
     reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
         sidebar: sidebarReducer,
         cartItems: cartReducer,
         signup: signupReducer,
+        validate: validateReducer,
     },
 })
 

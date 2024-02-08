@@ -1,4 +1,3 @@
-
 export type Json =
   | string
   | number
@@ -7,7 +6,7 @@ export type Json =
   | { [key: string]: Json | undefined }
   | Json[]
 
-export interface Database {
+export type Database = {
   public: {
     Tables: {
       ENTRANTS: {
@@ -32,11 +31,11 @@ export interface Database {
             referencedColumns: ["event_id"]
           },
           {
-            foreignKeyName: "ENTRANTS_user_id_fkey"
-            columns: ["user_id"]
+            foreignKeyName: "ENTRANTS_player_id_fkey"
+            columns: ["player_id"]
             isOneToOne: false
             referencedRelation: "USERS"
-            referencedColumns: ["user_id"]
+            referencedColumns: ["player_id"]
           }
         ]
       }
@@ -64,6 +63,30 @@ export interface Database {
           event_id?: string
           event_name?: string
           event_time?: string | null
+        }
+        Relationships: []
+      }
+      ORDERS: {
+        Row: {
+          created_at: string
+          customer_fname: string | null
+          customer_lname: string | null
+          id: number
+          order_total: number | null
+        }
+        Insert: {
+          created_at?: string
+          customer_fname?: string | null
+          customer_lname?: string | null
+          id?: number
+          order_total?: number | null
+        }
+        Update: {
+          created_at?: string
+          customer_fname?: string | null
+          customer_lname?: string | null
+          id?: number
+          order_total?: number | null
         }
         Relationships: []
       }
@@ -96,18 +119,18 @@ export interface Database {
       }
       USERS: {
         Row: {
-          player_id: string | null
           player_firstname: string | null
+          player_id: string
           player_lastname: string | null
         }
         Insert: {
           player_firstname?: string | null
-          player_id?: string | null
+          player_id: string
           player_lastname?: string | null
         }
         Update: {
           player_firstname?: string | null
-          player_id?: string | null
+          player_id?: string
           player_lastname?: string | null
         }
         Relationships: []
@@ -128,7 +151,90 @@ export interface Database {
   }
 }
 
+export type Tables<
+  PublicTableNameOrOptions extends
+    | keyof (Database["public"]["Tables"] & Database["public"]["Views"])
+    | { schema: keyof Database },
+  TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
+    ? keyof (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
+        Database[PublicTableNameOrOptions["schema"]]["Views"])
+    : never = never
+> = PublicTableNameOrOptions extends { schema: keyof Database }
+  ? (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
+      Database[PublicTableNameOrOptions["schema"]]["Views"])[TableName] extends {
+      Row: infer R
+    }
+    ? R
+    : never
+  : PublicTableNameOrOptions extends keyof (Database["public"]["Tables"] &
+      Database["public"]["Views"])
+  ? (Database["public"]["Tables"] &
+      Database["public"]["Views"])[PublicTableNameOrOptions] extends {
+      Row: infer R
+    }
+    ? R
+    : never
+  : never
+
+export type TablesInsert<
+  PublicTableNameOrOptions extends
+    | keyof Database["public"]["Tables"]
+    | { schema: keyof Database },
+  TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
+    ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
+    : never = never
+> = PublicTableNameOrOptions extends { schema: keyof Database }
+  ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+      Insert: infer I
+    }
+    ? I
+    : never
+  : PublicTableNameOrOptions extends keyof Database["public"]["Tables"]
+  ? Database["public"]["Tables"][PublicTableNameOrOptions] extends {
+      Insert: infer I
+    }
+    ? I
+    : never
+  : never
+
+export type TablesUpdate<
+  PublicTableNameOrOptions extends
+    | keyof Database["public"]["Tables"]
+    | { schema: keyof Database },
+  TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
+    ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
+    : never = never
+> = PublicTableNameOrOptions extends { schema: keyof Database }
+  ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+      Update: infer U
+    }
+    ? U
+    : never
+  : PublicTableNameOrOptions extends keyof Database["public"]["Tables"]
+  ? Database["public"]["Tables"][PublicTableNameOrOptions] extends {
+      Update: infer U
+    }
+    ? U
+    : never
+  : never
+
+export type Enums<
+  PublicEnumNameOrOptions extends
+    | keyof Database["public"]["Enums"]
+    | { schema: keyof Database },
+  EnumName extends PublicEnumNameOrOptions extends { schema: keyof Database }
+    ? keyof Database[PublicEnumNameOrOptions["schema"]]["Enums"]
+    : never = never
+> = PublicEnumNameOrOptions extends { schema: keyof Database }
+  ? Database[PublicEnumNameOrOptions["schema"]]["Enums"][EnumName]
+  : PublicEnumNameOrOptions extends keyof Database["public"]["Enums"]
+  ? Database["public"]["Enums"][PublicEnumNameOrOptions]
+  : never
+
+
 export type ProductType = Database['public']['Tables']['PRODUCTS']['Row']
 export type EventType = Database['public']['Tables']['EVENTS']['Row']
 export type UserType = Database['public']['Tables']['USERS']['Row']
 export type EntrantType = Database['public']['Tables']['ENTRANTS']['Row']
+export type OrderType= Database['public']['Tables']['ORDERS']['Row']
+export type OrderTypeInsert= Database['public']['Tables']['ORDERS']['Insert']

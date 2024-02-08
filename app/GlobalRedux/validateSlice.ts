@@ -23,11 +23,13 @@ const initialState = {
 
 function validateEmail(email: string) {
   const re = /\S+@\S+\.\S+/
+  console.log(`email validation: ${re.test(email)}`)
   return re.test(email)
 }
 
 function validatePhone(phone: string) {
   const re = /^\d{10}$/
+  console.log(`phone validation: ${re.test(phone)}`)
   return re.test(phone)
 }
 
@@ -42,7 +44,8 @@ const validateSlice = createSlice({
   reducers: {
     setFirstName: (state, action: PayloadAction<string>) => {
       state.firstName = action.payload;
-      if (!action.payload) { 
+      console.log(state.firstName)
+      if (!action.payload) {
         state.error = 'First Name is required';
       } else if (!validateName(action.payload)) { 
         state.error = 'First Name is invalid';
@@ -53,10 +56,11 @@ const validateSlice = createSlice({
     },
     setLastName: (state, action: PayloadAction<string>) => {
       state.lastName = action.payload;
+      console.log(state.lastName)
       if (!action.payload) {
-        state.error = 'Last Name is required';
+        state.error += '\nLast Name is required';
       } else if (!validateName(action.payload)) { 
-        state.error = 'Last Name is invalid';
+        state.error += '\nLast Name is invalid';
       }
       else {
         state.error = '';
@@ -64,10 +68,11 @@ const validateSlice = createSlice({
     },
     setEmail: (state, action: PayloadAction<string>) => {
       state.email = action.payload;
+      console.log(state.email)
       if (!action.payload) {
-        state.error = 'Email is required';
+        state.error += '\nEmail is required';
       } else if (!validateEmail(action.payload)) { 
-        state.error = 'Email is invalid';
+        state.error += '\nEmail is invalid';
       }
       else {
         state.error = '';
@@ -75,10 +80,11 @@ const validateSlice = createSlice({
     },
     setPhone: (state, action: PayloadAction<string>) => {
       state.phone = action.payload;
+      console.log(state.phone)
       if (!action.payload) {
-        state.error = 'Phone is required';
+        state.error += '\nPhone is required';
       } else if (!validatePhone(action.payload)) { 
-        state.error = 'Phone is invalid';
+        state.error += '\nPhone is invalid';
       }
       else {
         state.error = '';
@@ -90,5 +96,7 @@ const validateSlice = createSlice({
 // getError is a selector that returns the error message
 // It takes the state as an argument and returns the error message
 export const getError = (state: any) => state.validate.error;
+export const getValidated = (state: any) => state.validate
 
 export const { setFirstName, setLastName, setEmail, setPhone } = validateSlice.actions;
+export default validateSlice.reducer;
