@@ -69,24 +69,33 @@ export type Database = {
       ORDERS: {
         Row: {
           created_at: string
-          customer_fname: string | null
-          customer_lname: string | null
-          id: number
+          email: string | null
+          first_name: string | null
+          items: Json | null
+          last_name: string | null
+          order_no: number
           order_total: number | null
+          phone: string | null
         }
         Insert: {
           created_at?: string
-          customer_fname?: string | null
-          customer_lname?: string | null
-          id?: number
+          email?: string | null
+          first_name?: string | null
+          items?: Json | null
+          last_name?: string | null
+          order_no?: number
           order_total?: number | null
+          phone?: string | null
         }
         Update: {
           created_at?: string
-          customer_fname?: string | null
-          customer_lname?: string | null
-          id?: number
+          email?: string | null
+          first_name?: string | null
+          items?: Json | null
+          last_name?: string | null
+          order_no?: number
           order_total?: number | null
+          phone?: string | null
         }
         Relationships: []
       }
