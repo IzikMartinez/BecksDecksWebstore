@@ -12,7 +12,7 @@ const supabase = createClient<Database>(supabaseUrl, supabaseKey)
 
 
 export async function POST(req: NextRequest) {
-  const {order_no, email, first_name, last_name }: Partial<OrderType> = await req.json();
+  const {order_no, email, first_name, last_name, items }: Partial<OrderType> = await req.json();
   if(order_no && email && first_name && last_name) {
       const {data, error} = await supabase
           .from('ORDERS')
@@ -22,6 +22,7 @@ export async function POST(req: NextRequest) {
                   first_name: first_name,
                   last_name: last_name,
                   email: email,
+                  items: items,
               }
           ])
           .select()

@@ -11,6 +11,7 @@ import {useState} from "react";
 import { Checkout } from "@/app/checkout/page"
 import {useAppSelector} from "@/app/hooks";
 import Link from "next/link";
+import { OrderType } from "@/types";
 
 export function ShippingOptions() {
     return (
@@ -101,7 +102,6 @@ function UserEntry() {
 function PaymentSwitch() {
     const [paymentMethod, setPaymentMethod] = useState('')
     if(paymentMethod === 'Pay in store') {
-        alert('Your item will be held for 24 hours.')
         return (
             <CompletePayment />
         )
@@ -168,10 +168,30 @@ export function PaymentWindow() {
 }
 
 export function CompletePayment() {
+    const stateOrder = useAppSelector(state => state.validate)
+    const cart = useAppSelector(state => state.cartItems.cartItems)
+    const currentTime: Date = new Date()
+    const newOrder: OrderType = {
+      created_at: '',
+      order_no: 128392,
+      order_total: 80,
+      first_name: stateOrder.firstName,
+      last_name: stateOrder.lastName,
+      email: stateOrder.email,
+      phone: stateOrder.phone,
+      items: JSON.stringify(cart)
+    }
+    const clickHandler = async ()=> {
+      const res = await fetch('/api/submitOrder', {
+        method: 'POST',
+        headers: { 'Content-type': 'application/json' },
+        body: JSON.stringify(newOrder)
+      })
+    }
     return (
         <div>
             <Link href="/complete" >
-                <button className='w-36 h-12 bg-pastel-coral rounded-lg text-sm'>Confirm Payment</button>
+                <button className='w-36 h-12 bg-pastel-coral rounded-lg text-sm' onClick={clickHandler}>Confirm Payment</button>
             </Link>
         </div>
     )
