@@ -26,12 +26,12 @@ export async function POST(req: NextRequest) {
               }
           ])
           .select()
-      if (error) return NextResponse.json({error: error}, {status: 500})
-      else return NextResponse.json({}, {status: 200})
+          if (error) return NextResponse.json({error: error}, {status: 500})
+          else return NextResponse.json({}, {status: 200})
   }
   return NextResponse.json({error: 'request body is blank or missing a required field'}, {status:500})
   /*
-  await order.save();
+    await order.save();
   res.status(200).json({ orderNumber });
   */
 }

@@ -11,7 +11,7 @@ import {useState} from "react";
 import { Checkout } from "@/app/checkout/page"
 import {useAppSelector} from "@/app/hooks";
 import Link from "next/link";
-import { OrderType } from "@/types";
+import { OrderType, OrderTypeInsert } from "@/types";
 
 export function ShippingOptions() {
     return (
@@ -171,7 +171,7 @@ export function CompletePayment() {
     const stateOrder = useAppSelector(state => state.validate)
     const cart = useAppSelector(state => state.cartItems.cartItems)
     const currentTime: Date = new Date()
-    const newOrder: OrderType = {
+    const newOrder: OrderTypeInsert = {
       created_at: '',
       order_no: 128392,
       order_total: 80,
@@ -182,11 +182,13 @@ export function CompletePayment() {
       items: JSON.stringify(cart)
     }
     const clickHandler = async ()=> {
-      const res = await fetch('/api/submitOrder', {
+      const res = await fetch('/api/submit', {
         method: 'POST',
         headers: { 'Content-type': 'application/json' },
         body: JSON.stringify(newOrder)
       })
+      const {body: bodyData} = await res.json()
+      console.log(bodyData)
     }
     return (
         <div>
