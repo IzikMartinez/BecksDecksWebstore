@@ -14,10 +14,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState = {
-  firstName: '',
-  lastName: '',
-  email: '',
-  phone: '',
+  firstName: 'acorn',
+  lastName: 'socks',
+  email: 'testinski@test.tst',
+  phone: '2222222',
   error: '',
 };
 

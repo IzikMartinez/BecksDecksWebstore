@@ -182,13 +182,14 @@ export function CompletePayment() {
       items: JSON.stringify(cart)
     }
     const clickHandler = async ()=> {
-      const res = await fetch('/api/submit', {
+        console.log(newOrder)
+      const res = await fetch('/api/order', {
         method: 'POST',
         headers: { 'Content-type': 'application/json' },
         body: JSON.stringify(newOrder)
       })
-      const {body: bodyData} = await res.json()
-      console.log(bodyData)
+      const {body: bodyData, error: error} = await res.json()
+      console.log(bodyData, error)
     }
     return (
         <div>
