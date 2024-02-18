@@ -10,9 +10,7 @@ import {getError, setEmail, setFirstName, setLastName, setPhone} from "@/app/Glo
 import React, {useEffect, useState} from "react";
 import { Checkout } from "@/app/checkout/page"
 import {useAppSelector} from "@/app/hooks";
-import Link from "next/link";
-import { OrderType, OrderTypeInsert } from "@/types";
-import {OrderNumberContext} from "@/app/context";
+import { OrderTypeInsert } from "@/types";
 
 export function ShippingOptions() {
     return (
@@ -187,25 +185,29 @@ interface OrderParams {
 }
 
 import {createNewOrder} from "@/app/utils/CreateNewOrder";
+import {selectTotalCartPrice} from "@/app/GlobalRedux/cartSlice";
+import {useRouter} from "next/navigation";
 
 export function CompletePayment() {
-    const [orderNo, setOrderNo] = useState<number>(0);
+    const router = useRouter()
+    const orderNo = generateOrderNumber()
     const [newOrder, setNewOrder] = useState<OrderTypeInsert | null>(null);
 
     const stateOrder = useAppSelector(state => state.validate);
     const cart = useAppSelector(state => state.cartItems.cartItems);
+    const orderTotal = useAppSelector(selectTotalCartPrice)
 
     useEffect(() => {
-        setOrderNo(generateOrderNumber());
         setNewOrder(createNewOrder({
             orderNo: orderNo,
-            orderTotal: 80,
+            orderTotal: orderTotal,
             stateOrder: stateOrder,
             cart: cart
         }));
-    }, [cart, stateOrder, orderNo]);
+    }, []);
 
     const submitOrder = async (order: OrderTypeInsert) => {
+        console.log(order)
         const response = await fetch('/api/order', {
             method: 'POST',
             headers: {'Content-type': 'application/json'},
@@ -219,18 +221,16 @@ export function CompletePayment() {
         console.log(newOrder)
         if (newOrder) {
             submitOrder(newOrder);
+            router.push("/complete");
+        } else {
+            alert(`Failed to create order data: ${newOrder}`)
         }
     }
-
     return (
-        <OrderNumberContext.Provider value={orderNo}>
             <div>
-                <Link href="/complete">
-                    <button className='w-36 h-12 bg-pastel-coral rounded-lg text-sm' onClick={clickHandler}>Confirm
-                        Payment
-                    </button>
-                </Link>
+                <button className='w-36 h-12 bg-pastel-coral rounded-lg text-sm' onClick={clickHandler}>Confirm
+                    Payment
+                </button>
             </div>
-        </OrderNumberContext.Provider>
     )
 }

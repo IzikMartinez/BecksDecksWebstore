@@ -1,5 +1,5 @@
 "use client";
-import Link from "next/link";
+import {useRouter} from "next/navigation";
 import { Providers } from "../GlobalRedux/provider"
 
 export default function CheckoutLayout({
@@ -7,10 +7,10 @@ export default function CheckoutLayout({
 }: {
   children: React.ReactNode
 }) {
-  return(
+    return(
     <section>
       <Providers>
-        <Splash args={["Home"]}/>
+        <Splash/>
         <div className="flex w-screen h-full lg:top-32 items-center justify-center">
           {children}
         </div>
@@ -33,9 +33,10 @@ return (
 }
 
 function HomeIcon() {
+  const router = useRouter()
   return (
-    <Link href="/" className='absolut flex font-texgyre-adventor font-bold text-xl small-caps justify-center items-center w-32 lg:h-24 h-16'>
-      <img src="/home.png" alt="HOME" className={"absolute w-12 h-10 left-12 top-1/4 hover:fill-sky-50"}/>
-    </Link>
+    <div className='absolut flex font-texgyre-adventor font-bold text-xl small-caps justify-center items-center w-32 lg:h-24 h-16' onClick={()=> router.push('/')}>
+      <img src="/home.png" alt="HOME" className={"absolute w-12 h-10 left-12 top-1/4 hover:fill-sky-50 cursor-pointer"}/>
+    </div>
   )
 }

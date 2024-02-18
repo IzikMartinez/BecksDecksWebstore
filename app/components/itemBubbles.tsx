@@ -92,6 +92,7 @@ export function FetchImage(props: fetchProps) {
         src={imgPath} 
         alt={props.itemName}
         fill={true}
+        sizes="(max-width: 600px) 480px"
       />
   </div>
   )

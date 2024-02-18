@@ -8,7 +8,6 @@ interface OrderParams {
         phone?: string;
     };
     cart: any;  // Assuming cart has any type, replace it with the actual type.
-
 }
 
 export function createNewOrder(params: OrderParams) {
@@ -16,7 +15,6 @@ export function createNewOrder(params: OrderParams) {
     const {firstName, lastName, email, phone} = stateOrder;
 
     const currentTime: Date = new Date();
-
     const createdOrder = {
         created_at: currentTime.toISOString(),
         order_no: orderNo,
