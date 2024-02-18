@@ -9,7 +9,7 @@ import {useDispatch} from "react-redux";
 import {getError, setEmail, setFirstName, setLastName, setPhone} from "@/app/GlobalRedux/validateSlice";
 import React, {useEffect, useState} from "react";
 import { Checkout } from "@/app/checkout/page"
-import {useAppSelector} from "@/app/hooks";
+import {useAppDispatch, useAppSelector} from "@/app/hooks";
 import { OrderTypeInsert } from "@/types";
 
 export function ShippingOptions() {
@@ -167,47 +167,32 @@ export function PaymentWindow() {
 
 }
 
-function generateOrderNumber() {
-    return Math.floor(Math.random() * 1000000);
-}
 
-// Utility function to generate a new order
-interface OrderParams {
-    orderNo: number;
-    orderTotal: number;
-    stateOrder: {
-        firstName: string;
-        lastName: string;
-        email: string;
-        phone?: string;
-    };
-    cart: any;  // Assuming cart has any type, replace it with the actual type.
-}
+
 
 import {createNewOrder} from "@/app/utils/CreateNewOrder";
 import {selectTotalCartPrice} from "@/app/GlobalRedux/cartSlice";
 import {useRouter} from "next/navigation";
+import {getOrderNumber, setOrderNumber} from "@/app/GlobalRedux/orderNoSlice";
 
 export function CompletePayment() {
     const router = useRouter()
-    const orderNo = generateOrderNumber()
     const [newOrder, setNewOrder] = useState<OrderTypeInsert | null>(null);
-
     const stateOrder = useAppSelector(state => state.validate);
     const cart = useAppSelector(state => state.cartItems.cartItems);
     const orderTotal = useAppSelector(selectTotalCartPrice)
+    const orderNumber = useAppSelector(getOrderNumber)
 
     useEffect(() => {
         setNewOrder(createNewOrder({
-            orderNo: orderNo,
+            orderNo: orderNumber,
             orderTotal: orderTotal,
             stateOrder: stateOrder,
             cart: cart
         }));
     }, []);
-
     const submitOrder = async (order: OrderTypeInsert) => {
-        console.log(order)
+        console.log(`Calling from submit order: ${order.order_no}`)
         const response = await fetch('/api/order', {
             method: 'POST',
             headers: {'Content-type': 'application/json'},
@@ -218,7 +203,6 @@ export function CompletePayment() {
     }
 
     const clickHandler = () => {
-        console.log(newOrder)
         if (newOrder) {
             submitOrder(newOrder);
             router.push("/complete");

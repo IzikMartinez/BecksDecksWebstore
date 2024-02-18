@@ -8,6 +8,7 @@ module.exports = ({
     esmExternals: 'loose'
   },
   images: {
+    domains: ['vlormrdjyqfcebbwsmfx.supabase.co'],
     remotePatterns: [
       {
         protocol: 'https',

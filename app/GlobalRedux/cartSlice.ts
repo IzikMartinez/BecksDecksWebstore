@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction, createSelector } from "@reduxjs/toolkit";
 import { RootState } from "./store";
-import { Root } from "postcss";
 
 export interface cartItem {
     id: string,
@@ -50,13 +49,13 @@ export const cartSlice = createSlice({
 
 export const selectTotalCartQuantity= (state: RootState) => { 
   let count = 0
-  state.cartItems.cartItems.forEach(item => count += item.quantity) 
+  state.cartItems.cartItems.forEach((item: { quantity: number; }) => count += item.quantity)
   return count
 }
 
 export const selectTotalCartPrice = (state:RootState) => {
   let count = 0
-  state.cartItems.cartItems.forEach(item => count += item.price * item.quantity)
+  state.cartItems.cartItems.forEach((item: { price: number; quantity: number; }) => count += item.price * item.quantity)
   return count
 }
 
@@ -68,7 +67,7 @@ const getQuantityFilter = (state:RootState, itemID: string) => itemID
 export const selectQuantity = createSelector (
   [(state: RootState) => state.cartItems.cartItems, getQuantityFilter],
   (cartItems, itemID) => 
-    cartItems.find(item => item.id === itemID)?.quantity
+    cartItems.find((item: { id: any; }) => item.id === itemID)?.quantity
 )
 
 

@@ -79,21 +79,25 @@ export function FetchImage(props: fetchProps) {
     fetchHelper(props.itemID).then((res) => {
       setImgPath(res)
     })
-  })
+  }, [props.itemID])
+
   const sizeFlag = (props.size) ? 
     'absolute select-none rounded-t-xl scale-[100%] object-contain' : 
     'select-none rounded-sm lg:scale-[100%] scale-[80%]'
   const widthFlag = (props.size) ? 125 : 250
   const heightFlag = (props.size) ? 100 : 250
+
   return (
-  <div className='relative w-11/12 h-48 mb-2'>
-    <Image 
-        className={sizeFlag}
-        src={imgPath} 
-        alt={props.itemName}
-        fill={true}
-        sizes="(max-width: 600px) 480px"
-      />
-  </div>
+    imgPath !== '' && (
+      <div className='relative w-11/12 h-48 mb-2'>
+        <Image
+          className={sizeFlag}
+          src={imgPath}
+          alt={props.itemName}
+          fill={true}
+          sizes="(max-width: 600px) 480px"
+        />
+      </div>
+    )
   )
 }

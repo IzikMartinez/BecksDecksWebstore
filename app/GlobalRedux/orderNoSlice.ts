@@ -1,18 +1,29 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { RootState } from "./store";
 
-type OrderNumberState = number;
+function generateOrderNumber() {
+    return Math.floor(Math.random() * 1000000);
+}
+interface orderState {
+    orderNumber: number
+}
 
-const initialState: OrderNumberState = 0;
+const initialState: orderState = {
+    orderNumber: generateOrderNumber()
+}
 
 const orderNumberSlice = createSlice({
     name: 'orderNumber',
     initialState,
     reducers: {
-        setOrderNumber: (state, action: PayloadAction<OrderNumberState>) => action.payload,
-        getOrderNumber: (state) => state,
+        setOrderNumber: (state, action: PayloadAction<number>) => {
+            state.orderNumber = action.payload
+        },
     },
 });
 
-export const { setOrderNumber, getOrderNumber } = orderNumberSlice.actions;
+//Adding getter
+export const getOrderNumber = (state: RootState) => state.orderNo.orderNumber
+export const { setOrderNumber } = orderNumberSlice.actions;
 
 export default orderNumberSlice.reducer;
