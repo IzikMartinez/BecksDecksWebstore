@@ -7,11 +7,12 @@
 import styles from "app/styles/home.module.css";
 import {useDispatch} from "react-redux";
 import {getError, setEmail, setFirstName, setLastName, setPhone} from "@/app/GlobalRedux/validateSlice";
-import {useState} from "react";
+import React, {useEffect, useState} from "react";
 import { Checkout } from "@/app/checkout/page"
 import {useAppSelector} from "@/app/hooks";
 import Link from "next/link";
 import { OrderType, OrderTypeInsert } from "@/types";
+import {OrderNumberContext} from "@/app/context";
 
 export function ShippingOptions() {
     return (
@@ -165,37 +166,53 @@ export function PaymentWindow() {
             <PaymentSwitch/>
         </div>
     )
+
+}
+
+function generateOrderNumber() {
+    return Math.floor(Math.random() * 1000000);
 }
 
 export function CompletePayment() {
+    const [orderNo, setOrderNo] = useState<number>(0);
+    const [newOrder, setNewOrder] = useState<OrderTypeInsert | null>(null);
     const stateOrder = useAppSelector(state => state.validate)
     const cart = useAppSelector(state => state.cartItems.cartItems)
-    const currentTime: Date = new Date()
-    const newOrder: OrderTypeInsert = {
-      created_at: '',
-      order_no: 128392,
-      order_total: 80,
-      first_name: stateOrder.firstName,
-      last_name: stateOrder.lastName,
-      email: stateOrder.email,
-      phone: stateOrder.phone,
-      items: JSON.stringify(cart)
-    }
-    const clickHandler = async ()=> {
+
+    useEffect(() => {
+        setOrderNo(generateOrderNumber());
+        const currentTime: Date = new Date()
+        setNewOrder({
+            created_at: '',
+            order_no: orderNo,
+            order_total: 80,
+            first_name: stateOrder.firstName,
+            last_name: stateOrder.lastName,
+            email: stateOrder.email,
+            phone: stateOrder.phone,
+            items: JSON.stringify(cart)
+        });
+    }, [cart, stateOrder, orderNo]);
+
+    const clickHandler = async () => {
         console.log(newOrder)
-      const res = await fetch('/api/order', {
-        method: 'POST',
-        headers: { 'Content-type': 'application/json' },
-        body: JSON.stringify(newOrder)
-      })
-      const {body: bodyData, error: error} = await res.json()
-      console.log(bodyData, error)
+        if (newOrder) {
+            const res = await fetch('/api/order', {
+                method: 'POST',
+                headers: { 'Content-type': 'application/json' },
+                body: JSON.stringify(newOrder)
+            })
+            const { body: bodyData, error: error } = await res.json()
+            console.log(bodyData, error)
+        }
     }
     return (
-        <div>
-            <Link href="/complete" >
-                <button className='w-36 h-12 bg-pastel-coral rounded-lg text-sm' onClick={clickHandler}>Confirm Payment</button>
-            </Link>
-        </div>
+        <OrderNumberContext.Provider value={orderNo}>
+            <div>
+                <Link href="/complete" >
+                    <button className='w-36 h-12 bg-pastel-coral rounded-lg text-sm' onClick={clickHandler}>Confirm Payment</button>
+                </Link>
+            </div>
+        </OrderNumberContext.Provider>
     )
 }
