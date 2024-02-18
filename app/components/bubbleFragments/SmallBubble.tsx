@@ -11,13 +11,13 @@ export default function SmallBubble(props: BubbleProps){
   const dispatch = useDispatch()
   const inventory = useAppSelector(state => state.productStore.products )
     return (
-        <div className='flex flex-col items-center justify-center mx-2'>
-          <div className="flex flex-col items-center">
+        <div className='w-[14rem] h-66 flex flex-col items-center justify-center mx-2'>
+          <div className="flex flex-col">
             <FetchImage itemID={props.itemID} itemName={props.itemName} itemPrice={props.itemPrice} size={true}/>
             <ItemText text={props.itemName}></ItemText>
             <PriceText text={props.itemPrice.toString()}/>
-          </div>
             <AddToCartBtn id={props.itemID} name={props.itemName} price={props.itemPrice}/>
+          </div>
         </div>
     )
 }
@@ -27,7 +27,7 @@ interface textProps {
 } 
 function ItemText(props: textProps) {
   return (
-        <div className='flex lg:w-60 w-48 select-none lg:h-10 bg-blue-400 bottom-14 text-white items-center justify-center text-center lg:text-md text-sm font-texgyre-adventor small-caps font-semibold'>
+        <div className='flex w-fill select-none lg:h-10 bg-blue-400 bottom-14 text-white items-center justify-center text-center lg:text-md text-sm font-texgyre-adventor small-caps font-semibold'>
 
             {props.text}  <br />
         </div>
@@ -35,7 +35,7 @@ function ItemText(props: textProps) {
 }
 function PriceText(props: textProps) {
   return (
-        <div className='flex lg:w-60 w-48 select-none lg:h-8 lg:bottom-4 bg-blue-400 text-white justify-center lg:text-xl font-texgyre-adventor small-caps font-semibold'>
+        <div className='flex w-fill select-none lg:h-8 lg:bottom-4 bg-blue-400 text-white justify-center lg:text-xl font-texgyre-adventor small-caps font-semibold'>
             ${props.text}  <br />
         </div>
   )
@@ -56,8 +56,9 @@ function AddToCartBtn(props: cartProps) {
   }, [props.id, props.name, props.price])
   const cart = useAppSelector(state => state.cartItems)
   return (
-    <span className={bubblestyle.addToCart}  onClick={() => dispatch(addToCart(newCartItem!))}>
+    <div className="flex w-fill h-12 select-none items-center justify-center bottom-6 lg:-bottom-3 text-gray-600 bg-pastel-coral rounded-b-xl  shadow-gray-600 shadow-lg text-xl font-bold hover:bg-pastel-yellow font-sans-fira"
+    onClick={() => dispatch(addToCart(newCartItem!))}>
       ADD TO CART
-    </span>
+    </div>
   )
 }

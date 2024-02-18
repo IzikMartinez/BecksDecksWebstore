@@ -20,5 +20,5 @@
 }
 
 .addToCart {
-  @apply flex lg:w-60 w-48 h-12 select-none items-center justify-center bottom-6 lg:-bottom-3 text-gray-600 bg-pastel-coral rounded-b-xl  shadow-gray-600 shadow-lg text-xl font-bold hover:bg-pastel-yellow font-sans-fira
+  @apply flex w-fill h-12 select-none items-center justify-center bottom-6 lg:-bottom-3 text-gray-600 bg-pastel-coral rounded-b-xl  shadow-gray-600 shadow-lg text-xl font-bold hover:bg-pastel-yellow font-sans-fira
 }

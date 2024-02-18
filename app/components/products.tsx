@@ -67,10 +67,11 @@ export function ProductList() {
         }
     }, [isLoading, PRODUCTS])
     return (
-      isLoading ? <div className="fixed flex justify-center items-center text-black">Loading...</div> :
-      <div className="fixed flex lg:flex-row flex-col w-screen h-screen left-0 top-28 ">
+      isLoading ? 
+      <div className="fixed flex justify-center items-center text-black">Loading...</div> :
+      <div className="fixed flex lg:flex-row flex-col max-w-screen max-h-screen left-0 top-28 p-4 overflow-hidden">
         <SideBar />
-        <div className="lg:w-10/12 h-screen flex flex-wrap items-center justify-center overflow-scroll">
+        <div className="flex flex-wrap gap-6 max-h-screen w-10/12 mx-auto bottom-1/3 items-start justify-center">
           {allProducts.filter(product => product.product_category === selectedSidebar)?.map((item) => (
               <div key = {item.product_id}>
                   <Bubble itemID={item.product_id} itemName={item.product_name} itemPrice={item.product_price!} description={item.product_desc!} imgPath="placeholder.jpg" /> 
