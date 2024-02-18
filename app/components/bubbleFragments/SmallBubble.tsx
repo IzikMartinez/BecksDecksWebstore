@@ -11,7 +11,7 @@ export default function SmallBubble(props: BubbleProps){
   const dispatch = useDispatch()
   const inventory = useAppSelector(state => state.productStore.products )
     return (
-        <div className='w-[14rem] h-66 flex flex-col items-center justify-center mx-2'>
+        <div className='w-56 h-66 flex flex-col items-center justify-center mx-2'>
           <div className="flex flex-col">
             <FetchImage itemID={props.itemID} itemName={props.itemName} itemPrice={props.itemPrice} size={true}/>
             <ItemText text={props.itemName}></ItemText>

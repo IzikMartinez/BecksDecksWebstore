@@ -41,6 +41,9 @@ export const cartSlice = createSlice({
       console.log("Cart state ", state.visible);
       state.visible = action.payload
     },
+      clearCart: (state) => {
+        state.cartItems = []
+      }
   },
 })
 
@@ -69,5 +72,5 @@ export const selectQuantity = createSelector (
 )
 
 
-export const { addToCart, removeFromCart, toggleVisible, setQuantity } = cartSlice.actions
+export const { addToCart, removeFromCart, toggleVisible, setQuantity, clearCart } = cartSlice.actions
 export default cartSlice.reducer
