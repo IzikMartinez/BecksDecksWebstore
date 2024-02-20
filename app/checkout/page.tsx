@@ -31,11 +31,18 @@ export default function Cart() {
     const [lastNameValid, setLastNameValid] = useState(true);
     const [emailValid, setEmailValid] = useState(true);
     const [phoneValid, setPhoneValid] = useState(true);
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [email, setEmail] = useState("");
+    const [phone, setPhone] = useState("");
 
     return (
       <FormValidityContext.Provider value={{
           firstNameValid, lastNameValid, emailValid, phoneValid,
-          setFirstNameValid, setLastNameValid, setEmailValid, setPhoneValid}}>
+          setFirstNameValid, setLastNameValid, setEmailValid, setPhoneValid,
+          firstName, lastName, email, phone,
+          setFirstName, setLastName, setEmail, setPhone,
+      }}>
       <div className='fixed flex h-screen top-32'>
         <div className='flex flex-col justify-center items-center bg-gradient-to-b from-blue-400 to-red-100 h-2/3 lg:w-96 w-1/3 top-32 pt-12 shadow-xl rounded-lg mx-2'>
           <div className='mt-4 flex-grow'>

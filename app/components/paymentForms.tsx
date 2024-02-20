@@ -46,27 +46,49 @@ type UserFormProps = {
 // If any of the fields are invalid, set the state of isValid to false and append the invalid fields to the fields array.
 function UserForm({text, dataType}: UserFormProps) {
     const dispatch = useDispatch()
-    const { firstNameValid, lastNameValid, emailValid, phoneValid,
-        setFirstNameValid, setLastNameValid, setEmailValid, setPhoneValid } = useContext(FormValidityContext);
+    const {
+        firstNameValid, lastNameValid, emailValid, phoneValid,
+        setFirstNameValid, setLastNameValid, setEmailValid, setPhoneValid,
+        firstName, lastName, email, phone,
+        setFirstName, setLastName, setEmail, setPhone,
+    } = useContext(FormValidityContext);
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = e.target;
-        let isValid = value.trim() !== "";
+        // Regex for validating names, email and phone
+        const nameRegex = /^[A-Za-z]+$/
+        const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.)]+.[A-Z]{2,}$/i
+        const phoneRegex = /^\d{3}\d{7}/
+
+        // create isValid: boolean and assign a value to it based on the data type
+        let isValid = false
+        switch (dataType) {
+            case "firstName":
+            case "lastName":
+                isValid = nameRegex.test(value)
+                break;
+            case "email":
+                isValid = emailRegex.test(value)
+                break;
+            case "phone":
+                isValid = phoneRegex.test(value)
+        }
+
         // Update state via context
         switch (dataType) {
             case "firstName":
-                dispatch(setFirstName(value));
+                setFirstName(value);
                 setFirstNameValid(isValid);
                 break;
             case "lastName":
-                dispatch(setLastName(value));
+                setLastName(value);
                 setLastNameValid(isValid);
                 break;
             case "email":
-                dispatch(setEmail(value));
+                setEmail(value);
                 setEmailValid(isValid);
                 break;
             case "phone":
-                dispatch(setPhone(value));
+                setPhone(value);
                 setPhoneValid(isValid);
                 break;
         }
@@ -158,13 +180,10 @@ function PaymentOptions({setPaymentMethod}: {setPaymentMethod: (method: string) 
 // setPaymentMethod: a function that sets the payment method that the user has selected
 function PaymentButton({text, setPaymentMethod}: {text: string, setPaymentMethod: (method: string) => void}) {
     const {firstNameValid, lastNameValid, emailValid, phoneValid } = useContext(FormValidityContext)
-    const validateError = useAppSelector(getError)
     const handleClick = () => {
         //setPaymentMethod(text)
         if(firstNameValid && lastNameValid && emailValid) {
-            if (validateError === '') {
-                setPaymentMethod(text)
-            } else alert(validateError)
+            setPaymentMethod(text)
         } else alert('Please make sure to enter your first and last names, and an email address')
     }
     return (
@@ -200,7 +219,7 @@ import {getOrderNumber, setOrderNumber} from "@/app/GlobalRedux/orderNoSlice";
 export function CompletePayment() {
     const router = useRouter()
     const [newOrder, setNewOrder] = useState<OrderTypeInsert | null>(null);
-    const stateOrder = useAppSelector(state => state.validate);
+    const {firstName, lastName, email, phone } = useContext(FormValidityContext)
     const cart = useAppSelector(state => state.cartItems.cartItems);
     const orderTotal = useAppSelector(selectTotalCartPrice)
     const orderNumber = useAppSelector(getOrderNumber)
@@ -209,7 +228,7 @@ export function CompletePayment() {
         setNewOrder(createNewOrder({
             orderNo: orderNumber,
             orderTotal: orderTotal,
-            stateOrder: stateOrder,
+            stateOrder: {firstName, lastName, email, phone},
             cart: cart
         }));
     }, []);

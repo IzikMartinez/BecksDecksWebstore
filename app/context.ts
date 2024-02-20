@@ -9,4 +9,13 @@ export const FormValidityContext =  createContext({
     setLastNameValid: (valid: boolean) => {},
     setEmailValid: (valid: boolean) => {},
     setPhoneValid: (valid: boolean) => {},
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    setFirstName: (value: string) => {},
+    setLastName: (value: string) => {},
+    setEmail: (value: string) => {},
+    setPhone: (value: string) => {}
+
 })
