@@ -1,3 +1,11 @@
 .userform { 
-  @apply bg-white border border-gray-300 rounded-lg shadow-md p-4;
+  @apply bg-white border border-gray-300 rounded-lg shadow-md p-4 my-2 text-black;
+}
+
+.inputError {
+  @apply bg-red-700
+}
+
+.errorText {
+  @apply text-red-600
 }

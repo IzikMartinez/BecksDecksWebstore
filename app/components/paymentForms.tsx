@@ -4,13 +4,14 @@
 // As of now, only the "Pickup in store" option is available. UPS and USPS shipping options will be added in the future.
 // This function should take an array of shipping options as an argument, and return a list of radio buttons for the user to choose from.
 // set pick up in store to be a radio that is checked by default and USPS and UPS to be disabled
-import styles from "app/styles/home.module.css";
+import styles from "app/styles/userformStyles.module.css";
 import {useDispatch} from "react-redux";
 import {getError, setEmail, setFirstName, setLastName, setPhone} from "@/app/GlobalRedux/validateSlice";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useContext} from "react";
 import { Checkout } from "@/app/checkout/page"
 import {useAppDispatch, useAppSelector} from "@/app/hooks";
 import { OrderTypeInsert } from "@/types";
+import {FormValidityContext} from "@/app/context";
 
 export function ShippingOptions() {
     return (
@@ -44,34 +45,53 @@ type UserFormProps = {
 // instead of labels, use placeholders
 // If any of the fields are invalid, set the state of isValid to false and append the invalid fields to the fields array.
 function UserForm({text, dataType}: UserFormProps) {
-// from the validateSlice import the setters for the user's personal information
     const dispatch = useDispatch()
-    // create a handler that will set the user's personal information when the user finishes typing
+    const { firstNameValid, lastNameValid, emailValid, phoneValid,
+        setFirstNameValid, setLastNameValid, setEmailValid, setPhoneValid } = useContext(FormValidityContext);
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const text = e.target.value
-        if(dataType === 'firstName') { dispatch(setFirstName(text)) }
-        else if(dataType === 'lastName') { dispatch(setLastName(text)) }
-        else if(dataType === 'email') { dispatch(setEmail(text)) }
-        else { dispatch(setPhone(text)) }
+        const { value } = e.target;
+        let isValid = value.trim() !== "";
+        // Update state via context
+        switch (dataType) {
+            case "firstName":
+                dispatch(setFirstName(value));
+                setFirstNameValid(isValid);
+                break;
+            case "lastName":
+                dispatch(setLastName(value));
+                setLastNameValid(isValid);
+                break;
+            case "email":
+                dispatch(setEmail(value));
+                setEmailValid(isValid);
+                break;
+            case "phone":
+                dispatch(setPhone(value));
+                setPhoneValid(isValid);
+                break;
+        }
     }
-    if(dataType === 'email') {
-        return (
-            <div className='flex flex-col'>
-                <input type='email' placeholder={text} className={styles.userform} onChange={handleChange}/>
-            </div>
-        )
-    } else if(dataType === 'phone') {
-        return (
-            <div className='flex flex-col'>
-                <input type='tel' placeholder={text} className={styles.userform} onChange={handleChange} />
-            </div>
-        )} else {
-        return (
-            <div className='flex flex-col'>
-                <input type='text' placeholder={text} className={styles.userform} onChange={handleChange}/>
-            </div>
-        )
+
+    const getIsValid = (): boolean => {
+        switch (dataType) {
+            case "firstName": return firstNameValid
+            case "lastName": return lastNameValid
+            case "email": return emailValid
+            case "phone": return  phoneValid
+            default: return true
+        }
     }
+
+    const hasError = getIsValid() ? '' : styles.inputError; // use your error CSS class// add your error CSS class
+    return (
+        <div className='flex flex-col'>
+            <input type={dataType === 'email' ? 'email' : dataType === 'phone' ? 'tel': 'text'}
+                   placeholder={text}
+                   className={`${styles.userform} ${hasError}`}
+                   onChange={dataType === 'phone' ? undefined : handleChange}/>
+            {!getIsValid() && <div className={styles.errorText}> This field cannot be empty! </div>} {/*show error message*/}
+        </div>
+    )
 }
 
 
@@ -82,10 +102,12 @@ function UserForm({text, dataType}: UserFormProps) {
 // This function accepts an argument:
 // setIsValid: a function that sets the state of whether the user's personal information is valid, and the fields that are invalid
 function UserEntry() {
+    // Define state variables for each form field
+    // Component now accepts an extra prop for setting validity
     return (
         <div>
             <UserForm text='First Name' dataType='firstName'/>
-            <UserForm text='Last Name' dataType='lastName' />
+            <UserForm text='Last Name' dataType='lastName'/>
             <UserForm text='Email' dataType='email'/>
             <UserForm text='Phone Number (optional)' dataType='phone'/>
         </div>
@@ -135,12 +157,15 @@ function PaymentOptions({setPaymentMethod}: {setPaymentMethod: (method: string) 
 // text: the text that will be displayed on the button
 // setPaymentMethod: a function that sets the payment method that the user has selected
 function PaymentButton({text, setPaymentMethod}: {text: string, setPaymentMethod: (method: string) => void}) {
+    const {firstNameValid, lastNameValid, emailValid, phoneValid } = useContext(FormValidityContext)
     const validateError = useAppSelector(getError)
     const handleClick = () => {
         //setPaymentMethod(text)
-        if(validateError === '') {
-            setPaymentMethod(text)
-        } else alert(validateError)
+        if(firstNameValid && lastNameValid && emailValid) {
+            if (validateError === '') {
+                setPaymentMethod(text)
+            } else alert(validateError)
+        } else alert('Please make sure to enter your first and last names, and an email address')
     }
     return (
         <button
@@ -166,9 +191,6 @@ export function PaymentWindow() {
     )
 
 }
-
-
-
 
 import {createNewOrder} from "@/app/utils/CreateNewOrder";
 import {selectTotalCartPrice} from "@/app/GlobalRedux/cartSlice";

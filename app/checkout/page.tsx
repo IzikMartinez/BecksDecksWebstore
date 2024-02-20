@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import { useState, createContext } from 'react';
 import { PaymentForm, CreditCard, GooglePay} from 'react-square-web-payments-sdk';
 import { useAppSelector } from '../hooks';
 import { selectQuantity, selectTotalCartPrice } from '../GlobalRedux/cartSlice';
@@ -9,6 +9,7 @@ import {getSignup} from "@/app/GlobalRedux/signupSlice";
 import { EntrantType, UserType } from '@/types';
 import {PaymentWindow, ShippingOptions} from "@/app/components/paymentForms";
 const TAX = 0.0825
+import {FormValidityContext} from "@/app/context";
 
 
 interface checkoutProps {
@@ -21,31 +22,40 @@ interface CartElementProps {
   price: number,
   quantity?: number,
 }
-
+// Optional
 
 export default function Cart() {
-const total = useAppSelector(selectTotalCartPrice)
-const cartStore = useAppSelector(state => state.cartItems)  
-  return (
-  <div className='fixed flex h-screen top-32'>
-    <div className='flex flex-col justify-center items-center bg-gradient-to-b from-blue-400 to-red-100 h-2/3 lg:w-96 w-1/3 top-32 pt-12 shadow-xl rounded-lg mx-2'>
-      <div className='mt-4 flex-grow'>
-        {cartStore.cartItems.map((cartItem) => (
-            <div key = {cartItem.name}>
-              <CartElement id={cartItem.id} name={cartItem.name} price={cartItem.price} quantity={0} />
-            </div>
-        ))} 
+    const total = useAppSelector(selectTotalCartPrice)
+    const cartStore = useAppSelector(state => state.cartItems)
+    const [firstNameValid, setFirstNameValid] = useState(true);
+    const [lastNameValid, setLastNameValid] = useState(true);
+    const [emailValid, setEmailValid] = useState(true);
+    const [phoneValid, setPhoneValid] = useState(true);
+
+    return (
+      <FormValidityContext.Provider value={{
+          firstNameValid, lastNameValid, emailValid, phoneValid,
+          setFirstNameValid, setLastNameValid, setEmailValid, setPhoneValid}}>
+      <div className='fixed flex h-screen top-32'>
+        <div className='flex flex-col justify-center items-center bg-gradient-to-b from-blue-400 to-red-100 h-2/3 lg:w-96 w-1/3 top-32 pt-12 shadow-xl rounded-lg mx-2'>
+          <div className='mt-4 flex-grow'>
+            {cartStore.cartItems.map((cartItem) => (
+                <div key = {cartItem.name}>
+                  <CartElement id={cartItem.id} name={cartItem.name} price={cartItem.price} quantity={0} />
+                </div>
+            ))}
+          </div>
+          <ShippingOptions />
+          <CartTotal total={total*TAX} text="Tax"/>
+          <div className='mb-4'>
+            <CartTotal total={total*(1+TAX)} text="Total"/>
+          </div>
+        </div>
+        <div className='flex flex-col justify-center items-center bg-gradient-to-b from-blue-400 to-red-100 h-2/3 lg:w-96 w-1/3 top-32 pt-12 shadow-xl rounded-lg mx-2'>
+          <PaymentWindow />
+        </div>
       </div>
-      <ShippingOptions />
-      <CartTotal total={total*TAX} text="Tax"/>
-      <div className='mb-4'>
-        <CartTotal total={total*(1+TAX)} text="Total"/>
-      </div>
-    </div>  
-    <div className='flex flex-col justify-center items-center bg-gradient-to-b from-blue-400 to-red-100 h-2/3 lg:w-96 w-1/3 top-32 pt-12 shadow-xl rounded-lg mx-2'>
-      <PaymentWindow />
-    </div>
-  </div>
+      </FormValidityContext.Provider>
     )
 }
 
