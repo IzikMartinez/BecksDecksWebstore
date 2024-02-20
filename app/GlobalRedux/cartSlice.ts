@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction, createSelector } from "@reduxjs/toolkit";
 import { RootState } from "./store";
+import {state} from "sucrase/dist/types/parser/traverser/base";
 
 export interface cartItem {
     id: string,
@@ -40,9 +41,9 @@ export const cartSlice = createSlice({
       console.log("Cart state ", state.visible);
       state.visible = action.payload
     },
-      clearCart: (state) => {
-        state.cartItems = []
-      }
+    clearCart: (state) => {
+    state.cartItems = [];
+    }
   },
 })
 

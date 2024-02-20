@@ -212,7 +212,7 @@ export function PaymentWindow() {
 }
 
 import {createNewOrder} from "@/app/utils/CreateNewOrder";
-import {selectTotalCartPrice} from "@/app/GlobalRedux/cartSlice";
+import {clearCart, selectTotalCartPrice} from "@/app/GlobalRedux/cartSlice";
 import {useRouter} from "next/navigation";
 import {getOrderNumber, setOrderNumber} from "@/app/GlobalRedux/orderNoSlice";
 
@@ -223,6 +223,7 @@ export function CompletePayment() {
     const cart = useAppSelector(state => state.cartItems.cartItems);
     const orderTotal = useAppSelector(selectTotalCartPrice)
     const orderNumber = useAppSelector(getOrderNumber)
+    const dispatch = useDispatch()
 
     useEffect(() => {
         setNewOrder(createNewOrder({
@@ -241,12 +242,17 @@ export function CompletePayment() {
         });
         const {body: bodyData, error} = await response.json();
         console.log(bodyData, error);
+        return response.status
     }
 
-    const clickHandler = () => {
+    const clickHandler = async () => {
         if (newOrder) {
-            submitOrder(newOrder);
-            router.push("/complete");
+            const status = await submitOrder(newOrder);
+            if(status === 200) {
+                dispatch(clearCart())
+                router.push("/complete");
+            }
+            else alert("The order system is not working right now: Please try again later")
         } else {
             alert(`Failed to create order data: ${newOrder}`)
         }
