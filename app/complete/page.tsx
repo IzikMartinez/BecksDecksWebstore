@@ -11,11 +11,13 @@ export default function Page() {
   const router = useRouter()
 
   return (
-        <div className='flex flex-col h-1/4 w-1/3 text-center items-center justify-center bg-zinc-700 rounded-md'>
-            <p className='text-white text-2xl'>Payment Complete</p>
-            <p className='text-white text-xl px-2'>{`Thank you for your payment. Your order number is #${orderNumber}`}</p>
-            <p className='text-wave-blue-100 text-md mt-8 cursor-pointer' onClick={()=>router.push('/')}>Return Home</p>
+      <div className={`flex h-screen w-screen items-center justify-center bg-cover bg-[url('waves.svg')] `}>
+        <div className='flex flex-col w-1/4 h-1/3 rounded-md bg-slate-800 items-center justify-between text-center'>
+            <div className='text-white text-2xl my-6'>Payment Complete</div>
+            <div className='text-white text-xl lg:px-8 px-4'>{`Thank you for your payment. Your order number is #${orderNumber}`}</div>
+            <div className='text-wave-blue-100 text-md mt-8 cursor-pointer my-4' onClick={()=>router.push('/')}>Return Home</div>
         </div>
+      </div>
   )
 }
 

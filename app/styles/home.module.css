@@ -20,7 +20,7 @@
 }
 
 .waves { 
-    background-image: url('../../public/waves.svg');
+    background-image: url('../waves.svg');
 }
 
 .userform { 
