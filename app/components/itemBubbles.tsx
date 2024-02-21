@@ -88,7 +88,7 @@ export function FetchImage(props: fetchProps) {
   const heightFlag = (props.size) ? 100 : 250
 
   return (
-    imgPath !== '' && (
+    imgPath !== ''  ? (
       <div className='relative w-11/12 h-48 mb-2'>
         <Image
           className={sizeFlag}
@@ -98,6 +98,7 @@ export function FetchImage(props: fetchProps) {
           sizes="(max-width: 600px) 480px"
         />
       </div>
-    )
+    ) :
+        ( <div></div>)
   )
 }

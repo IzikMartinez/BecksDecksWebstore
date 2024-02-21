@@ -6,9 +6,8 @@
 // set pick up in store to be a radio that is checked by default and USPS and UPS to be disabled
 import styles from "app/styles/userformStyles.module.css";
 import {useDispatch} from "react-redux";
-import {getError, setEmail, setFirstName, setLastName, setPhone} from "@/app/GlobalRedux/validateSlice";
 import React, {useEffect, useState, useContext} from "react";
-import { Checkout } from "@/app/checkout/page"
+import { Checkout } from "@/app/components/Checkout"
 import {useAppDispatch, useAppSelector} from "@/app/hooks";
 import { OrderTypeInsert } from "@/types";
 import {FormValidityContext} from "@/app/context";
@@ -208,7 +207,6 @@ export function PaymentWindow() {
             <PaymentSwitch/>
         </div>
     )
-
 }
 
 import {createNewOrder} from "@/app/utils/CreateNewOrder";
