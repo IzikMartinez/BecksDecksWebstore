@@ -218,12 +218,12 @@ import {getOrderNumber, setOrderNumber} from "@/app/GlobalRedux/orderNoSlice";
 
 export function CompletePayment() {
     const router = useRouter()
+    const dispatch = useDispatch()
     const [newOrder, setNewOrder] = useState<OrderTypeInsert | null>(null);
     const {firstName, lastName, email, phone } = useContext(FormValidityContext)
     const cart = useAppSelector(state => state.cartItems.cartItems);
     const orderTotal = useAppSelector(selectTotalCartPrice)
     const orderNumber = useAppSelector(getOrderNumber)
-    const dispatch = useDispatch()
 
     useEffect(() => {
         setNewOrder(createNewOrder({

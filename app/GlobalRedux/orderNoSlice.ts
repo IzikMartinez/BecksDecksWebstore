@@ -16,14 +16,16 @@ const orderNumberSlice = createSlice({
     name: 'orderNumber',
     initialState,
     reducers: {
-        setOrderNumber: (state, action: PayloadAction<number>) => {
-            state.orderNumber = action.payload
+        setOrderNumber: (state) => {
+            state.orderNumber = generateOrderNumber()
         },
     },
 });
 
 //Adding getter
-export const getOrderNumber = (state: RootState) => state.orderNo.orderNumber
+export const getOrderNumber = (state: RootState) => {
+    return state.orderNo.orderNumber
+}
 export const { setOrderNumber } = orderNumberSlice.actions;
 
 export default orderNumberSlice.reducer;
