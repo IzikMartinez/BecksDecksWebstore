@@ -87,7 +87,6 @@ export function Checkout() {
   const cents = total*TAX
   const signup = useAppSelector(getSignup)
   return (
-    <div>
       <div>
         <PaymentForm
           applicationId='sandbox-sq0idb--G0V3vOW-I9WjIejCWCVCQ'
@@ -161,7 +160,6 @@ export function Checkout() {
           <CreditCard/>
         </PaymentForm>
       </div>
-    </div>
   )
 }
 
