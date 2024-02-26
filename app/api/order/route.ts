@@ -2,17 +2,25 @@
 import {NextRequest, NextResponse} from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import {Database, OrderType, OrderTypeInsert} from "@/types";
+import {v4 as uuidv4 } from 'uuid'
 
 // Setting up the Supabase client with the necessary keys and URL
 const supabaseUrl = process.env.SUPABASE_URL as string;
 const supabaseKey = process.env.SUPABASE_ANON_KEY as string;
 const supabase = createClient<Database>(supabaseUrl, supabaseKey)
 
+function generateOrderNo() {
+    const timestamp = Date.now()
+    const randomNo = Math.floor(Math.random() * 1000)
+    return (timestamp + randomNo)
+}
 // Defining the async function POST to handle POST requests
 export async function POST(req: NextRequest) {
     // Using the Redux hook useDispatch
     // Extracting keys from the incoming request body
-    const {order_no, email, first_name, last_name, order_total,items}: Partial<OrderTypeInsert> = await req.json();
+    const {email, first_name, last_name, order_total,items}: Partial<OrderTypeInsert> = await req.json();
+    const order_no = generateOrderNo()
+
     // Check if all necessary data is present
     if(order_no && email && first_name && last_name) {
     // Attempt to insert the new order into the ORDERS table

@@ -73,7 +73,7 @@ export type Database = {
           first_name: string | null
           items: Json | null
           last_name: string | null
-          order_no: number
+          order_no: string
           order_total: number | null
           phone: string | null
         }
