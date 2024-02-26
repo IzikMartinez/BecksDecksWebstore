@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from "./store";
 
 function generateOrderNumber() {
-    return Math.floor(Math.random() * 1000000);
+    return Date.now() + Math.floor((Math.random() * 100000))
 }
 interface orderState {
     orderNumber: number

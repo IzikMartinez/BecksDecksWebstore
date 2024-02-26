@@ -8,7 +8,7 @@ import styles from "app/styles/userformStyles.module.css";
 import {useDispatch} from "react-redux";
 import React, {useEffect, useState, useContext} from "react";
 import { Checkout } from "@/app/components/Checkout"
-import {useAppDispatch, useAppSelector} from "@/app/hooks";
+import { useAppSelector} from "@/app/hooks";
 import { OrderTypeInsert } from "@/types";
 import {FormValidityContext} from "@/app/context";
 
@@ -44,7 +44,6 @@ type UserFormProps = {
 // instead of labels, use placeholders
 // If any of the fields are invalid, set the state of isValid to false and append the invalid fields to the fields array.
 function UserForm({text, dataType}: UserFormProps) {
-    const dispatch = useDispatch()
     const {
         firstNameValid, lastNameValid, emailValid, phoneValid,
         setFirstNameValid, setLastNameValid, setEmailValid, setPhoneValid,
@@ -212,7 +211,7 @@ export function PaymentWindow() {
 import {createNewOrder} from "@/app/utils/CreateNewOrder";
 import {clearCart, selectTotalCartPrice} from "@/app/GlobalRedux/cartSlice";
 import {useRouter} from "next/navigation";
-import {getOrderNumber, setOrderNumber} from "@/app/GlobalRedux/orderNoSlice";
+import {getOrderNumber } from "@/app/GlobalRedux/orderNoSlice";
 
 export function CompletePayment() {
     const router = useRouter()
