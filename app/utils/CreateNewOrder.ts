@@ -1,5 +1,4 @@
 interface OrderParams {
-    orderNo: number;
     orderTotal: number;
     stateOrder: {
         firstName: string;
@@ -11,13 +10,12 @@ interface OrderParams {
 }
 
 export function createNewOrder(params: OrderParams) {
-    const {orderNo, orderTotal, stateOrder, cart} = params;
+    const {orderTotal, stateOrder, cart} = params;
     const {firstName, lastName, email, phone} = stateOrder;
 
     const currentTime: Date = new Date();
     const createdOrder = {
         created_at: currentTime.toISOString(),
-        order_no: orderNo,
         order_total: orderTotal,
         first_name: firstName,
         last_name: lastName,

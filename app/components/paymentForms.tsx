@@ -6,11 +6,14 @@
 // set pick up in store to be a radio that is checked by default and USPS and UPS to be disabled
 import styles from "app/styles/userformStyles.module.css";
 import {useDispatch} from "react-redux";
-import React, {useEffect, useState, useContext} from "react";
+import React, {useEffect, useState, createContext, useContext} from "react";
 import { Checkout } from "@/app/components/Checkout"
 import { useAppSelector} from "@/app/hooks";
 import { OrderTypeInsert } from "@/types";
 import {FormValidityContext} from "@/app/context";
+
+const OrderNoContext = createContext(0);
+const [orderNo, setOrderNo] = useState(0)
 
 export function ShippingOptions() {
     return (
@@ -197,7 +200,7 @@ function PaymentButton({text, setPaymentMethod}: {text: string, setPaymentMethod
 // PaymentWindow:
 // This function returns a form for the user to enter their personal information and payment information.
 // This function uses state to keep track of the user's personal information and payment selection.
-// If the personal information and payment information is valid, the user can click the "Pay" button to complete the transaction.
+// If the personal information and payment information is valid, the user can click the "Pay" button to [complete] the transaction.
 // If the personal information and payment information is invalid, the user will be informed of the error and will be prompted to enter the correct information.
 export function PaymentWindow() {
     return (
@@ -211,7 +214,6 @@ export function PaymentWindow() {
 import {createNewOrder} from "@/app/utils/CreateNewOrder";
 import {clearCart, selectTotalCartPrice} from "@/app/GlobalRedux/cartSlice";
 import {useRouter} from "next/navigation";
-import {getOrderNumber } from "@/app/GlobalRedux/orderNoSlice";
 
 export function CompletePayment() {
     const router = useRouter()
@@ -220,11 +222,9 @@ export function CompletePayment() {
     const {firstName, lastName, email, phone } = useContext(FormValidityContext)
     const cart = useAppSelector(state => state.cartItems.cartItems);
     const orderTotal = useAppSelector(selectTotalCartPrice)
-    const orderNumber = useAppSelector(getOrderNumber)
 
     useEffect(() => {
         setNewOrder(createNewOrder({
-            orderNo: orderNumber,
             orderTotal: orderTotal,
             stateOrder: {firstName, lastName, email, phone},
             cart: cart
@@ -238,6 +238,8 @@ export function CompletePayment() {
             body: JSON.stringify(order)
         });
         const {body: bodyData, error} = await response.json();
+        const orderNumber = bodyData.order_no
+        setOrderNo(orderNumber)
         console.log(bodyData, error);
         return response.status
     }
@@ -247,7 +249,7 @@ export function CompletePayment() {
             const status = await submitOrder(newOrder);
             if(status === 200) {
                 dispatch(clearCart())
-                router.push("/complete");
+                router.push(`/complete/${orderNo}`);
             }
             else alert("The order system is not working right now: Please try again later")
         } else {
@@ -255,10 +257,12 @@ export function CompletePayment() {
         }
     }
     return (
+        <OrderNoContext.Provider value={orderNo}>
             <div>
                 <button className='w-36 h-12 bg-pastel-coral rounded-lg text-sm' onClick={clickHandler}>Confirm
                     Payment
                 </button>
             </div>
+        </OrderNoContext.Provider>
     )
 }
