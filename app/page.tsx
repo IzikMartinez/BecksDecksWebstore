@@ -12,7 +12,7 @@ export default function Home() {
     <div>
         <Splash args={["events", "products"]}/>
     </div>
-    <div className='fixed w-screen h-screen lg:top-24 top-16'>
+    <div className='fixed w-screen h-screen justify-center items-center lg:top-24 top-16'>
       <EventProduct />
     </div>
     { cartToggle ? <Cart/> : <span></span> }
