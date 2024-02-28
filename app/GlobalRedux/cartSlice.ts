@@ -38,7 +38,6 @@ export const cartSlice = createSlice({
       if(activeItem) activeItem.quantity = quantity
     },
     toggleVisible: (state, action: PayloadAction<boolean>) => {
-      console.log("Cart state ", state.visible);
       state.visible = action.payload
     },
     clearCart: (state) => {
