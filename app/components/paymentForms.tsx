@@ -11,7 +11,6 @@ import { Checkout } from "@/app/components/Checkout"
 import { useAppSelector} from "@/app/hooks";
 import { OrderTypeInsert } from "@/types";
 import {FormValidityContext} from "@/app/context";
-import {savedOrderNo} from "@/app/GlobalRedux/orderNoSlice";
 
 
 export function ShippingOptions() {
