@@ -1,10 +1,8 @@
-import React from 'react'
-import BigBubble from './bubbleFragments/BigBubble'
-import SmallBubble from './bubbleFragments/SmallBubble'
-import {useEffect, useState} from 'react'
+import React, {createContext, ReactNode, useEffect, useState} from 'react'
+import BigBubble from '@/app/components/productBubbles/bubbleFragments/BigBubble'
+import SmallBubble from '@/app/components/productBubbles/bubbleFragments/SmallBubble'
 import Image from 'next/image'
-
-import { useAppSelector } from '../hooks'
+import { useAppSelector } from '../../hooks'
 
 export interface BubbleProps {
   itemID: string,
@@ -13,6 +11,7 @@ export interface BubbleProps {
   description: string,
   imgPath?: string
 }
+
 
 export function Bubble(props: BubbleProps) {
 const inventory = useAppSelector(state => state.productStore.products)
@@ -28,12 +27,12 @@ return (
 function VisibleBubble(props: BubbleProps) {
 const inventory = useAppSelector(state => state.productStore.products)
 return (
-  <div>
-  { inventory.find((item) => item.product_id === props.itemID)?.size ? 
-  <BigBubble itemID={props.itemID} itemName={props.itemName} itemPrice={props.itemPrice} description={props.description}/>  :
-  <SmallBubble itemID={props.itemID} itemName={props.itemName} itemPrice={props.itemPrice} description={props.description} ></SmallBubble>  
-  }
-</div>
+    <div>
+      { inventory.find((item) => item.product_id === props.itemID)?.size ?
+      <BigBubble itemID={props.itemID} itemName={props.itemName} itemPrice={props.itemPrice} description={props.description}/>  :
+      <SmallBubble itemID={props.itemID} itemName={props.itemName} itemPrice={props.itemPrice} description={props.description} ></SmallBubble>
+      }
+    </div>
 )
 }
 

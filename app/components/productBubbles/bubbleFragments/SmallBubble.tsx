@@ -1,11 +1,11 @@
-import { BubbleProps, imgProps, cartProps, cartItem } from "../itemBubbles"
+import { BubbleProps, imgProps, cartProps, cartItem } from "../productBubbles"
 import { useDispatch } from "react-redux"
 import { useAppSelector } from "@/app/hooks"
 import { useState, useEffect } from "react"
 import { addToCart } from "@/app/GlobalRedux/cartSlice"
 import { toggleSize } from "@/app/GlobalRedux/productSlice"
 import bubblestyle from "app/styles/bubblestyle.module.css"
-import { FetchImage } from "../itemBubbles"
+import { FetchImage } from "../productBubbles"
 
 export default function SmallBubble(props: BubbleProps){
   const dispatch = useDispatch()
