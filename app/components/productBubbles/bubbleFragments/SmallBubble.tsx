@@ -10,14 +10,20 @@ import { FetchImage } from "../productBubbles"
 export default function SmallBubble(props: BubbleProps){
   const dispatch = useDispatch()
   const inventory = useAppSelector(state => state.productStore.products )
+    const handleClick = () => {
+      const product_id = props.itemID
+      dispatch(toggleSize(product_id))
+    }
     return (
         <div className='w-56 h-66 flex flex-col items-center justify-center mx-2'>
-          <div className="flex flex-col">
-            <FetchImage itemID={props.itemID} itemName={props.itemName} itemPrice={props.itemPrice} size={true}/>
-            <ItemText text={props.itemName}></ItemText>
-            <PriceText text={props.itemPrice.toString()}/>
-            <AddToCartBtn id={props.itemID} name={props.itemName} price={props.itemPrice}/>
-          </div>
+            <div className="flex flex-col">
+                <span onClick={handleClick}>
+                <FetchImage itemID={props.itemID} itemName={props.itemName} itemPrice={props.itemPrice} size={true}/>
+                <ItemText text={props.itemName}></ItemText>
+                <PriceText text={props.itemPrice.toString()}/>
+               </span>
+                <AddToCartBtn id={props.itemID} name={props.itemName} price={props.itemPrice}/>
+            </div>
         </div>
     )
 }
