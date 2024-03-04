@@ -8,12 +8,14 @@ module.exports = ({
     esmExternals: 'loose'
   },
   images: {
+    minimumCacheTTL: 60,
     domains: ['vlormrdjyqfcebbwsmfx.supabase.co'],
     remotePatterns: [
       {
         protocol: 'https',
         hostname: 'vlormrdjyqfcebbwsmfx.supabase.co',
         port: "",
+        pathname: "/pathname/**",
       }
     ],
   }
