@@ -46,7 +46,7 @@ function SidebarItem(props: sidebarItemProps) {
   )
 }
 
-const productURL= "http://localhost:3000/api/products"
+const productURL= "/api/products"
 const fetcher = async (url: string) => {
   const res = await fetch(url, {method: "GET" })
   if(!res.ok) throw new Error('Failed to fetch data')

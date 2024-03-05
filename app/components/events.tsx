@@ -3,7 +3,7 @@ import Signup from "./fragments/signup"
 import { useEffect, useState } from "react"
 import { EventType } from "@/types"
 
-const EVENTURL = "http://localhost:3000/api/events"
+const EVENTURL = "/api/events"
 
 const fetcher = async (url: string) => {
   const res = await fetch(url, {method: 'GET'})
