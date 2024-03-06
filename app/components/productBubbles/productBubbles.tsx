@@ -81,11 +81,11 @@ export function FetchImage(props: fetchProps) {
   }, [props.itemID])
 
   const sizeFlag = (props.size) ? 
-    'absolute select-none rounded-t-xl scale-[100%] object-contain' : 
-    'select-none rounded-sm  object-contain'
+    'absolute select-none object-contain' :
+    'select-none rounded-sm object-contain'
 
   const divClass = (props.size) ?
-      'lg:h-48 h-40' :
+      'lg:h-48 h-44 lg:mt-12' :
       'lg:h-80 h-56'
   return (
     imgPath !== ''  ? (

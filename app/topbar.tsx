@@ -23,7 +23,7 @@ export const useAppDispatch: () => AppDispatch = useDispatch
 export function Splash ({args}: {args: string[]}) {
 return (
   <span className='flex flex-row fixed w-screen lg:h-24 h-16 top-0 left-0
-  bg-gradient-to-r lg:from-pastel-coral lg:via-pastel-yellow from-pastel-coral to-yellow-compliment
+  bg-gradient-to-r from-pastel-coral via-pastel-yellow  to-yellow-compliment
   text-black
   shadow-xl shadow-blue-gray-800
   text-center items-center justify-center'>

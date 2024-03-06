@@ -69,9 +69,9 @@ export function ProductList() {
     return (
       isLoading ? 
       <div className="fixed flex justify-center items-center text-black">Loading...</div> :
-      <div className="fixed flex lg:flex-row flex-col max-w-screen max-h-screen left-0 top-28 p-0">
+      <div className="fixed flex lg:flex-row flex-col max-w-screen max-h-screen left-0 top-24 pt-8">
         <SideBar />
-          <div className="flex flex-wrap gap-6 lg:w-10/12 w-screen lg:mx-auto lg:pb-24 pb-36
+          <div className="flex flex-wrap gap-6 lg:w-8/12 w-screen lg:mx-auto lg:pb-24 pb-36
            items-start justify-center overflow-auto">
               {allProducts.filter(product => product.product_category === selectedSidebar)?.map((item) => (
               <div key = {item.product_id}>
