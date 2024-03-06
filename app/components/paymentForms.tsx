@@ -13,9 +13,11 @@ import { OrderTypeInsert } from "@/types";
 import {FormValidityContext} from "@/app/context";
 
 
+
+
 export function ShippingOptions() {
     return (
-        <div className='flex flex-col'>
+        <div className='flex flex-col mx-8'>
             <div className='flex flex-row justify-between'>
                 <label htmlFor='pickup' className='text-black font-iosevka'>Pickup in store: $0.00</label>
                 <input type='radio' id='pickup' name='shipping' value='pickup' defaultChecked className='text-black font-iosevka'/>

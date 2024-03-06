@@ -15,7 +15,7 @@ export default function SmallBubble(props: BubbleProps){
       dispatch(toggleSize(product_id))
     }
     return (
-        <div className='w-56 h-66 flex flex-col items-center justify-center mx-2'>
+        <div className='lg:w-56 lg:h-66 w-40 h-64 lg:my-0 my-14 flex flex-col items-center justify-center mx-2'>
             <div className="flex flex-col">
                 <span onClick={handleClick}>
                 <FetchImage itemID={props.itemID} itemName={props.itemName} itemPrice={props.itemPrice} size={true}/>
@@ -62,7 +62,7 @@ function AddToCartBtn(props: cartProps) {
   }, [props.id, props.name, props.price])
   const cart = useAppSelector(state => state.cartItems)
   return (
-    <div className="flex w-fill h-12 select-none items-center justify-center bottom-6 lg:-bottom-3 text-gray-600 bg-pastel-coral rounded-b-xl  shadow-gray-600 shadow-lg text-xl font-bold hover:bg-pastel-yellow font-sans-fira"
+    <div className="flex w-fill h-12 select-none items-center justify-center bottom-6 lg:-bottom-3 lg:text-gray-600 text-white bg-pastel-coral rounded-b-xl  shadow-gray-600 shadow-lg text-xl font-bold hover:bg-pastel-yellow font-sans-fira"
     onClick={() => dispatch(addToCart(newCartItem!))}>
       ADD TO CART
     </div>

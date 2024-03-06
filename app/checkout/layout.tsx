@@ -11,7 +11,7 @@ export default function CheckoutLayout({
     <section>
       <Providers>
         <Splash/>
-        <div className="flex w-screen h-full lg:top-32 items-center justify-center">
+        <div className="flex lg:w-screen lg:h-full h-0 lg:top-32 lg:rounded-none items-center justify-center">
           {children}
         </div>
       </Providers>

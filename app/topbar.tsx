@@ -22,7 +22,11 @@ export const useAppDispatch: () => AppDispatch = useDispatch
 
 export function Splash ({args}: {args: string[]}) {
 return (
-  <span className='flex flex-row fixed w-screen lg:h-24 h-16 top-0 left-0 bg-gradient-to-r from-pastel-coral via-pastel-yellow to-yellow-compliment text-black  shadow-xl shadow-blue-gray-800 text-center items-center justify-center'> 
+  <span className='flex flex-row fixed w-screen lg:h-24 h-16 top-0 left-0
+  bg-gradient-to-r lg:from-pastel-coral lg:via-pastel-yellow from-pastel-coral to-yellow-compliment
+  text-black
+  shadow-xl shadow-blue-gray-800
+  text-center items-center justify-center'>
 
     <div className="flex fixed flex-row w-full">
       {args.map((arg, index) => (
@@ -30,7 +34,6 @@ return (
           ))}
     </div>
     <div className={styles.title}>
-      SPARKLING CITY LGS
     </div>
   <BarIcon path="cart.svg" width={380} height={280}></BarIcon>
   </span>
@@ -42,7 +45,7 @@ function ProdEvent(props: ProdEventProps) {
     const selectedCategory = useAppSelector(getCategorySelection)
     const handleClick = () => { dispatch(setCategorySelection(props.name))   }
     return(
-        <div className={`flex relative mx-4 p-3 lg:h-14 h-12 w-28 text-3xl font-iosevka font-bold small-caps 
+        <div className={`flex relative lg:mx-4 mx-2 p-3 lg:h-14 h-10 w-28 lg:text-3xl text-xl font-iosevka font-bold small-caps 
             hover:bg-purple-600 hover:rounded-lg hover:text-white hover:ring hover:ring-purple-300
              cursor-pointer select-none self-center text-center justify-center items-center 
              ${ selectedCategory === props.name ? 'bg-purple-700 rounded-lg text-white' : 'rounded-none bg-none text-black' } ` }

@@ -10,7 +10,7 @@ import useSWR from "swr";
 
 function SideBar() {
   return (
-      <div className='flex items-center lg:flex-col lg:w-36 lg:mx-6 lg:mt-4 mx-auto my-auto lg:h-screen h-16 left-0 w-screen' >
+      <div className='flex items-center lg:flex-col lg:w-36 lg:mx-6 lg:mt-4 lg:mb-0 mt-4 -mb-4 lg:h-screen h-8 left-0 w-screen' >
         <SidebarItem name="magic" extension="png"/>
         <SidebarItem name="pokemon" extension="png"/>
         <SidebarItem name="fab" extension="png"/>
@@ -69,9 +69,10 @@ export function ProductList() {
     return (
       isLoading ? 
       <div className="fixed flex justify-center items-center text-black">Loading...</div> :
-      <div className="fixed flex lg:flex-row flex-col max-w-screen max-h-screen left-0 top-28 p-4">
+      <div className="fixed flex lg:flex-row flex-col max-w-screen max-h-screen left-0 top-28 p-0">
         <SideBar />
-          <div className="flex flex-wrap gap-6 w-10/12 mx-auto pb-24 items-start justify-center overflow-auto">
+          <div className="flex flex-wrap gap-6 lg:w-10/12 w-screen lg:mx-auto lg:pb-24 pb-36
+           items-start justify-center overflow-auto">
               {allProducts.filter(product => product.product_category === selectedSidebar)?.map((item) => (
               <div key = {item.product_id}>
                   <Bubble itemID={item.product_id} itemName={item.product_name} itemPrice={item.product_price!} description={item.product_desc!} imgPath="placeholder.jpg" /> 

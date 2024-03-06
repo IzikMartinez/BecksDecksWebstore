@@ -13,7 +13,9 @@ export default function BigBubble(props: BubbleProps) {
     }
   return (
     <div className='relative flex left-0 top-0 max-w-screen w-screen h-screen justify-center items-center z-0' onClick={handleClick}>
-        <div className='absolute left-72 top-24 flex flex-1 m-8 p-4 w-1/2 h-1/2 items-center justify-center bg-gradient-to-b from-blue-950 to-blue-400 rounded-2xl'>
+        <div className='absolute lg:left-72 lg:top-24 flex flex-1 lg:flex-row lg:m-8 lg:p-4 lg:w-1/2 lg:h-1/2
+        flex-col-reverse w-96 h-9/12 top-0 items-center justify-center
+         bg-gradient-to-b from-blue-950 to-blue-400 rounded-2xl'>
             <div className={'flex flex-col'}>
                 <FetchImage itemID={props.itemID} itemName={props.itemName} itemPrice={props.itemPrice} size={false}/>
                 <AddToCartBtn id={props.itemID} name={props.itemName} price={props.itemPrice}/>
@@ -32,25 +34,21 @@ interface bubble_text_content {
 function BigBubbleTextContent(props: bubble_text_content) {
     return (
         <div className='flex flex-col pt-0 lg:pr-0 pr-8 justify-center'>
-            <div className='flex select-none mb-3 justify-center items-center
-                          text-center lg:text-3xl text-xl font-texgyre-adventor small-caps font-semibold'>
+            <div className='flex select-none lg:mb-3 mb-1 mt-4 pt-2 justify-center items-center
+                          text-center lg:text-3xl text-md font-texgyre-adventor small-caps font-semibold'>
                 {props.name}
             </div>
-            <div className='flex selct-none my-3 justify-center items-center
-                          text-center lg:text-3xl text-xl font-texgyre-adventor small-caps font-semibold'>
+            <div className='flex selct-none lg:my-3 my-1 justify-center items-center
+                          text-center lg:text-3xl text-x font-texgyre-adventor small-caps font-semibold'>
                 ${props.price}
             </div>
             <div
-                className='mt-12 mx-auto select-none right-0 flex justify-center items-center text-center font-semibold lg:text-xl w-2/3'>
+                className='lg:mt-12 mt-4 mx-auto select-none right-0 flex justify-center items-center
+                text-center font-semibold lg:text-xl text-xs w-2/3'>
                 {props.description}
             </div>
         </div>
     )
-}
-
-interface newImgProps {
-    image: imgProps,
-    btn: cartProps
 }
 
 function AddToCartBtn(props: cartProps) {
@@ -68,8 +66,9 @@ function AddToCartBtn(props: cartProps) {
     const cart = useAppSelector(state => state.cartItems)
     return (
         <span
-            className="flex justify-center items-center bg-gradient-to-r from-orange-600 via-orange-400 to-orange-600
-             h-16 lg:w-66 w-60 rounded-b-lg font-sans-fira font-bold text-xl text-stroke stroke-black
+            className="flex justify-center items-center h-16 lg:w-56 w-36
+             rounded-b-lg font-sans-fira font-bold text-xl text-stroke stroke-black
+             bg-gradient-to-r from-orange-600 via-orange-400 to-orange-600
              hover:bg-gradient-to-r hover:from-pink-600 hover:via-pink-300 hover:to-pink-600 cursor-pointer
              z-10"
       onClick={() => dispatch(addToCart(newCartItem!))}>

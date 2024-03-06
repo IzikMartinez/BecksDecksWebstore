@@ -14,7 +14,6 @@ export async function GET(request: NextRequest) {
     if(error) {
       return NextResponse.json({ error: error}, { status:500 })
     }
-    console.log("FETCHED EVENTS:", EVENTS)
     return NextResponse.json({EVENTS}, { status: 200})
 }
 

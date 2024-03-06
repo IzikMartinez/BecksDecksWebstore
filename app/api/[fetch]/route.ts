@@ -19,7 +19,6 @@ export async function GET(request: Request, { params }: { params: { fetch: strin
   if (data === null) {
     return NextResponse.json({ error: "No images found" }, { status: 404 })
   }
-  console.log(data)
   return NextResponse.json(data, { status: 200 })
 }
 

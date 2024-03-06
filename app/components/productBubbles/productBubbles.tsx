@@ -82,14 +82,14 @@ export function FetchImage(props: fetchProps) {
 
   const sizeFlag = (props.size) ? 
     'absolute select-none rounded-t-xl scale-[100%] object-contain' : 
-    'select-none rounded-sm lg:scale-[100%] scale-[100%] object-contain'
+    'select-none rounded-sm  object-contain'
 
   const divClass = (props.size) ?
-      'h-48' :
-      'h-80'
+      'lg:h-48 h-40' :
+      'lg:h-80 h-56'
   return (
     imgPath !== ''  ? (
-      <div className={`relative w-11/12 ${divClass} mb-2`}>
+      <div className={`relative w-11/12 ${divClass}`}>
         <Image
           className={sizeFlag}
           src={imgPath}

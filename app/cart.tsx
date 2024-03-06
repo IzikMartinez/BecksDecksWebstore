@@ -1,10 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { useAppSelector } from './hooks';
-import Layout from './layout'
 import { useDispatch } from 'react-redux';
 import { removeFromCart, selectQuantity, selectTotalCartPrice, setQuantity} from './GlobalRedux/cartSlice';
 import Link from 'next/link';
-import Image from 'next/image';
 
 
 
@@ -12,7 +10,8 @@ function Cart() {
 const total = useAppSelector(selectTotalCartPrice)
 const cartStore = useAppSelector(state => state.cartItems)  
   return (
-    <div className='fixed flex flex-col justify-center items-center bg-gray-300 h-2/3 lg:w-1/4 w-1/3 right-0 mr-8 top-16 pt-12 shadow-xl rounded-lg'>
+    <div className='fixed flex flex-col justify-center items-center bg-slate-600
+    h-2/3 lg:w-1/4 w-80 right-0 mr-8 top-16 pt-12 shadow-xl rounded-lg'>
       <div className='mt-4'>
           {cartStore.cartItems.map((cartItem) => (
               <div key = {cartItem.name}>
@@ -22,7 +21,7 @@ const cartStore = useAppSelector(state => state.cartItems)
         </div>
       <span className='flex-grow'></span>
       <CartTotals />
-          <ToCheckout total={total} />
+      <ToCheckout total={total} />
     </div>
   )
 }
@@ -30,7 +29,7 @@ const cartStore = useAppSelector(state => state.cartItems)
 function CartTotals() {
   const total = useAppSelector(selectTotalCartPrice)
   return (
-    <div className='mb-4 text-black font-sans-fira'>
+    <div className='mb-4 text-white font-sans-fira'>
       Cart: ${total} <br /> Taxes: ${(total*0.0825).toFixed(2)} <br /> Total: ${(total*1.0825).toFixed(2)} </div>
   )
 }
@@ -41,7 +40,7 @@ interface checkoutProps {
 function ToCheckout(props: checkoutProps) {
   return(
         props.total > 0 ?
-      <Link href="/checkout" className='bg-blue-800 py-2 px-4 rounded-lg mb-2 text-xl font-semibold '>Check Out</Link>
+      <Link href="/checkout" className='bg-blue-500 py-2 px-4 rounded-lg mb-2 text-xl font-semibold '>Check Out</Link>
       : <span /> 
   )
 }
@@ -56,8 +55,9 @@ interface cartItemProps {
 function CartElement(props: cartItemProps) {
   const quantity = useAppSelector((state) => selectQuantity(state, props.id))
   return (
-    <div className='drop-shadow-lg lg:w-96 w-56 lg:h-12 h-20 flex lg:flew-row items-center justify-center top-0 right-0 mb-2'>
-      <div className='lg:w-72 w-32 rounded-l-md break-words text-black font-sans-fira text-md text-center bg-white'> 
+    <div className='drop-shadow-lg lg:w-96 lg:h-12 w-fill h-fill
+     flex lg:flew-row items-center justify-center top-0 right-0 mb-2'>
+      <div className='lg:w-72 w-48 rounded-l-md break-words text-black font-sans-fira text-md text-center bg-white'>
         {props.name}: ${props.price * quantity!} 
       </div>
       <ItemQuantity id={props.id} price={props.price} name={props.name} quantity={props.quantity} />
@@ -81,7 +81,7 @@ return(
         type='number'
         value={ quantity } 
         onChange={ handleChange }
-        className='flex lg:w-10 w-10 lg:h-12 h-20 bg-wave-blue-200 z-10 text-black font-iosevka text-lg text-center'>
+        className='flex lg:w-10 w-10 lg:h-12 h-20 bg-slate-400 z-10 text-black font-iosevka text-lg text-center'>
       </input>
 )
 }
@@ -94,7 +94,7 @@ function RemoveFromCartBtn(props: RemoveBtnProps) {
   const dispatch = useDispatch()
   return(
     <button
-      className='lg:h-12 h-20 w-12 right-0 py-3 px-4 rounded-r-md bg-pink-300 hover:bg-pink-800 cursor-pointer overflow-visible'
+      className='lg:h-12 h-20 w-12 right-0 py-3 px-4 rounded-r-md bg-red-500 hover:bg-pink-800 cursor-pointer overflow-visible'
       onClick={()=>
         {
           dispatch(removeFromCart(props.id))}
