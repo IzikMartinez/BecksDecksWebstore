@@ -2,6 +2,7 @@ import useSWR from "swr"
 import Signup from "./fragments/signup"
 import { useEffect, useState } from "react"
 import { EventType } from "@/types"
+import useMobileDetect from "@/app/utils/useMobileDetect";
 
 const EVENTURL = "/api/events"
 
@@ -49,22 +50,24 @@ function StoreEvent(props: eventProps) {
     const handleClick = ( )=> {
       setSignupFlag(!signupFlag)
     }
+    const isMobile = useMobileDetect()
     return(
-    <div className="w-[48rem] h-36 flex flex-col items-center justify-center my-5 ">
-      <div className="my-0 flex flex-row items-center w-[48rem] h-24 text-black w-128 bg-white rounded-2xl drop-shadow-2xl">
+    <div className="lg:w-[48rem] h-36 flex flex-col items-center justify-center my-5 mx-2">
+      <div className="my-0 flex flex-row items-center w-full h-24 text-black w-128 bg-white rounded-2xl drop-shadow-2xl">
         <div className={`select-none flex text-3xl all-small-caps font-main-display font-bold mr-4 p-2 w-1/6 
               ${props.game ? 'bg-teal-700' : 'bg-red-800'} text-white h-24 justify-center items-center rounded-l-2xl`}>
           <img src={props.game + ".png"} height={200} width={200} />
         </div>
-        <div className="ml-2 mr-3 w-2/7 text-lg font-iosevka font-semibold flex flex-col select-none "> 
+        <div className="ml-2 mr-3 w-2/7 lg:text-lg font-iosevka font-semibold flex flex-col select-none ">
           {props.name} <br />
           Date: {props.date} <br />
           Fee: ${props.fee}
         </div>
         <div className="h-24 w-1 bg-gray-800"></div>
-        <div className="relative font-texgyre-adventor w-3/6 justify-start left-4 select-none">
+        <div className="relative font-texgyre-adventor lg:text-md text-sm lg:w-3/6 w-5/12 px-2 justify-start lg:left-4 left-2 select-none">
           {props.desc}
         </div>
+          {isMobile ? <span></span> :
         <div 
           className="h-24 w-1/12 bg-teal-400 hover:bg-orange-500 rounded-r-2xl right-0 absolute cursor-pointer flex justify-center items-center font-semibold"
           onClick={ handleClick}>
@@ -76,7 +79,7 @@ function StoreEvent(props: eventProps) {
               Sign <br /> Up
             </button>
           }
-        </div>
+        </div>}
       </div>
       <div className="bg-white h-14 relative flex items-center rounded-b-lg">
       { signupFlag ? <Signup name={props.game!} event_id={props.id}></Signup>
