@@ -77,7 +77,7 @@ export default function Cart() {
     }
 }
 
-export function CartElement(props: CartElementProps) {
+function CartElement(props: CartElementProps) {
 const quantity = useAppSelector((state) => selectQuantity(state, props.id))
 return (
   <div className='flex-row lg:text-black font-iosevka lg:mx-0 lg:px-0 px-8'>
@@ -95,7 +95,7 @@ return (
 }
 
 type cartTotalProps = { total: number, text: string } 
-export function CartTotal({total, text}: cartTotalProps) {
+function CartTotal({total, text}: cartTotalProps) {
   return (
     <span className='flex text-2xl font-bold text-gray-600 my-2 items-center justify-center'>{text}: ${total.toFixed(2)}</span>
   )
