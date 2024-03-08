@@ -12,7 +12,7 @@ export function Checkout() {
     return (
         <div>
             <PaymentForm
-                applicationId='sandbox-sq0idb--G0V3vOW-I9WjIejCWCVCQ'
+                applicationId='sq0idp-OB6MLaqKMzyn15BLdC8EpQ'
                 locationId="L5CQ4BZB5NCNX"
                 cardTokenizeResponseReceived={async (token, buyer) => {
                     const response = await fetch('/api/pay', {

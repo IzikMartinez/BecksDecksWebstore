@@ -12,9 +12,6 @@ import { useAppSelector} from "@/app/hooks";
 import { OrderTypeInsert } from "@/types";
 import {FormValidityContext} from "@/app/context";
 
-
-
-
 export function ShippingOptions() {
     return (
         <div className='flex flex-col mx-8'>
