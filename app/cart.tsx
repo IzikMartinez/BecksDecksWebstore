@@ -11,7 +11,7 @@ const total = useAppSelector(selectTotalCartPrice)
 const cartStore = useAppSelector(state => state.cartItems)  
   return (
     <div className='fixed flex flex-col justify-center items-center bg-slate-600
-    h-2/3 lg:w-1/4 w-80 right-0 mr-8 top-16 pt-12 shadow-xl rounded-lg'>
+    h-2/3 xl:w-1/4 lg:w-1/3 lg:h-3/4 w-80 right-0 mr-8 top-16 pt-12 shadow-xl rounded-lg'>
       <div className='mt-4'>
           {cartStore.cartItems.map((cartItem) => (
               <div key = {cartItem.name}>

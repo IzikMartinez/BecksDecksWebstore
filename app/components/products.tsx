@@ -71,13 +71,13 @@ export function ProductList() {
       <div className="fixed flex justify-center items-center text-black">Loading...</div> :
       <div className="fixed flex lg:flex-row flex-col max-w-screen max-h-screen left-0 top-24 pt-8">
         <SideBar />
-          <div className="flex flex-wrap gap-6 lg:w-8/12 w-screen lg:mx-auto lg:pb-24 pb-36
-           items-start justify-center overflow-auto">
-              {allProducts.filter(product => product.product_category === selectedSidebar)?.map((item) => (
-              <div key = {item.product_id}>
-                  <Bubble itemID={item.product_id} itemName={item.product_name} itemPrice={item.product_price!} description={item.product_desc!} imgPath="placeholder.jpg" /> 
-              </div>
-          ))}
+        <div className="flex flex-wrap gap-6 lg:w-8/12 w-screen lg:mx-auto lg:pb-24 pb-36
+        items-start justify-center overflow-auto">
+        {allProducts.filter(product => product.product_category === selectedSidebar)?.map((item) => (
+            <div key = {item.product_id}>
+                <Bubble itemID={item.product_id} itemName={item.product_name} itemPrice={item.product_price!} description={item.product_desc!} imgPath="placeholder.jpg" />
+            </div>
+        ))}
         </div>
-      </div> 
+    </div>
 )}}

@@ -45,11 +45,37 @@ function ProdEvent(props: ProdEventProps) {
     const selectedCategory = useAppSelector(getCategorySelection)
     const handleClick = () => { dispatch(setCategorySelection(props.name))   }
     return(
-        <div className={`flex relative lg:mx-4 mx-2 p-3 lg:h-14 h-10 w-28 lg:text-3xl text-xl font-iosevka font-bold small-caps 
-            hover:bg-purple-600 hover:rounded-lg hover:text-white hover:ring hover:ring-purple-300
-             cursor-pointer select-none self-center text-center justify-center items-center 
-             ${ selectedCategory === props.name ? 'bg-purple-700 rounded-lg text-white' : 'rounded-none bg-none text-black' } ` }
-             onClick={handleClick}>
+        <div
+            className={`
+        flex
+        relative
+        p-3
+        w-28
+        font-iosevka font-bold small-caps
+        cursor-pointer select-none
+        text-center justify-center items-center
+        self-center
+
+        lg:mx-4 
+        lg:h-14 
+        xl:text-3xl
+        lg:text-2xl 
+        
+
+        mx-2 
+        h-10 
+        text-xl
+
+        hover:bg-purple-600 
+        hover:rounded-lg 
+        hover:text-white 
+        hover:ring 
+        hover:ring-purple-300
+
+        ${ selectedCategory === props.name ? 'bg-purple-700 rounded-lg text-white' : 'rounded-none bg-none text-black' } 
+    `}
+            onClick={handleClick}
+        >
             {props.name}
         </div>
     )

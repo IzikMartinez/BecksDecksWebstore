@@ -15,7 +15,11 @@ export default function SmallBubble(props: BubbleProps){
       dispatch(toggleSize(product_id))
     }
     return (
-        <div className='lg:w-56 lg:h-66 w-40 h-64 lg:my-0 my-14 flex flex-col items-center justify-center mx-2'>
+        <div className='xl:w-56 xl:h-66 xl:my-0
+        lg:w-48
+        w-40 h-64 my-14
+        flex flex-col
+        items-center justify-center mx-2'>
             <div className="flex flex-col">
                 <span onClick={handleClick}>
                 <FetchImage itemID={props.itemID} itemName={props.itemName} itemPrice={props.itemPrice} size={true}/>
