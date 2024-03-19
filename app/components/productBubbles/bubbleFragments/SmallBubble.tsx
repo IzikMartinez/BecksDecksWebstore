@@ -66,7 +66,10 @@ function AddToCartBtn(props: cartProps) {
   }, [props.id, props.name, props.price])
   const cart = useAppSelector(state => state.cartItems)
   return (
-    <div className="flex w-fill h-12 select-none items-center justify-center bottom-6 lg:-bottom-3 lg:text-gray-600 text-white bg-pastel-coral rounded-b-xl  shadow-gray-600 shadow-lg text-xl font-bold hover:bg-pastel-yellow font-sans-fira"
+    <div className="flex w-fill h-12
+    select-none items-center justify-center
+    bottom-6 lg:-bottom-3 lg:text-gray-600 text-white bg-pastel-coral rounded-b-xl
+    shadow-gray-600 shadow-lg text-xl font-extrabold hover:bg-pastel-yellow font-iosevka"
     onClick={() => dispatch(addToCart(newCartItem!))}>
       ADD TO CART
     </div>

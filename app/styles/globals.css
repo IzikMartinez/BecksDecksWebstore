@@ -1,3 +1,5 @@
+@import './fonts.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -29,16 +31,6 @@ body {
 @layer base {
   html {
     @apply fixed flex w-screen h-screen items-center justify-center bg-cover bg-[url('waves.svg')]
-  }
-  @font-face {
-    font-family: Adventor;
-    font-weight: 400;
-    src: url(/fonts/tex-gyre/texgyreadventor-regular.otf);
-  }
-  @font-face {
-    font-family: Adventor;
-    font-weight: 600;
-    src: url(/fonts/tex-gyre/texgyreadventor-bold.otf);
   }
 }
 
