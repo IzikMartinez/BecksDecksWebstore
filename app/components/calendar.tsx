@@ -5,7 +5,7 @@ import {MonthType} from "@/types";
 
 export function Calendar() {
     return (
-        <div className={'flex flex-col items-center justify-center w-2/3 h-3/5 bg-green-300'}>
+        <div className={'flex flex-col items-center justify-center w-2/3 h-4/5 bg-green-300'}>
             <CalendarHead/>
             <CalendarBody/>
         </div>
@@ -33,8 +33,13 @@ function CalendarBody() {
     }
     return (
         <div className={'flex flex-wrap w-full h-full'}>
-            {monthData.map((month: MonthType)=>(
-                <div key={month.date} className={'flex w-1/7 h-1/5'}>
+            <div className='w-1/7 flex-shrink-0'></div>
+            <div className='w-1/7 flex-shrink-0'></div>
+            <div className='w-1/7 flex-shrink-0'></div>
+            <div className='w-1/7 flex-shrink-0'></div>
+            <div className='w-1/7 flex-shrink-0'></div>
+            {monthData.map((month: MonthType) => (
+                <div key={month.date} className={'flex w-1/7 h-1/6'}>
                     <CalendarDate date={month.date} day={month.day}/>
                 </div>
             ))}
