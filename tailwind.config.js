@@ -12,6 +12,10 @@ module.exports = {
       },      
       width: {
         '66': '16.5rem',
+        '1/7': '14.2857143%',
+      },
+      maxWidth: {
+        '1/7': '14.2857143%',
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
@@ -33,7 +37,7 @@ module.exports = {
         'main-display': ['Yeseva', 'cursive'],
         'sans-fira': ['Fira Sans', 'sans-serif'],
         'texgyre-adventor': ['Adventor', 'sans-serif'],
-        'pagella': ['Pagella', 'sans-serif'],
+        'pagella': ['Pagella', 'serif'],
         'bonum': ['Bonum', 'serif'],
         'iosevka': ['Iosevka', 'sans-serif']
       }

@@ -247,3 +247,8 @@ export type UserType = Database['public']['Tables']['USERS']['Row']
 export type EntrantType = Database['public']['Tables']['ENTRANTS']['Row']
 export type OrderType= Database['public']['Tables']['ORDERS']['Row']
 export type OrderTypeInsert= Database['public']['Tables']['ORDERS']['Insert']
+
+export type MonthType = {
+  date: string,
+  day: string,
+}
