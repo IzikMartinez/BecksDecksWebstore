@@ -15,7 +15,7 @@ export function Calendar() {
 function CalendarHead() {
     return (
         <div className={'flex xl:text-5xl lg:text-3xl rounded-2xl font-semibold text-slate-800 font-texgyre-adventor pt-4'}>
-            MARCH</div>
+            MARCH 2024</div>
     )
 }
 
@@ -54,6 +54,10 @@ interface calendarDateProps {
     event?: string,
 }
 
+type eventInfo = {
+    eventName: string,
+    eventTime: string
+}
 function CalendarDate(props: calendarDateProps) {
     return(
         <div className={'flex-1 bg-white text-slate-800 font-pagella text-start m-0.5 select-none'}>
@@ -61,17 +65,42 @@ function CalendarDate(props: calendarDateProps) {
             <span className={'text-2xl font-bonum text-slate-800'}>{props.date}: </span>
             <span className={'text-xl font-bold font-bonum'}>{props.day}</span>
             </div>
-            <CalendarEvent/>
+            <CalendarEvent day={props.day}/>
         </div>
     )
 }
 
-function CalendarEvent() {
-    return (
-        <div>
-            <br/>
-            <div>FAB: Arsenal</div>
-            <div>MTG: Friday Night Magic</div>
-        </div>
-    )
+interface eventProps { day: string }
+function CalendarEvent(props: eventProps) {
+    const GetEventMap = (day: string): eventInfo[] => {
+        const eventMap: {[key: string]: eventInfo[]} = {
+            'Sunday': [{eventName: 'Yu-Gi-Oh!', eventTime: '1:00 pm'}],
+            'Monday': [],
+            'Tuesday': [{eventName: 'Board Game Night', eventTime: '6:00 pm'}],
+            'Wednesday': [{eventName: 'MTG: Commander', eventTime: '6:30 pm'}],
+            'Thursday': [{eventName: 'Lorcana & Unmatched', eventTime: '7:00 pm'}],
+            'Friday': [{eventName: 'FAB: Arsenal', eventTime: '7:15 pm'},
+                {eventName: 'MTG: Modern', eventTime: '7:00 pm'}],
+            'Saturday': [{eventName: 'MTG: Standard', eventTime: '3:00 pm'},
+                {eventName: 'MTG: Commander', eventTime: '4:30 pm'}],
+        }
+        return eventMap[day]
+    }
+    const [events, setEvents] = useState<eventInfo[]>([{eventName: '', eventTime: ''}])
+    useEffect(() => {
+        setEvents(GetEventMap(props.day))
+    }, [props.day]);
+        return (
+            <div className={'font-iosevka font-semibold'}>
+                {events.map((event: eventInfo, index: number   ) => (
+                    <div key={index}>
+                    <EventText eventProp={event}/>
+                    </div>
+                ))}
+            </div>
+        )
+}
+
+const EventText: React.FC<{eventProp: eventInfo}> = ({eventProp}) => {
+    return <div className={'font-iosevka font-semibold'}>{eventProp.eventName} - {eventProp.eventTime}</div>
 }
