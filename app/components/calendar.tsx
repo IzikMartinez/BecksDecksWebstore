@@ -14,7 +14,8 @@ export function Calendar() {
 
 function CalendarHead() {
     return (
-        <div className={'flex text-4xl font-semibold text-slate-800 font-pagella pt-4'}>MARCH</div>
+        <div className={'flex xl:text-5xl lg:text-3xl rounded-2xl font-semibold text-slate-800 font-texgyre-adventor pt-4'}>
+            MARCH</div>
     )
 }
 
@@ -56,8 +57,21 @@ interface calendarDateProps {
 function CalendarDate(props: calendarDateProps) {
     return(
         <div className={'flex-1 bg-white text-slate-800 font-pagella text-start m-0.5 select-none'}>
-            <div>{props.date}</div>
-            <div>{props.day}</div>
+            <div>
+            <span className={'text-2xl font-bonum text-slate-800'}>{props.date}: </span>
+            <span className={'text-xl font-bold font-bonum'}>{props.day}</span>
+            </div>
+            <CalendarEvent/>
+        </div>
+    )
+}
+
+function CalendarEvent() {
+    return (
+        <div>
+            <br/>
+            <div>FAB: Arsenal</div>
+            <div>MTG: Friday Night Magic</div>
         </div>
     )
 }
