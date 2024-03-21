@@ -5,7 +5,7 @@ import {MonthType} from "@/types";
 
 export function Calendar() {
     return (
-        <div className={'flex flex-col items-center justify-center w-2/3 h-4/5 bg-green-300'}>
+        <div className={'flex flex-col rounded-2xl shadow-2xl items-center justify-center w-2/3 h-4/5 bg-green-200'}>
             <CalendarHead/>
             <CalendarBody/>
         </div>
@@ -14,7 +14,7 @@ export function Calendar() {
 
 function CalendarHead() {
     return (
-        <div className={'flex xl:text-5xl lg:text-3xl rounded-2xl font-semibold text-slate-800 font-texgyre-adventor pt-4'}>
+        <div className={'flex xl:text-5xl lg:text-3xl  font-semibold text-slate-800 font-texgyre-adventor pt-4'}>
             MARCH 2024</div>
     )
 }
