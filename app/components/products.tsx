@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
+import React, {useEffect, useState} from "react";
 import { setSidebarSelection  } from "../GlobalRedux/sidebarSlice";
 import { useAppSelector, useAppDispatch } from "../hooks";
 import styles from "app/styles/home.module.css"
 import { Bubble } from "./productBubbles/productBubbles";
 import { ProductType } from "@/types";
-import { ConvertToExpandedProducts, selectAllProducts } from "../GlobalRedux/productSlice";
+import {ConvertToExpandedProducts, ExpandedProduct, selectAllProducts} from "../GlobalRedux/productSlice";
 import useSWR from "swr";
 
 
@@ -14,8 +14,9 @@ function SideBar() {
         <SidebarItem name="magic" extension="png"/>
         <SidebarItem name="pokemon" extension="png"/>
         <SidebarItem name="fab" extension="png"/>
-        <SidebarItem name="yugioh" extension="svg"/>
-        {/*     
+          <SidebarItem name="yugioh" extension="svg"/>
+          <SidebarItem name="lorcana" extension="png"/>
+        {/*
         <SidebarItem name="Deck Boxes"></SidebarItem>
         <SidebarItem name="Card Sleeves"></SidebarItem>
         <SidebarItem name="Dice"></SidebarItem> 
@@ -47,37 +48,50 @@ function SidebarItem(props: sidebarItemProps) {
 }
 
 const productURL= "/api/products"
+const loadingMessage = "Loading...";
+const placeholderImage = "placeholder.jpg";
+
 const fetcher = async (url: string) => {
-  const res = await fetch(url, {method: "GET" })
-  if(!res.ok) throw new Error('Failed to fetch data')
-  const data: any = await res.json()
-  const {PRODUCTS: productArray} = data
-  return productArray 
+    const res = await fetch(url, {method: "GET" })
+    if(!res.ok) throw new Error('Failed to fetch data')
+    const data: any = await res.json()
+    const {PRODUCTS: productArray} = data
+    return productArray
+}
+
+function renderProducts(products: ExpandedProduct[], selectedSidebar: string) {
+    const filteredProducts = products.filter(product => product.product_category === selectedSidebar)
+    if (filteredProducts.length > 0) {
+        return filteredProducts.map((item) => (
+            <div key={item.product_id}>
+                <Bubble itemID={item.product_id} itemName={item.product_name} itemPrice={item.product_price!}
+                        description={item.product_desc!} imgPath={placeholderImage}/>
+            </div>
+        ));
+    }
+    else return <div className={'flex w-screen text-black xl:text-2xl lg:text-xl text-lg font-iosevka font-semibold'}>Inventory for this category is being updated. Please try again later</div>;
 }
 
 export function ProductList() {
     const dispatch = useAppDispatch()
     const selectedSidebar = useAppSelector(state => state.sidebar)
-    const { data: PRODUCTS, error, isLoading } = useSWR<ProductType[]>(productURL, fetcher)
+    const { data: products, error, isLoading } = useSWR<ProductType[]>(productURL, fetcher)
     const allProducts = useAppSelector(selectAllProducts)
-    {
+
     useEffect(()=> {
-        if(!isLoading && PRODUCTS) {
-          dispatch(ConvertToExpandedProducts(PRODUCTS))
+        if(!isLoading && products) {
+            dispatch(ConvertToExpandedProducts(products))
         }
-    }, [isLoading, PRODUCTS])
+    }, [isLoading, products])
+
+    if(isLoading) return <div className="fixed flex justify-center items-center text-black">{loadingMessage}</div>
+
     return (
-      isLoading ? 
-      <div className="fixed flex justify-center items-center text-black">Loading...</div> :
-      <div className="fixed flex lg:flex-row flex-col max-w-screen max-h-screen left-0 top-24 pt-8">
-        <SideBar />
-        <div className="flex flex-wrap gap-6 lg:w-8/12 w-screen lg:mx-auto lg:pb-24 pb-36
-        items-start justify-center overflow-auto">
-        {allProducts.filter(product => product.product_category === selectedSidebar)?.map((item) => (
-            <div key = {item.product_id}>
-                <Bubble itemID={item.product_id} itemName={item.product_name} itemPrice={item.product_price!} description={item.product_desc!} imgPath="placeholder.jpg" />
+        <div className="fixed flex lg:flex-row flex-col max-w-screen max-h-screen left-0 top-24 pt-8">
+            <SideBar />
+            <div className="flex flex-wrap gap-6 lg:w-8/12 w-screen lg:mx-auto lg:pb-24 pb-36 items-start justify-center overflow-auto">
+                {renderProducts(allProducts, selectedSidebar)}
             </div>
-        ))}
         </div>
-    </div>
-)}}
+    )
+}
