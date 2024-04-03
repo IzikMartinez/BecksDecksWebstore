@@ -5,7 +5,7 @@ import {MonthType} from "@/types";
 
 export function Calendar() {
     return (
-        <div className={'flex flex-col rounded-2xl shadow-2xl items-center justify-center w-2/3 h-4/5 bg-green-200'}>
+        <div className={'flex flex-col rounded-2xl shadow-2xl items-center justify-center w-2/3 px-4 h-4/5 bg-green-200'}>
             <CalendarHead/>
             <CalendarBody/>
         </div>
@@ -58,8 +58,8 @@ function CalendarDate(props: calendarDateProps) {
     return(
         <div className={'flex-1 bg-white text-slate-800 font-pagella text-start m-0.5 select-none'}>
             <div>
-            <span className={'text-2xl font-bonum text-slate-800'}>{props.date}: </span>
-            <span className={'text-xl font-bold font-bonum'}>{props.day}</span>
+            <span className={'lg:text-2xl text-sm font-bonum text-slate-800'}>{props.date}: </span>
+            <span className={'lg:text-xl text-xs font-bold font-bonum'}>{props.day}</span>
             </div>
             <CalendarEvent day={props.day}/>
         </div>
@@ -87,7 +87,7 @@ function CalendarEvent(props: eventProps) {
         setEvents(GetEventMap(props.day))
     }, [props.day]);
         return (
-            <div className={'font-iosevka font-semibold'}>
+            <div className={'font-iosevka font-semibold lg:text-base text-xs'}>
                 {events.map((event: eventInfo, index: number   ) => (
                     <div key={index}>
                     <EventText eventProp={event}/>
