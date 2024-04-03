@@ -15,7 +15,7 @@ export function Calendar() {
 function CalendarHead() {
     return (
         <div className={'flex xl:text-5xl lg:text-3xl  font-semibold text-slate-800 font-texgyre-adventor pt-4'}>
-            MARCH 2024</div>
+            APRIL 2024</div>
     )
 }
 
@@ -34,10 +34,6 @@ function CalendarBody() {
     }
     return (
         <div className={'flex flex-wrap w-full h-full'}>
-            <div className='w-1/7 flex-shrink-0'></div>
-            <div className='w-1/7 flex-shrink-0'></div>
-            <div className='w-1/7 flex-shrink-0'></div>
-            <div className='w-1/7 flex-shrink-0'></div>
             <div className='w-1/7 flex-shrink-0'></div>
             {monthData.map((month: MonthType) => (
                 <div key={month.date} className={'flex w-1/7 h-1/6'}>

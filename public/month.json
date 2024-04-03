@@ -1,126 +1,123 @@
 [
   {
     "date": "01",
-    "day": "Friday"
+    "day": "Monday"
   },
   {
     "date": "02",
-    "day": "Saturday"
+    "day": "Tuesday"
   },
   {
     "date": "03",
-    "day": "Sunday"
+    "day": "Wednesday"
   },
   {
     "date": "04",
-    "day": "Monday"
+    "day": "Thursday"
   },
   {
     "date": "05",
-    "day": "Tuesday"
+    "day": "Friday"
   },
   {
     "date": "06",
-    "day": "Wednesday"
+    "day": "Saturday"
   },
   {
     "date": "07",
-    "day": "Thursday"
+    "day": "Sunday"
   },
   {
     "date": "08",
-    "day": "Friday"
+    "day": "Monday"
   },
   {
     "date": "09",
-    "day": "Saturday"
+    "day": "Tuesday"
   },
   {
     "date": "10",
-    "day": "Sunday"
+    "day": "Wednesday"
   },
   {
     "date": "11",
-    "day": "Monday"
+    "day": "Thursday"
   },
   {
     "date": "12",
-    "day": "Tuesday"
+    "day": "Friday"
   },
   {
     "date": "13",
-    "day": "Wednesday"
+    "day": "Saturday"
   },
   {
     "date": "14",
-    "day": "Thursday"
+    "day": "Sunday"
   },
   {
     "date": "15",
-    "day": "Friday"
+    "day": "Monday"
   },
   {
     "date": "16",
-    "day": "Saturday"
+    "day": "Tuesday"
   },
   {
     "date": "17",
-    "day": "Sunday"
+    "day": "Wednesday"
   },
   {
     "date": "18",
-    "day": "Monday"
+    "day": "Thursday"
   },
   {
     "date": "19",
-    "day": "Tuesday"
+    "day": "Friday"
   },
   {
     "date": "20",
-    "day": "Wednesday"
+    "day": "Saturday"
   },
   {
     "date": "21",
-    "day": "Thursday"
+    "day": "Sunday"
   },
   {
     "date": "22",
-    "day": "Friday"
-  },
-  {
-    "date": "23",
-    "day": "Saturday"
-  },
-  {
-    "date": "24",
-    "day": "Sunday"
-  },
-  {
-    "date": "25",
     "day": "Monday"
   },
   {
-    "date": "26",
+    "date": "23",
     "day": "Tuesday"
   },
   {
-    "date": "27",
+    "date": "24",
     "day": "Wednesday"
   },
   {
-    "date": "28",
+    "date": "25",
     "day": "Thursday"
   },
   {
-    "date": "29",
+    "date": "26",
     "day": "Friday"
   },
   {
-    "date": "30",
+    "date": "27",
     "day": "Saturday"
   },
   {
-    "date": "31",
+    "date": "28",
     "day": "Sunday"
+  },
+  {
+    "date": "29",
+    "day": "Monday"
+  },
+  {
+    "date": "30",
+    "day": "Tuesday"
   }
+
 ]
