@@ -25,15 +25,19 @@ return (
 )}
 
 function VisibleBubble(props: BubbleProps) {
-const inventory = useAppSelector(state => state.productStore.products)
-return (
-    <div>
-      { inventory.find((item) => item.product_id === props.itemID)?.size ?
-      <BigBubble itemID={props.itemID} itemName={props.itemName} itemPrice={props.itemPrice} description={props.description}/>  :
-      <SmallBubble itemID={props.itemID} itemName={props.itemName} itemPrice={props.itemPrice} description={props.description} ></SmallBubble>
-      }
-    </div>
-)
+  const inventory = useAppSelector(state => state.productStore.products)
+
+  const foundItem = inventory.find((item) => item.product_id === props.itemID);
+
+  if (foundItem?.size) {
+    return (
+          <BigBubble itemID={props.itemID} itemName={props.itemName} itemPrice={props.itemPrice} description={props.description}/>
+    )
+  }
+
+  return (
+        <SmallBubble itemID={props.itemID} itemName={props.itemName} itemPrice={props.itemPrice} description={props.description}/>
+  )
 }
 
 export interface imgProps {
@@ -85,7 +89,7 @@ export function FetchImage(props: fetchProps) {
     'select-none rounded-sm object-contain'
 
   const divClass = (props.size) ?
-      'lg:h-48 h-44 lg:mt-12' :
+      'lg:h-48 h-44 lg:mt-12 ' :
       'lg:h-80 h-56'
   return (
     imgPath !== ''  ? (

@@ -15,10 +15,11 @@ export default function SmallBubble(props: BubbleProps){
       dispatch(toggleSize(product_id))
     }
     return (
-        <div className='xl:w-56 xl:h-66 xl:my-0
+        <div className='
+        flex flex-col
+        xl:w-56 xl:h-66 xl:my-0
         lg:w-48
         w-40 h-64 my-14
-        flex flex-col
         items-center justify-center mx-2'>
             <div className="flex flex-col">
                 <span onClick={handleClick}>
@@ -34,14 +35,13 @@ export default function SmallBubble(props: BubbleProps){
 
 interface textProps {
   text: string
-} 
+}
 function ItemText(props: textProps) {
-  return (
-        <div className='flex w-fill select-none lg:h-10 bg-blue-400 bottom-14 text-white items-center justify-center text-center lg:text-md text-sm font-texgyre-adventor small-caps font-semibold'>
-
+    return (
+        <div className='flex xl:w-56 lg:w-48 w-40 select-none lg:h-10 bg-blue-400 bottom-14 text-white items-center justify-center text-center lg:text-md text-md font-texgyre-adventor small-caps font-semibold'>
             {props.text}  <br />
         </div>
-  )
+    )
 }
 function PriceText(props: textProps) {
   return (
@@ -66,7 +66,7 @@ function AddToCartBtn(props: cartProps) {
   }, [props.id, props.name, props.price])
   const cart = useAppSelector(state => state.cartItems)
   return (
-    <div className="flex w-fill h-12
+    <div className="flex w-full h-12
     select-none items-center justify-center
     bottom-6 lg:-bottom-3 lg:text-gray-600 text-white bg-pastel-coral rounded-b-xl
     shadow-gray-600 shadow-lg text-xl font-extrabold hover:bg-pastel-yellow font-iosevka"

@@ -10,7 +10,7 @@ import useSWR from "swr";
 
 function SideBar() {
   return (
-      <div className='flex items-center lg:flex-col lg:w-36 lg:mx-6 lg:mt-4 lg:mb-0 mt-4 -mb-4 lg:h-screen h-8 left-0 w-screen' >
+      <div className='flex fixed lg:left-0 items-center lg:flex-col lg:w-36 lg:mx-6 lg:mt-4 lg:mb-0 mt-4 -mb-4 lg:h-screen h-8 left-0 w-screen' >
         <SidebarItem name="magic" extension="png"/>
         <SidebarItem name="pokemon" extension="png"/>
         <SidebarItem name="fab" extension="png"/>
@@ -87,9 +87,10 @@ export function ProductList() {
     if(isLoading) return <div className="fixed flex justify-center items-center text-black">{loadingMessage}</div>
 
     return (
-        <div className="fixed flex lg:flex-row flex-col max-w-screen max-h-screen left-0 top-24 pt-8">
+        <div className="fixed flex lg:flex-row flex-col max-w-screen max-h-screen lg:top-20 top-24 pt-8 justify-center">
             <SideBar />
-            <div className="flex flex-wrap gap-6 lg:w-8/12 w-screen lg:mx-auto lg:pb-24 pb-36 items-start justify-center overflow-auto">
+            <div className="flex fixed flex-wrap xl:left-48 left-0 top-32 gap-6 xl:w-[85%] lg:w-8/12
+            w-screen h-full mx-auto lg:pb-24 pb-36 pt-12 items-start justify-center overflow-auto">
                 {renderProducts(allProducts, selectedSidebar)}
             </div>
         </div>
