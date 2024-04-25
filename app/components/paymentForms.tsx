@@ -235,7 +235,6 @@ export function CompletePayment() {
             body: JSON.stringify(order)
         });
         const {body: bodyData, error} = await response.json();
-        console.log(bodyData, error);
         return {
             status: response.status,
             orderNo: bodyData.order_no
@@ -248,6 +247,17 @@ export function CompletePayment() {
             if(status === 200) {
                 dispatch(clearCart())
                 dispatch(toggleVisible(false))
+                await fetch('/api/sendEmail', {
+                    method: 'POST',
+                    headers: {'Content-type': 'application/json'},
+                    body: JSON.stringify({
+                        recipient: "isaacrcm@protonmail.com",
+                        orderNumber: `Order #${orderNo}`,
+                        message: "This amount must be paid in-store",
+                        total: orderTotal,
+                        cart: cart,
+                    })
+                })
                 router.push(`/complete/${orderNo}`);
             }
             else alert("The order system is not working right now: Please try again later")

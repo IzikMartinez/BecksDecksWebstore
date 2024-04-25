@@ -80,7 +80,7 @@ export default function Cart() {
 function CartElement(props: CartElementProps) {
 const quantity = useAppSelector((state) => selectQuantity(state, props.id))
 return (
-  <div className='flex-row lg:text-black font-iosevka lg:mx-0 lg:px-0 px-8'>
+  <div className='flex-row lg:text-black font-iosevka lg:mx-0 lg:px-0 px-8 lg:mb-4'>
       <span className={'text-black bg-white p-2 rounded-l font-semibold flex-grow'}>
        {checkAndSplit(props.name)}:
       </span>
