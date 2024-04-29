@@ -251,7 +251,7 @@ export function CompletePayment() {
                     method: 'POST',
                     headers: {'Content-type': 'application/json'},
                     body: JSON.stringify({
-                        recipient: "isaacrcm@protonmail.com",
+                        recipient: email,
                         orderNumber: `Order #${orderNo}`,
                         message: "This amount must be paid in-store",
                         total: orderTotal,

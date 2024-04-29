@@ -48,6 +48,7 @@ export async function POST(request: NextRequest){
             address: process.env.EMAIL_USER
         },
         to: `${recipient}`,
+        cc: `${process.env.EMAIL_USER}`,
         subject: `${orderNumber}`,
         text: "If you can read this, your tea is ready",
         html: `
